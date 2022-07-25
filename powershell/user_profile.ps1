@@ -52,3 +52,10 @@ function emacs {
 function wtadmin {
     Start-Process -FilePath 'wt.exe' -Verb RunAs
 }
+# BatteryBar taskbar window show or hide
+function showBB {
+  Start-Process -FilePath 'ShowBatteryBar.exe' -WorkingDirectory "C:\Program Files\BatteryBar" -ArgumentList "show"
+}
+function hideBB {
+  Start-Process -FilePath 'ShowBatteryBar.exe' -WorkingDirectory "C:\Program Files\BatteryBar" -ArgumentList "hide"
+}
