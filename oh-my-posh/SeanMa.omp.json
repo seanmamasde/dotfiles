@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffb6ad",
+          "leading_diamond": "<#ffea00> \ue200 </>",
+          "properties": {
+            "display_host": true
+          },
+          "style": "diamond",
+          "template": "{{ .UserName }}@{{ .HostName }}",
+          "type": "session"
+        },
+        {
+          "foreground": "#bc93ff",
+          "properties": {
+            "time_format": "<#ffffff>|</> Mon, Jan 02 2006 03:04:05 PM"
+          },
+          "style": "diamond",
+          "type": "time"
+        },
+        {
+          "type": "poshgit",
+          "style": "diamond",
+          "foreground": "#ffffff",
+          "template": "| {{ .Status }}"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "foreground": "#a9ffb4",
+          "style": "plain",
+          "type": "text"
+        },
+        {
+          "foreground": "#a9ffb4",
+          "properties": {
+            "style": "dallas",
+            "threshold": 0
+          },
+          "style": "diamond",
+          "template": "<#ffffff>[</>{{ .FormattedMs }}s<#ffffff>] </>",
+          "type": "executiontime"
+        },
+        {
+          "foreground": "#ffffff",
+          "properties": {
+            "macos": "\uf179 ",
+            "ubuntu": "\uf31b ",
+            "windows": "\uf871 "
+          },
+          "style": "diamond",
+          "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}}",
+          "type": "os"
+        },
+        {
+          "foreground": "#94ffa2",
+          "style": "diamond",
+          "template": "<#ffffff>\uf6dc CPU:</> {{ round .PhysicalPercentUsed .Precision }}% ",
+          "type": "sysinfo"
+        },
+        {
+          "foreground": "#81ff91",
+          "style": "diamond",
+          "template": "<#ffffff>\uf6dc</> <#ffffff>MEM:</> {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1000000000.0) }}/{{ (div .PhysicalTotalMemory 1000000000.0) }}GB ",
+          "type": "sysinfo"
+        },
+        {
+          "foreground": "#81ff91",
+          "style": "powerline",
+          "template": "<#ffffff>\uf6dc POW: </>{{ .Percentage }}<#ffffff>%</>",
+          "type": "battery"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "leading_diamond": "<#00c7fc> \ue285 </><#ff58a0>{</>",
+          "properties": {
+            "style": "agnoster_full"
+          },
+          "style": "diamond",
+          "template": " {{ .Path }} ",
+          "trailing_diamond": "<#ff58a0>}</>",
+          "type": "path"
+        },
+        {
+          "foreground": "#A9FFB4",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#ef5350{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": " $ ",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "console_title_template": "{{ .Folder }}",
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "#FEF5ED",
+    "template": "\ue285 "
+  },
+  "version": 2
+}
