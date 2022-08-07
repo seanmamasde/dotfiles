@@ -1,0 +1,83 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: patchtemplates.bundle.gke.io
+spec:
+  group: bundle.gke.io
+  names:
+    kind: PatchTemplate
+    plural: patchtemplates
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        optionsSchema:
+          description: OptionsSchema is the schema for the parameters meant to be
+            applied to the patch template.
+          type: object
+        patchType:
+          description: PatchType represents how patches are applied. If not specified,
+            use StrategicMergePatch.
+          type: string
+        selector:
+          description: Selector identifies the objects to which the patch should be
+            applied For each object selected, the template will have its apiVersion
+            and kind set to match the object, then be applied to the object.
+          properties:
+            annotations:
+              description: Annotations contain key/value pairs to match. An empty
+                string value matches all annotation-values for a particular key.
+              type: object
+            invertMatch:
+              description: InvertMatch inverts the match. By default, the ObjectSelector
+                will include objects matching all of the criteria above. This flag
+                indicates that objects NOT matching the criteria should be included
+                instead.
+              type: boolean
+            kinds:
+              description: Kinds represent the Kinds to match.
+              items:
+                type: string
+              type: array
+            labels:
+              description: Labels contain key/value pairs to match. An empty string
+                value matches all label-values for a particular key.
+              type: object
+            names:
+              description: Names represent the metadata.names to match.
+              items:
+                type: string
+              type: array
+            namespaces:
+              description: Namespaces to match.
+              items:
+                type: string
+              type: array
+          type: object
+        template:
+          description: Template is a template that creates a patch for a K8S object.
+            In other words, a templated YAML blob that's meant to be applied via strategic-merge-patch.
+            It's currently assumed to be a YAML go-template.  If either APIVersion
+            or Kind are present in the Template, they will be removed during patch-appllication
+            and added to the ObjectSelector.
+          type: string
+  version: v1alpha1
+status:
+  acceptedNames:
+    kind: ''
+    plural: ''
+  conditions: []
+  storedVersions: []

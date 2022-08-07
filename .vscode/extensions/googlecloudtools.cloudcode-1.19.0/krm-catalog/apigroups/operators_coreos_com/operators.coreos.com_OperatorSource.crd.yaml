@@ -1,0 +1,98 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    description: Represents an OperatorSource.
+    displayName: Operator Source
+  name: operatorsources.operators.coreos.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.type
+    description: The type of the OperatorSource
+    name: Type
+    type: string
+  - JSONPath: .spec.endpoint
+    description: The endpoint of the OperatorSource
+    name: Endpoint
+    type: string
+  - JSONPath: .spec.registryNamespace
+    description: App registry namespace
+    name: Registry
+    type: string
+  - JSONPath: .spec.displayName
+    description: Display (pretty) name to indicate the OperatorSource's name
+    name: DisplayName
+    type: string
+  - JSONPath: .spec.publisher
+    description: Publisher of the OperatorSource
+    name: Publisher
+    type: string
+  - JSONPath: .status.currentPhase.phase.name
+    description: Current status of the OperatorSource
+    name: Status
+    type: string
+  - JSONPath: .status.currentPhase.phase.message
+    description: Message associated with the current status
+    name: Message
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: operators.coreos.com
+  names:
+    kind: OperatorSource
+    listKind: OperatorSourceList
+    plural: operatorsources
+    shortNames:
+    - opsrc
+    singular: operatorsource
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      description: OperatorSource is used to define the external datastore we are
+        using to store operator bundles.
+      properties:
+        spec:
+          description: Spec for an OperatorSource.
+          properties:
+            authorizationToken:
+              description: This is where a user can specify an authorization token
+                that can be used to access private repositories in the remote registry
+                associated with the OperatorSource.
+              properties:
+                secretName:
+                  description: It is the name of the kubernetes secret object that
+                    contains the authorization token to access private repositories.
+                  type: string
+              type: object
+            displayName:
+              description: DisplayName is passed along to the CatalogSourceConfig
+                to be used by the resulting CatalogSource to be used as a pretty name.
+              type: string
+            endpoint:
+              description: Points to the remote app registry server from where operator
+                manifests can be fetched.
+              type: string
+            publisher:
+              description: It represents the entity that published the operator(s)
+                associated with the OperatorSource.
+              type: string
+            registryNamespace:
+              description: 'The namespace in app registry.
+
+                Only operator manifests under this namespace will be visible.
+
+                Please note that this is not a k8s namespace.'
+              type: string
+            type:
+              description: The type of the OperatorSource
+              pattern: appregistry
+              type: string
+          required:
+          - type
+          - endpoint
+          - registryNamespace
+          type: object
+        status:
+          type: object
+  version: v1

@@ -1,0 +1,87 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: prowjobs.prow.k8s.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.job
+    description: The name of the job being run.
+    name: Job
+    type: string
+  - JSONPath: .status.build_id
+    description: The ID of the job being run.
+    name: BuildId
+    type: string
+  - JSONPath: .spec.type
+    description: The type of job being run.
+    name: Type
+    type: string
+  - JSONPath: .spec.refs.org
+    description: The org for which the job is running.
+    name: Org
+    type: string
+  - JSONPath: .spec.refs.repo
+    description: The repo for which the job is running.
+    name: Repo
+    type: string
+  - JSONPath: .spec.refs.pulls[*].number
+    description: The pulls for which the job is running.
+    name: Pulls
+    type: string
+  - JSONPath: .status.startTime
+    description: When the job started running.
+    name: StartTime
+    type: date
+  - JSONPath: .status.completionTime
+    description: When the job finished running.
+    name: CompletionTime
+    type: date
+  - JSONPath: .status.state
+    description: The state of the job.
+    name: State
+    type: string
+  group: prow.k8s.io
+  names:
+    kind: ProwJob
+    plural: prowjobs
+    singular: prowjob
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            max_concurrency:
+              minimum: 0
+              type: integer
+            type:
+              enum:
+              - presubmit
+              - postsubmit
+              - periodic
+              - batch
+              type: string
+        status:
+          anyOf:
+          - not:
+              properties:
+                state:
+                  enum:
+                  - success
+                  - failure
+                  - error
+                  - aborted
+                  type: string
+          - required:
+            - completionTime
+          properties:
+            state:
+              enum:
+              - triggered
+              - pending
+              - success
+              - failure
+              - aborted
+              - error
+              type: string
+  version: v1

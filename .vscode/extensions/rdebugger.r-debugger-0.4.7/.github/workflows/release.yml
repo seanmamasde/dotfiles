@@ -1,0 +1,75 @@
+name: release
+
+# runs when a tag v* is pushed
+# creates a release draft with the binaries
+
+on:
+  push:
+    tags: ["v*"]
+
+env:
+  SCRIPT_FILE: "scripts/loadRPackage.sh"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - uses: lannonbr/vsce-action@master
+        with:
+          args: "package"
+      - name: Identify output file # can be retrieved as steps.filenames.outputs.file_out
+        id: filenames
+        run: echo "::set-output name=file_out::$(ls | grep "^.*\.vsix$" | head -1)"
+      - uses: actions/upload-artifact@v1
+        with:
+          name: ${{ steps.filenames.outputs.file_out }}
+          path: ${{ steps.filenames.outputs.file_out }}
+
+  release:
+    name: Release
+    timeout-minutes: 30
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download vscDebugger assets
+        run: chmod +x $SCRIPT_FILE; $SCRIPT_FILE
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: "artifacts/"
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            artifacts/*/*
+            assets/*
+          prerelease: false
+          draft: false 
+
+  publish:
+    name: Publish
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - uses: lannonbr/vsce-action@master
+        with:
+          args: "publish -p $VSCE_TOKEN"
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+
+  publish2:
+    name: PublishToOpenVsx
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npx ovsx publish -p $OPEN_VSX_TOKEN
+        env:
+          OPEN_VSX_TOKEN: ${{ secrets.OPEN_VSX_TOKEN }}

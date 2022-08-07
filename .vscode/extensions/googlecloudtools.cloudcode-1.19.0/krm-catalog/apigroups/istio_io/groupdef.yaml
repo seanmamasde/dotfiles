@@ -1,0 +1,41 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - manifests/charts/base/files/gen-istio-cluster.yaml
+  groupNames:
+  - config.istio.io
+  - networking.istio.io
+  - security.istio.io
+  repoUrl: https://github.com/istio/istio
+  sampleExactPaths:
+  - galley/testdatasets/validation/dataset/config-v1alpha2-HTTPAPISpec-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-HTTPAPISpecBinding-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-QuotaSpec-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-QuotaSpecBinding-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-adapter-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-attributemanifest-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-handler-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-instance-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-rule-valid.yaml
+  - galley/testdatasets/validation/dataset/config-v1alpha2-template-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-DestinationRule-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-EnvoyFilter-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-Gateway-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-ServiceEntry-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-Sidecar-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-VirtualService-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1alpha3-WorkloadEntry-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1beta-DestinationRule-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1beta-Gateway-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1beta-Sidecar-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1beta-VirtualService-valid.yaml
+  - galley/testdatasets/validation/dataset/networking-v1beta-WorkloadEntry-valid.yaml
+  - galley/testdatasets/validation/dataset/security-v1beta1-AuthorizationPolicy-valid.yaml
+  - galley/testdatasets/validation/dataset/security-v1beta1-PeerAuthentication-valid.yaml
+  - galley/testdatasets/validation/dataset/security-v1beta1-RequestAuthentication-valid.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-14'
+  license: apache-2.0

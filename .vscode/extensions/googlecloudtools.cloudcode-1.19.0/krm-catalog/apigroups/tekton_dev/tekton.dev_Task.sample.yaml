@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: echo-hello
+spec:
+  steps:
+  - image: ubuntu
+    name: echo
+    script: echo hello

@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: valid-service-entry
+spec:
+  endpoints:
+  - address: t.istio-system.svc.cluster.local
+    ports:
+      http: 8080
+  hosts:
+  - eu.bookinfo.com
+  ports:
+  - name: http
+    number: 80
+    protocol: HTTP
+  resolution: DNS

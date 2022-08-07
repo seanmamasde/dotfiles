@@ -1,0 +1,12 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - example/vault_crd.yaml
+  groupNames: ["vault.security.coreos.com"]
+  repoUrl: https://github.com/coreos/vault-operator
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-18'
+  license: apache-2.0

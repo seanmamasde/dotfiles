@@ -1,0 +1,5 @@
+New-Item -Path "HKCU:\Software\Google"
+New-Item -Path "HKCU:\Software\Google\Chrome"
+New-Item -Path "HKCU:\Software\Google\Chrome\NativeMessagingHosts"
+New-Item -Path "HKCU:\Software\Google\Chrome\NativeMessagingHosts\firenvim"
+Set-Item -Path "HKCU:\Software\Google\Chrome\NativeMessagingHosts\firenvim\" -Value "C:\Users\SeanMa\AppData\Local\firenvim\firenvim-chrome.json"

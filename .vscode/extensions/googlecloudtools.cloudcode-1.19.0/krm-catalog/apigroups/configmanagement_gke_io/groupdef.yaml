@@ -1,0 +1,15 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - crds/configmanagement_v1_configmanagement.yaml
+  groupNames:
+  - configmanagement.gke.io
+  repoUrl: https://github.com/GoogleCloudPlatform/anthos-config-management-samples
+  sampleExactPaths:
+  - hello-namespace/setup/hello-namespace/config-management.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-07-14'
+  license: apache-2.0

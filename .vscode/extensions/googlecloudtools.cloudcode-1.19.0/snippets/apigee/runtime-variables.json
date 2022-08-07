@@ -1,0 +1,963 @@
+  {
+    "Proxy bundle name": {
+      "prefix": "flow.variable.apiproxy.name",
+      "body": [
+        "apiproxy.name"
+      ]
+    },
+    "Proxy revision": {
+      "prefix": "flow.variable.apiproxy.revision",
+      "body": [
+        "apiproxy.revision"
+      ]
+    },
+    "Application base path": {
+      "prefix": "flow.variable.application.basepath",
+      "body": [
+        "application.basepath"
+      ]
+    },
+    "TLS Client cn": {
+      "prefix": "flow.variable.client.cn",
+      "body": [
+        "client.cn"
+      ]
+    },
+    "TLS Client country": {
+      "prefix": "flow.variable.client.country",
+      "body": [
+        "client.country"
+      ]
+    },
+    "TLS client email": {
+      "prefix": "flow.variable.client.email.address",
+      "body": [
+        "client.email.address"
+      ]
+    },
+    "Client host": {
+      "prefix": "flow.variable.client.host",
+      "body": [
+        "client.host"
+      ]
+    },
+    "Client IP": {
+      "prefix": "flow.variable.client.ip",
+      "body": [
+        "client.ip"
+      ]
+    },
+    "TLS client locality": {
+      "prefix": "flow.variable.client.locality",
+      "body": [
+        "client.locality"
+      ]
+    },
+    "TLS client organization": {
+      "prefix": "flow.variable.client.organization",
+      "body": [
+        "client.organization"
+      ]
+    },
+    "TLS client organization unit": {
+      "prefix": "flow.variable.client.organization.unit",
+      "body": [
+        "client.organization.unit"
+      ]
+    },
+    "Client port": {
+      "prefix": "flow.variable.client.port",
+      "body": [
+        "client.port"
+      ]
+    },
+    "Client request received end time": {
+      "prefix": "flow.variable.client.received.end.time",
+      "body": [
+        "client.received.end.time"
+      ]
+    },
+    "Client request received end timestamp": {
+      "prefix": "flow.variable.client.received.end.timestamp",
+      "body": [
+        "client.received.end.timestamp"
+      ]
+    },
+    "Client request received start time": {
+      "prefix": "flow.variable.client.received.start.time",
+      "body": [
+        "client.received.start.time"
+      ]
+    },
+    "Client request received start timestamp": {
+      "prefix": "flow.variable.client.received.start.timestamp",
+      "body": [
+        "client.received.start.timestamp"
+      ]
+    },
+    "TLS client scheme": {
+      "prefix": "flow.variable.client.scheme",
+      "body": [
+        "client.scheme"
+      ]
+    },
+    "Client response sent end time": {
+      "prefix": "flow.variable.client.sent.end.time",
+      "body": [
+        "client.sent.end.time"
+      ]
+    },
+    "Client response sent end timestamp": {
+      "prefix": "flow.variable.client.sent.end.timestamp",
+      "body": [
+        "client.sent.end.timestamp"
+      ]
+    },
+    "Client response sent start time": {
+      "prefix": "flow.variable.client.sent.start.time",
+      "body": [
+        "client.sent.start.time"
+      ]
+    },
+    "Client response sent start timestamp": {
+      "prefix": "flow.variable.client.sent.start.timestamp",
+      "body": [
+        "client.sent.start.timestamp"
+      ]
+    },
+    "Client ssl enabled": {
+      "prefix": "flow.variable.client.ssl.enabled",
+      "body": [
+        "client.ssl.enabled"
+      ]
+    },
+    "TLS client state": {
+      "prefix": "flow.variable.client.state",
+      "body": [
+        "client.state"
+      ]
+    },
+    "Current flow name": {
+      "prefix": "flow.variable.current.flow.name",
+      "body": [
+        "current.flow.name"
+      ]
+    },
+    "Current flow description": {
+      "prefix": "flow.variable.current.flow.description",
+      "body": [
+        "current.flow.description"
+      ]
+    },
+    "Environment name": {
+      "prefix": "flow.variable.environment.name",
+      "body": [
+        "environment.name"
+      ]
+    },
+    "Error": {
+      "prefix": "flow.variable.error",
+      "body": [
+        "error"
+      ]
+    },
+    "Error message content": {
+      "prefix": "flow.variable.error.content",
+      "body": [
+        "error.content"
+      ]
+    },
+    "Error message": {
+      "prefix": "flow.variable.error.message",
+      "body": [
+        "error.message"
+      ]
+    },
+    "Error message status code": {
+      "prefix": "flow.variable.error.status.code",
+      "body": [
+        "error.status.code"
+      ]
+    },
+    "Error message reason phrase": {
+      "prefix": "flow.variable.error.reason.phrase",
+      "body": [
+        "error.reason.phrase"
+      ]
+    },
+    "Error transport message": {
+      "prefix": "flow.variable.error.transport.message",
+      "body": [
+        "error.transport.message"
+      ]
+    },
+    "Error state": {
+      "prefix": "flow.variable.error.state",
+      "body": [
+        "error.state"
+      ]
+    },
+    "Error message header by name": {
+      "prefix": "flow.variable.error.header.header_name",
+      "body": [
+        "error.header.${1: header_name}"
+      ]
+    },
+    "Fault by name": {
+      "prefix": "flow.variable.fault.fault_name",
+      "body": [
+        "fault.${1: fault_name}"
+      ]
+    },
+    "Is error": {
+      "prefix": "flow.variable.is.error",
+      "body": [
+        "is.error"
+      ]
+    },
+    "Load balancing failed servers": {
+      "prefix": "flow.variable.loadbalancing.failedservers",
+      "body": [
+        "loadbalancing.failedservers"
+      ]
+    },
+    "Load balancing is fallback": {
+      "prefix": "flow.variable.loadbalancing.isfallback",
+      "body": [
+        "loadbalancing.isfallback"
+      ]
+    },
+    "Load balancing target server": {
+      "prefix": "flow.variable.loadbalancing.targetserver",
+      "body": [
+        "loadbalancing.targetserver"
+      ]
+    },
+    "Message content": {
+      "prefix": "flow.variable.message.content",
+      "body": [
+        "message.content"
+      ]
+    },
+    "Message Form param": {
+      "prefix": "flow.variable.message.formparam.param_name",
+      "body": [
+        "message.formparam.${1: param_name}"
+      ]
+    },
+    "Message Form param values": {
+      "prefix": "flow.variable.message.formparam.param_name.values",
+      "body": [
+        "message.formparam.${1: param_name}.values"
+      ]
+    },
+    "Message Form param value count": {
+      "prefix": "flow.variable.message.formparam.param_name.values.count",
+      "body": [
+        "message.formparam.${1: param_name}.values.count"
+      ]
+    },
+    "Message Form param count": {
+      "prefix": "flow.variable.message.formparams.count",
+      "body": [
+        "message.formparams.count"
+      ]
+    },
+    "Message Form param names": {
+      "prefix": "flow.variable.message.formparams.names",
+      "body": [
+        "message.formparams.names"
+      ]
+    },
+    "Message Form params as string": {
+      "prefix": "flow.variable.message.formstring",
+      "body": [
+        "message.formstring"
+      ]
+    },
+    "Message Header": {
+      "prefix": "flow.variable.message.header.header_name",
+      "body": [
+        "message.header.${1: header_name}"
+      ]
+    },
+    "Message Header value by index": {
+      "prefix": "flow.variable.message.header.header_name.N",
+      "body": [
+        "message.header.${1: header_name}.${2: index}"
+      ]
+    },
+    "Message Header values": {
+      "prefix": "flow.variable.message.header.header_name.values",
+      "body": [
+        "message.header.${1: header_name}.values"
+      ]
+    },
+    "Message Header values count": {
+      "prefix": "flow.variable.message.header.header_name.values.count",
+      "body": [
+        "message.header.${1: header_name}.values.count"
+      ]
+    },
+    "Message Headers count": {
+      "prefix": "flow.variable.message.headers.count",
+      "body": [
+        "message.headers.count"
+      ]
+    },
+    "Message Header names": {
+      "prefix": "flow.variable.message.headers.names",
+      "body": [
+        "message.headers.names"
+      ]
+    },
+    "Message path": {
+      "prefix": "flow.variable.message.path",
+      "body": [
+        "message.path"
+      ]
+    },
+    "Message query param": {
+      "prefix": "flow.variable.message.queryparam.param_name",
+      "body": [
+        "message.queryparam.${1: param_name}"
+      ]
+    },
+    "Message query param index": {
+      "prefix": "flow.variable.message.queryparam.param_name.N",
+      "body": [
+        "message.queryparam.param_name.${1: index}"
+      ]
+    },
+    "Message query param values": {
+      "prefix": "flow.variable.message.queryparam.param_name.values",
+      "body": [
+        "message.queryparam.${1: param_name}.values"
+      ]
+    },
+    "Message query param values count": {
+      "prefix": "flow.variable.message.queryparam.param_name.values.count",
+      "body": [
+        "message.queryparam.${1: param_name}.values.count"
+      ]
+    },
+    "Message query param count": {
+      "prefix": "flow.variable.message.queryparams.count",
+      "body": [
+        "message.queryparams.count"
+      ]
+    },
+    "Message query param names": {
+      "prefix": "flow.variable.message.queryparams.names",
+      "body": [
+        "message.queryparams.names"
+      ]
+    },
+    "Message querystring": {
+      "prefix": "flow.variable.message.querystring",
+      "body": [
+        "message.querystring"
+      ]
+    },
+    "Message reason phrase": {
+      "prefix": "flow.variable.message.reason.phrase",
+      "body": [
+        "message.reason.phrase"
+      ]
+    },
+    "Message status code": {
+      "prefix": "flow.variable.message.status.code",
+      "body": [
+        "message.status.code"
+      ]
+    },
+    "Message transport message": {
+      "prefix": "flow.variable.message.transport.message",
+      "body": [
+        "message.transport.message"
+      ]
+    },
+    "Message uri": {
+      "prefix": "flow.variable.message.uri",
+      "body": [
+        "message.uri"
+      ]
+    },
+    "Message verb": {
+      "prefix": "flow.variable.message.verb",
+      "body": [
+        "message.verb"
+      ]
+    },
+    "Message version": {
+      "prefix": "flow.variable.message.version",
+      "body": [
+        "message.version"
+      ]
+    },
+    "Message id": {
+      "prefix": "flow.variable.messageid",
+      "body": [
+        "messageid"
+      ]
+    },
+    "Organization name": {
+      "prefix": "flow.variable.organization.name",
+      "body": [
+        "organization.name"
+      ]
+    },
+    "Proxy base path": {
+      "prefix": "flow.variable.proxy.basepath",
+      "body": [
+        "proxy.basepath"
+      ]
+    },
+    "Proxy client IP": {
+      "prefix": "flow.variable.proxy.client.ip",
+      "body": [
+        "proxy.client.ip"
+      ]
+    },
+    "Proxy name": {
+      "prefix": "flow.variable.proxy.name",
+      "body": [
+        "proxy.name"
+      ]
+    },
+    "Proxy path suffix": {
+      "prefix": "flow.variable.proxy.pathsuffix",
+      "body": [
+        "proxy.pathsuffix"
+      ]
+    },
+    "Proxy url": {
+      "prefix": "flow.variable.proxy.url",
+      "body": [
+        "proxy.url"
+      ]
+    },
+    "Request content": {
+      "prefix": "flow.variable.request.content",
+      "body": [
+        "request.content"
+      ]
+    },
+    "Request form param": {
+      "prefix": "flow.variable.request.formparam.param_name",
+      "body": [
+        "request.formparam.${1: param_name}"
+      ]
+    },
+    "Request form param values": {
+      "prefix": "flow.variable.request.formparam.param_name.values",
+      "body": [
+        "request.formparam.${1: param_name}.values"
+      ]
+    },
+    "Request form param value count": {
+      "prefix": "flow.variable.request.formparam.param_name.values.count",
+      "body": [
+        "request.formparam.${1: param_name}.values.count"
+      ]
+    },
+    "Request form param at index": {
+      "prefix": "flow.variable.request.formparam.param_name.N",
+      "body": [
+        "request.formparam.${1: param_name}.${2: index}"
+      ]
+    },
+    "Request form param count": {
+      "prefix": "flow.variable.request.formparams.count",
+      "body": [
+        "request.formparams.count"
+      ]
+    },
+    "Request form param names": {
+      "prefix": "flow.variable.request.formparams.names",
+      "body": [
+        "request.formparams.names"
+      ]
+    },
+    "Request form string": {
+      "prefix": "flow.variable.request.formstring",
+      "body": [
+        "request.formstring"
+      ]
+    },
+    "Request header": {
+      "prefix": "flow.variable.request.header.header_name",
+      "body": [
+        "request.header.${1: header_name}"
+      ]
+    },
+    "Request header at index": {
+      "prefix": "flow.variable.request.header.header_name.N",
+      "body": [
+        "request.header.${1: header_name}.${2: index}"
+      ]
+    },
+    "Request header values": {
+      "prefix": "flow.variable.request.header.header_name.values",
+      "body": [
+        "request.header.${1: header_name}.values"
+      ]
+    },
+    "Request header value count": {
+      "prefix": "flow.variable.request.header.header_name.values.count",
+      "body": [
+        "request.header.${1: header_name}.values.count"
+      ]
+    },
+    "Request header count": {
+      "prefix": "flow.variable.request.headers.count",
+      "body": [
+        "request.headers.count"
+      ]
+    },
+    "Request header names": {
+      "prefix": "flow.variable.request.headers.names",
+      "body": [
+        "request.headers.names"
+      ]
+    },
+    "Request path": {
+      "prefix": "flow.variable.request.path",
+      "body": [
+        "request.path"
+      ]
+    },
+    "Request query param": {
+      "prefix": "flow.variable.request.queryparam.param_name",
+      "body": [
+        "request.queryparam.${1: param_name}"
+      ]
+    },
+    "Request query param at index": {
+      "prefix": "flow.variable.request.queryparam.param_name.N",
+      "body": [
+        "request.queryparam.param_name.${1: index}"
+      ]
+    },
+    "Request query param values": {
+      "prefix": "flow.variable.request.queryparam.param_name.values",
+      "body": [
+        "request.queryparam.${1: param_name}.values"
+      ]
+    },
+    "Request query param value count": {
+      "prefix": "flow.variable.request.queryparam.param_name.values.count",
+      "body": [
+        "request.queryparam.${1: param_name}.values.count"
+      ]
+    },
+    "Request query param count": {
+      "prefix": "flow.variable.request.queryparams.count",
+      "body": [
+        "request.queryparams.count"
+      ]
+    },
+    "Request query param names": {
+      "prefix": "flow.variable.request.queryparams.names",
+      "body": [
+        "request.queryparams.names"
+      ]
+    },
+    "Request querystring": {
+      "prefix": "flow.variable.request.querystring",
+      "body": [
+        "request.querystring"
+      ]
+    },
+    "Request transport id": {
+      "prefix": "flow.variable.request.transportid",
+      "body": [
+        "request.transportid"
+      ]
+    },
+    "Request transport message": {
+      "prefix": "flow.variable.request.transport.message",
+      "body": [
+        "request.transport.message"
+      ]
+    },
+    "Request uri": {
+      "prefix": "flow.variable.request.uri",
+      "body": [
+        "request.uri"
+      ]
+    },
+    "Request version": {
+      "prefix": "flow.variable.request.version",
+      "body": [
+        "request.version"
+      ]
+    },
+    "Response": {
+      "prefix": "flow.variable.response",
+      "body": [
+        "response"
+      ]
+    },
+    "Response content": {
+      "prefix": "flow.variable.response.content",
+      "body": [
+        "response.content"
+      ]
+    },
+    "Response form param": {
+      "prefix": "flow.variable.response.formparam.param_name",
+      "body": [
+        "response.formparam.${1: param_name}"
+      ]
+    },
+    "Response form param value count": {
+      "prefix": "flow.variable.response.formparam.param_name.values.count",
+      "body": [
+        "response.formparam.${1: param_name}.values.count"
+      ]
+    },
+    "Response form param count": {
+      "prefix": "flow.variable.response.formparams.count",
+      "body": [
+        "response.formparams.count"
+      ]
+    },
+    "Response form param names": {
+      "prefix": "flow.variable.response.formparams.names",
+      "body": [
+        "response.formparams.names"
+      ]
+    },
+    "Response header": {
+      "prefix": "flow.variable.response.header.header_name",
+      "body": [
+        "response.header.${1: header_name}"
+      ]
+    },
+    "Response header values": {
+      "prefix": "flow.variable.response.header.header_name.values",
+      "body": [
+        "response.header.${1: header_name}.values"
+      ]
+    },
+    "Response header values count": {
+      "prefix": "flow.variable.response.header.header_name.values.count",
+      "body": [
+        "response.header.${1: header_name}.values.count"
+      ]
+    },
+    "Response header value at index": {
+      "prefix": "flow.variable.response.header.header_name.N",
+      "body": [
+        "response.header.${1: header_name}.${2: index}"
+      ]
+    },
+    "Response header count": {
+      "prefix": "flow.variable.response.headers.count",
+      "body": [
+        "response.headers.count"
+      ]
+    },
+    "Response header names": {
+      "prefix": "flow.variable.response.headers.names",
+      "body": [
+        "response.headers.names"
+      ]
+    },
+    "Response reason phrase": {
+      "prefix": "flow.variable.response.reason.phrase",
+      "body": [
+        "response.reason.phrase"
+      ]
+    },
+    "Response status code": {
+      "prefix": "flow.variable.response.status.code",
+      "body": [
+        "response.status.code"
+      ]
+    },
+    "Response transport.message": {
+      "prefix": "flow.variable.response.transport.message",
+      "body": [
+        "response.transport.message"
+      ]
+    },
+    "Route name": {
+      "prefix": "flow.variable.route.name",
+      "body": [
+        "route.name"
+      ]
+    },
+    "Route target": {
+      "prefix": "flow.variable.route.target",
+      "body": [
+        "route.target"
+      ]
+    },
+    "Router uuid": {
+      "prefix": "flow.variable.router.uuid",
+      "body": [
+        "router.uuid"
+      ]
+    },
+    "Service callout expectedcn": {
+      "prefix": "flow.variable.servicecallout.policy_name.expectedcn",
+      "body": [
+        "servicecallout.${1: policy_name}.expectedcn"
+      ]
+    },
+    "Service callout target URL": {
+      "prefix": "flow.variable.servicecallout.policy_name.target.url",
+      "body": [
+        "servicecallout.${1: policy_name}.target.url"
+      ]
+    },
+    "Service callout requesturi": {
+      "prefix": "flow.variable.servicecallout.requesturi",
+      "body": [
+        "servicecallout.requesturi"
+      ]
+    },
+    "System pod name": {
+      "prefix": "flow.variable.system.pod.name",
+      "body": [
+        "system.pod.name"
+      ]
+    },
+    "System region name": {
+      "prefix": "flow.variable.system.region.name",
+      "body": [
+        "system.region.name"
+      ]
+    },
+    "System time": {
+      "prefix": "flow.variable.system.time",
+      "body": [
+        "system.time"
+      ]
+    },
+    "System time year": {
+      "prefix": "flow.variable.system.time.year",
+      "body": [
+        "system.time.year"
+      ]
+    },
+    "System time month": {
+      "prefix": "flow.variable.system.time.month",
+      "body": [
+        "system.time.month"
+      ]
+    },
+    "System time day": {
+      "prefix": "flow.variable.system.time.day",
+      "body": [
+        "system.time.day"
+      ]
+    },
+    "System time dayofweek": {
+      "prefix": "flow.variable.system.time.dayofweek",
+      "body": [
+        "system.time.dayofweek"
+      ]
+    },
+    "System time hour": {
+      "prefix": "flow.variable.system.time.hour",
+      "body": [
+        "system.time.hour"
+      ]
+    },
+    "System time minute": {
+      "prefix": "flow.variable.system.time.minute",
+      "body": [
+        "system.time.minute"
+      ]
+    },
+    "System time second": {
+      "prefix": "flow.variable.system.time.second",
+      "body": [
+        "system.time.second"
+      ]
+    },
+    "System time millisecond": {
+      "prefix": "flow.variable.system.time.millisecond",
+      "body": [
+        "system.time.millisecond"
+      ]
+    },
+    "System time zone": {
+      "prefix": "flow.variable.system.time.zone",
+      "body": [
+        "system.time.zone"
+      ]
+    },
+    "System timestamp": {
+      "prefix": "flow.variable.system.timestamp",
+      "body": [
+        "system.timestamp"
+      ]
+    },
+    "System uuid": {
+      "prefix": "flow.variable.system.uuid",
+      "body": [
+        "system.uuid"
+      ]
+    },
+    "Target copy pathsuffix": {
+      "prefix": "flow.variable.target.copy.pathsuffix",
+      "body": [
+        "target.copy.pathsuffix"
+      ]
+    },
+    "Target copy queryparams": {
+      "prefix": "flow.variable.target.copy.queryparams",
+      "body": [
+        "target.copy.queryparams"
+      ]
+    },
+    "TLS target country": {
+      "prefix": "flow.variable.target.country",
+      "body": [
+        "target.country"
+      ]
+    },
+    "TLS target cn": {
+      "prefix": "flow.variable.target.cn",
+      "body": [
+        "target.cn"
+      ]
+    },
+    "TLS target email address": {
+      "prefix": "flow.variable.target.email.address",
+      "body": [
+        "target.email.address"
+      ]
+    },
+    "TLS target expectedcn": {
+      "prefix": "flow.variable.target.expectedcn",
+      "body": [
+        "target.expectedcn"
+      ]
+    },
+    "Target host": {
+      "prefix": "flow.variable.target.host",
+      "body": [
+        "target.host"
+      ]
+    },
+    "Target IP": {
+      "prefix": "flow.variable.target.ip",
+      "body": [
+        "target.ip"
+      ]
+    },
+    "TLS target locality": {
+      "prefix": "flow.variable.target.locality",
+      "body": [
+        "target.locality"
+      ]
+    },
+    "Target name": {
+      "prefix": "flow.variable.target.name",
+      "body": [
+        "target.name"
+      ]
+    },
+    "TLS target organization": {
+      "prefix": "flow.variable.target.organization",
+      "body": [
+        "target.organization"
+      ]
+    },
+    "TLS Target organization unit": {
+      "prefix": "flow.variable.target.organization.unit",
+      "body": [
+        "target.organization.unit"
+      ]
+    },
+    "Target port": {
+      "prefix": "flow.variable.target.port",
+      "body": [
+        "target.port"
+      ]
+    },
+    "Target response received end time": {
+      "prefix": "flow.variable.target.received.end.time",
+      "body": [
+        "target.received.end.time"
+      ]
+    },
+    "Target response received end timestamp": {
+      "prefix": "flow.variable.target.received.end.timestamp",
+      "body": [
+        "target.received.end.timestamp"
+      ]
+    },
+    "Target response received start time": {
+      "prefix": "flow.variable.target.received.start.time",
+      "body": [
+        "target.received.start.time"
+      ]
+    },
+    "Target response received start timestamp": {
+      "prefix": "flow.variable.target.received.start.timestamp",
+      "body": [
+        "target.received.start.timestamp"
+      ]
+    },
+    "Target scheme": {
+      "prefix": "flow.variable.target.scheme",
+      "body": [
+        "target.scheme"
+      ]
+    },
+    "Target request sent end time": {
+      "prefix": "flow.variable.target.sent.end.time",
+      "body": [
+        "target.sent.end.time"
+      ]
+    },
+    "Target request sent end timestamp": {
+      "prefix": "flow.variable.target.sent.end.timestamp",
+      "body": [
+        "target.sent.end.timestamp"
+      ]
+    },
+    "Target request sent start time": {
+      "prefix": "flow.variable.target.sent.start.time",
+      "body": [
+        "target.sent.start.time"
+      ]
+    },
+    "Target request sent start timestamp": {
+      "prefix": "flow.variable.target.sent.start.timestamp",
+      "body": [
+        "target.sent.start.timestamp"
+      ]
+    },
+    "Target ssl enabled": {
+      "prefix": "flow.variable.target.ssl.enabled",
+      "body": [
+        "target.ssl.enabled"
+      ]
+    },
+    "Target state": {
+      "prefix": "flow.variable.target.state",
+      "body": [
+        "target.state"
+      ]
+    },
+    "Target url": {
+      "prefix": "flow.variable.target.url",
+      "body": [
+        "target.url"
+      ]
+    },
+    "variable.expectedcn": {
+      "prefix": "flow.variable.variable.expectedcn",
+      "body": [
+        "variable.expectedcn"
+      ]
+    }
+  }
+  

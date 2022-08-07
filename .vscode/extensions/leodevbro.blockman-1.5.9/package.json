@@ -1,0 +1,566 @@
+{
+	"name": "blockman",
+	"displayName": "Blockman - Highlight Nested Code Blocks",
+	"publisher": "leodevbro",
+	"description": "Mark/Highlight code blocks",
+	"version": "1.5.9",
+	"engines": {
+		"vscode": "^1.56.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/leodevbro/vscode-blockman.git"
+	},
+	"sponsor": {
+		"url": "https://marketplace.visualstudio.com/items?itemName=leodevbro.blockman"
+	},
+	"icon": "demo-media/still-image/icon-prod/blockman-icon-128---png.png",
+	"categories": [
+		"Visualization"
+	],
+	"extensionKind": [
+		"ui",
+		"workspace"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"keywords": [
+		"block",
+		"blocks",
+		"scope",
+		"nest",
+		"nested",
+		"nesting",
+		"mark",
+		"highlight",
+		"highlighter",
+		"marker",
+		"bracket",
+		"brackets",
+		"pair",
+		"color",
+		"colour",
+		"multi-root ready",
+		"vscode",
+		"man"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "blockman.helloWorld",
+				"title": "Blockman Hello"
+			},
+			{
+				"command": "blockman.toggleEnableDisable",
+				"title": "Blockman Toggle Enable/Disable"
+			},
+			{
+				"command": "blockman.toggleKeepOff",
+				"title": "Blockman Toggle Keep Off State After Restarting VS Code"
+			},
+			{
+				"command": "blockman.toggleFreezeFocus",
+				"title": "Blockman Toggle Freeze/Unfreeze Focus"
+			},
+			{
+				"command": "blockman.selectFocused",
+				"title": "Blockman Select Focused Text"
+			},
+			{
+				"command": "blockman.toggleDisableAutomaticShowHideIndentGuides",
+				"title": "Blockman Toggle Disable/Enable Automatic Showing/Hiding Indent Guides"
+			},
+			{
+				"command": "blockman.printLeak",
+				"title": "Blockman Leakage (For Dev)"
+			},
+			{
+				"command": "blockman.toggleTrySupportDoubleWidthChars",
+				"title": "Blockman Toggle Try Support Double Width Chars (e.g. Chinese)"
+			}
+		],
+		"configuration": {
+			"title": "Blockman",
+			"properties": {
+				"blockman.n01LineHeight": {
+					"type": "number",
+					"default": 0,
+					"description": "Not needed anymore, maybe will be removed soon. 0 means neutral.",
+					"scope": "window"
+				},
+				"blockman.n02EachCharFrameWidth": {
+					"type": "number",
+					"default": 4.321,
+					"description": "Not needed anymore, maybe will be removed soon.",
+					"scope": "window"
+				},
+				"blockman.n03MaxDepth": {
+					"type": "number",
+					"default": 10,
+					"enum": [
+						-1,
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20
+					],
+					"description": "-1 is no blocks, 0 is ground block, 1 is first depth blocks, 2 is second depth blocks",
+					"scope": "window"
+				},
+				"blockman.n04ColorComboPreset": {
+					"type": "string",
+					"default": "Classic Dark 1 (Gradients)",
+					"enum": [
+						"Classic Dark 1 (Gradients)",
+						"Classic Dark 1 (Super gradients)",
+						"Classic Dark 1 (Solid colors)",
+						"Classic Dark 2 (Gradients)",
+						"Classic Dark 2 (Solid colors)",
+						"Classic Dark 3 (Gradients)",
+						"Classic Dark 3 (Solid colors)",
+						"Classic Dark Oppo (Gradients)",
+						"Classic Dark Oppo (Solid colors)",
+						"Classic Light (Gradients)",
+						"Classic Light (Gradients) Old",
+						"Classic Light (Super gradients)",
+						"Classic Light (Solid colors)",
+						"Classic Light (Solid colors) Old",
+						"Oxygen Dark (Gradients)",
+						"Oxygen Dark (Solid colors)",
+						"Argon Dark (Gradients)",
+						"Argon Dark (Solid colors)",
+						"Sapphire (Gradients)",
+						"Sapphire (Solid colors)",
+						"Satura (Gradients)",
+						"Satura (Solid colors)",
+						"Lobelia (Gradients)",
+						"Lobelia (Solid colors)",
+						"Small Galaxy (Gradients)",
+						"Small Galaxy (Solid colors)",
+						"Pale Pink (Gradients)",
+						"Pale Pink (Solid colors)"
+					],
+					"description": "This does not change VS Code theme. Choose preset combo of colors. Corresponding colors are overridden by custom colors (if not empty string). Also This setting can be overriden by the next 3 combo settings",
+					"scope": "window"
+				},
+				"blockman.n04Sub01ColorComboPresetForDarkTheme": {
+					"type": "string",
+					"default": "none",
+					"enum": [
+						"none",
+						"Classic Dark 1 (Gradients)",
+						"Classic Dark 1 (Super gradients)",
+						"Classic Dark 1 (Solid colors)",
+						"Classic Dark 2 (Gradients)",
+						"Classic Dark 2 (Solid colors)",
+						"Classic Dark 3 (Gradients)",
+						"Classic Dark 3 (Solid colors)",
+						"Classic Dark Oppo (Gradients)",
+						"Classic Dark Oppo (Solid colors)",
+						"Classic Light (Gradients)",
+						"Classic Light (Gradients) Old",
+						"Classic Light (Super gradients)",
+						"Classic Light (Solid colors)",
+						"Classic Light (Solid colors) Old",
+						"Oxygen Dark (Gradients)",
+						"Oxygen Dark (Solid colors)",
+						"Argon Dark (Gradients)",
+						"Argon Dark (Solid colors)",
+						"Sapphire (Gradients)",
+						"Sapphire (Solid colors)",
+						"Satura (Gradients)",
+						"Satura (Solid colors)",
+						"Lobelia (Gradients)",
+						"Lobelia (Solid colors)",
+						"Small Galaxy (Gradients)",
+						"Small Galaxy (Solid colors)",
+						"Pale Pink (Gradients)",
+						"Pale Pink (Solid colors)"
+					],
+					"description": "Color combo to apply when current theme kind is Dark.",
+					"scope": "window"
+				},
+				"blockman.n04Sub02ColorComboPresetForLightTheme": {
+					"type": "string",
+					"default": "Classic Light (Gradients)",
+					"enum": [
+						"none",
+						"Classic Dark 1 (Gradients)",
+						"Classic Dark 1 (Super gradients)",
+						"Classic Dark 1 (Solid colors)",
+						"Classic Dark 2 (Gradients)",
+						"Classic Dark 2 (Solid colors)",
+						"Classic Dark 3 (Gradients)",
+						"Classic Dark 3 (Solid colors)",
+						"Classic Dark Oppo (Gradients)",
+						"Classic Dark Oppo (Solid colors)",
+						"Classic Light (Gradients)",
+						"Classic Light (Gradients) Old",
+						"Classic Light (Super gradients)",
+						"Classic Light (Solid colors)",
+						"Classic Light (Solid colors) Old",
+						"Oxygen Dark (Gradients)",
+						"Oxygen Dark (Solid colors)",
+						"Argon Dark (Gradients)",
+						"Argon Dark (Solid colors)",
+						"Sapphire (Gradients)",
+						"Sapphire (Solid colors)",
+						"Satura (Gradients)",
+						"Satura (Solid colors)",
+						"Lobelia (Gradients)",
+						"Lobelia (Solid colors)",
+						"Small Galaxy (Gradients)",
+						"Small Galaxy (Solid colors)",
+						"Pale Pink (Gradients)",
+						"Pale Pink (Solid colors)"
+					],
+					"description": "Color combo to apply when current theme kind is Light.",
+					"scope": "window"
+				},
+				"blockman.n04Sub03ColorComboPresetForHighContrastTheme": {
+					"type": "string",
+					"default": "none",
+					"enum": [
+						"none",
+						"Classic Dark 1 (Gradients)",
+						"Classic Dark 1 (Super gradients)",
+						"Classic Dark 1 (Solid colors)",
+						"Classic Dark 2 (Gradients)",
+						"Classic Dark 2 (Solid colors)",
+						"Classic Dark 3 (Gradients)",
+						"Classic Dark 3 (Solid colors)",
+						"Classic Dark Oppo (Gradients)",
+						"Classic Dark Oppo (Solid colors)",
+						"Classic Light (Gradients)",
+						"Classic Light (Gradients) Old",
+						"Classic Light (Super gradients)",
+						"Classic Light (Solid colors)",
+						"Classic Light (Solid colors) Old",
+						"Oxygen Dark (Gradients)",
+						"Oxygen Dark (Solid colors)",
+						"Argon Dark (Gradients)",
+						"Argon Dark (Solid colors)",
+						"Sapphire (Gradients)",
+						"Sapphire (Solid colors)",
+						"Satura (Gradients)",
+						"Satura (Solid colors)",
+						"Lobelia (Gradients)",
+						"Lobelia (Solid colors)",
+						"Small Galaxy (Gradients)",
+						"Small Galaxy (Solid colors)",
+						"Pale Pink (Gradients)",
+						"Pale Pink (Solid colors)"
+					],
+					"description": "Color combo to apply when current theme kind is High Contrast.",
+					"scope": "window"
+				},
+				"blockman.n04Sub04RightSideBaseOfBlocks": {
+					"type": "string",
+					"default": "Rightmost Edge Of Inner Content",
+					"enum": [
+						"Rightmost Edge Of Inner Content",
+						"Rightmost Edge Of Viewport",
+						"Rightmost Edge Of File Content"
+					],
+					"scope": "window",
+					"description": "Because some people like super expanded blocks."
+				},
+				"blockman.n04Sub05MinDistanceBetweenRightSideEdges": {
+					"type": "number",
+					"default": 0,
+					"scope": "window",
+					"description": "CSS pixels. 4 is probably good. Keep in mind that for some devices, CSS pixel is larger/smaller than physical pixel."
+				},
+				"blockman.n04Sub06AdditionalPaddingRight": {
+					"type": "number",
+					"default": 0,
+					"scope": "window",
+					"description": "CSS pixels. Keep in mind that for some devices, CSS pixel is larger/smaller than physical pixel."
+				},
+				"blockman.n05CustomColorOfDepth0": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n06CustomColorOfDepth1": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n07CustomColorOfDepth2": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n08CustomColorOfDepth3": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n09CustomColorOfDepth4": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n10CustomColorOfDepth5": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n11CustomColorOfDepth6": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n12CustomColorOfDepth7": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n13CustomColorOfDepth8": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n14CustomColorOfDepth9": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n15CustomColorOfDepth10": {
+					"type": "string",
+					"default": "",
+					"scope": "window",
+					"description": "Any CSS color, e.g. rgb, rgba, hsl. Type 'none' for same color as editor background."
+				},
+				"blockman.n16EnableFocus": {
+					"type": "boolean",
+					"default": true,
+					"description": "Highlight block differently if caret is inside it",
+					"scope": "window"
+				},
+				"blockman.n17CustomColorOfFocusedBlock": {
+					"type": "string",
+					"default": "",
+					"description": "Requires 'Enable Focus' to be true/enabled. Type 'same' if you want it to be same color as if not focused.",
+					"scope": "window"
+				},
+				"blockman.n18CustomColorOfFocusedBlockBorder": {
+					"type": "string",
+					"default": "",
+					"description": "Requires 'Enable Focus' to be true/enabled. Type 'same' if you want it to be same color as if not focused.",
+					"scope": "window"
+				},
+				"blockman.n19CustomColorOfBlockBorder": {
+					"type": "string",
+					"default": "",
+					"scope": "window"
+				},
+				"blockman.n20CustomColorOfDepth0Border": {
+					"type": "string",
+					"default": "",
+					"scope": "window"
+				},
+				"blockman.n21BorderRadius": {
+					"type": "number",
+					"default": 6,
+					"description": "Border radius of each block",
+					"scope": "window"
+				},
+				"blockman.n22AnalyzeCurlyBrackets": {
+					"type": "boolean",
+					"default": true,
+					"description": "Render blocks inside curly brackets {}, keep in mind: the parser/tokenizer will ignore brackets inside comments, inside strings and inside some other areas",
+					"scope": "window"
+				},
+				"blockman.n23AnalyzeSquareBrackets": {
+					"type": "boolean",
+					"default": false,
+					"description": "Render blocks inside square brackets [], keep in mind: the parser/tokenizer will ignore brackets inside comments, inside strings and inside some other areas",
+					"scope": "window"
+				},
+				"blockman.n24AnalyzeRoundBrackets": {
+					"type": "boolean",
+					"default": false,
+					"description": "Render blocks inside Round brackets (), keep in mind: the parser/tokenizer will ignore brackets inside comments, inside strings and inside some other areas",
+					"scope": "window"
+				},
+				"blockman.n25AnalyzeTags": {
+					"type": "boolean",
+					"default": true,
+					"description": "Render blocks inside HTML/XML/JSX/TSX tags <tag></tag>, keep in mind: the parser/tokenizer will ignore tags inside comments, inside strings and inside some other areas",
+					"scope": "window"
+				},
+				"blockman.n26AnalyzeIndentDedentTokens": {
+					"type": "boolean",
+					"default": true,
+					"description": "This option affects only files of indentation based languages like Python. Currently only Python and Yaml are supported for indentation analysis. Keep in mind: the parser/tokenizer will ignore indentations inside comments, inside strings and inside some other areas",
+					"scope": "window"
+				},
+				"blockman.n27AlsoRenderBlocksInsideSingleLineAreas": {
+					"type": "boolean",
+					"default": false,
+					"description": "{I am a single line area} <p>Me too</p>. Focused single line block will still be rendered even if this setting is off.",
+					"scope": "window"
+				},
+				"blockman.n28TimeToWaitBeforeRerenderAfterLastChangeEvent": {
+					"type": "number",
+					"default": 1.2,
+					"description": "(Seconds). For optimization: enter more time for slow computers. Less than 0.05 is NOT recommended even for fast computers.",
+					"scope": "window"
+				},
+				"blockman.n29TimeToWaitBeforeRerenderAfterLastFocusEvent": {
+					"type": "number",
+					"default": 0.2,
+					"description": "(Seconds). For optimization: enter more time for slow computers. Less than 0.2 is NOT recommended because double-clicking may become problematic.",
+					"scope": "window"
+				},
+				"blockman.n30TimeToWaitBeforeRerenderAfterLastScrollEvent": {
+					"type": "number",
+					"default": 0.1,
+					"description": "(Seconds). For optimization: enter more time for slow computers. Less than 0.05 is NOT recommended even for fast computers.",
+					"scope": "window"
+				},
+				"blockman.n31RenderIncrementBeforeAndAfterVisibleRange": {
+					"type": "number",
+					"default": 20,
+					"description": "Less is faster because less blocks will be rendered outside the viewport but scrolling may become less comfortable. If less than 1 (e.g. -5), the blocks will render in limited area.",
+					"scope": "window"
+				},
+				"blockman.n32BlackListOfFileFormats": {
+					"type": "string",
+					"default": "plaintext, markdown, ",
+					"description": "Disable blockman for certain file formats, e.g. plaintext, markdown, css, less, scss, html, json, jsonc, typescriptreact, typescript, javascriptreact, javascript, python, go, dart, php, c, csharp, cpp, java.",
+					"scope": "window"
+				},
+				"blockman.n33A01B1FromDepth0ToInwardForAllBorders": {
+					"type": "string",
+					"default": "!10,0,0,0; red > green > blue",
+					"description": "Advanced Coloring: '!' means disabled. Advanced coloring string, if enabled, will override basic coloring settings. Right side: sequence of colors/gradients. Left side: FIRST number relates priority, SECOND number relates zero-based index of first item of first loop, So it splits the sequence into what should not be looped and what should be looped, THIRD number relates loop part reversion (0: original, 1: reversed), FOURTH number relates looping strategy (0: all the continuation items to be 'neutral', 'neutral' means it will be overriden by any other setting, 1: Only the last item will be looped. Yes, it will ignore the SECOND option number (split index), 2: loop as forward, 3: loop as pair of forward and backward). 'basic' color means it will set a color from basic color settings.",
+					"scope": "window"
+				},
+				"blockman.n33A01B2FromDepth0ToInwardForAllBackgrounds": {
+					"type": "string",
+					"default": "!10,1,0,3; hsl(235, 30%, 7%) > hsl(0, 0%, 7.1%) > hsl(0, 0%, 9.5%) > hsl(0, 0%, 11.15%) > hsl(0, 0%, 12.8%)",
+					"scope": "window"
+				},
+				"blockman.n33A02B1FromFocusToOutwardForAllBorders": {
+					"type": "string",
+					"default": "!20,0,0,0; red > green > blue",
+					"scope": "window"
+				},
+				"blockman.n33A02B2FromFocusToOutwardForAllBackgrounds": {
+					"type": "string",
+					"default": "!20,0,0,0; red > green > blue",
+					"scope": "window"
+				},
+				"blockman.n33A03B1FromDepth0ToInwardForFocusTreeBorders": {
+					"type": "string",
+					"default": "!30,1,0,2; neutral > linear-gradient(to right, rgb(144, 54, 8), rgb(48, 36, 116))",
+					"scope": "window"
+				},
+				"blockman.n33A03B2FromDepth0ToInwardForFocusTreeBackgrounds": {
+					"type": "string",
+					"default": "!30,0,0,0; red > green > blue",
+					"scope": "window"
+				},
+				"blockman.n33A04B1FromFocusToOutwardForFocusTreeBorders": {
+					"type": "string",
+					"default": "40,0,0,0; basic",
+					"scope": "window"
+				},
+				"blockman.n33A04B2FromFocusToOutwardForFocusTreeBackgrounds": {
+					"type": "string",
+					"default": "40,0,0,0; basic",
+					"scope": "window"
+				},
+				"blockman.n33A05B1FromFocusToInwardForAllBorders": {
+					"type": "string",
+					"default": "!50,0,0,0; red > green > blue",
+					"scope": "window"
+				},
+				"blockman.n33A05B2FromFocusToInwardForAllBackgrounds": {
+					"type": "string",
+					"default": "!50,0,0,0; red > green > blue",
+					"scope": "window"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/babel__traverse": "^7.11.1",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/moo": "^0.5.4",
+		"@types/node": "^15.0.3",
+		"@types/vscode": "^1.56.0",
+		"@typescript-eslint/eslint-plugin": "^4.23.0",
+		"@typescript-eslint/parser": "^4.23.0",
+		"eslint": "^7.26.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.2.4",
+		"vscode-test": "^1.5.2"
+	},
+	"dependencies": {
+		"@babel/parser": "^7.14.2",
+		"@babel/plugin-transform-typescript": "^7.13.0",
+		"@babel/traverse": "^7.14.2",
+		"@types/json5": "^2.2.0",
+		"ast-traverse": "^0.1.1",
+		"dt-python-parser": "^0.9.2-beta",
+		"json5": "^2.2.0",
+		"moo": "^0.5.1",
+		"os": "^0.1.1",
+		"vscode-uri": "^3.0.2",
+		"yaml": "^1.10.2"
+	},
+	"__metadata": {
+		"id": "4a65c1f4-5251-41fa-925e-5b154e94d6e4",
+		"publisherId": "24a18384-bf2c-4ec9-a6a7-5b3d3a618211",
+		"publisherDisplayName": "leodevbro",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641317131
+	}
+}

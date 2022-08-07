@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "Attribute": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New attribute",
+          "description": "Creates a new attribute",
+          "body": {
+            "name": "attribute_name",
+            "value": "attribute_value"
+          }
+        }
+      ]
+    }
+  }
+}

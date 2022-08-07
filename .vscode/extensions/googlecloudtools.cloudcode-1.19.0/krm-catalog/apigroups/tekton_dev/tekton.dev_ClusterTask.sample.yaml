@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: cluster-task-pipeline-4
+spec:
+  steps:
+  - args:
+    - -c
+    - echo success
+    command:
+    - /bin/bash
+    image: ubuntu
+    name: task-two-step-one

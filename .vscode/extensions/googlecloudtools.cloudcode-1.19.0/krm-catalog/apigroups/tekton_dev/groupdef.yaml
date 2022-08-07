@@ -1,0 +1,23 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - config/300-clustertask.yaml
+  - config/300-condition.yaml
+  - config/300-imagecache.yaml
+  - config/300-pipeline.yaml
+  - config/300-pipelinerun.yaml
+  - config/300-resource.yaml
+  - config/300-task.yaml
+  - config/300-taskrun.yaml
+  groupNames:
+  - tekton.dev
+  repoUrl: https://github.com/tektoncd/pipeline
+  sampleExactPaths:
+  - examples/v1beta1/pipelineruns/clustertask-pipelinerun.yaml
+  - examples/v1beta1/pipelineruns/conditional-pipelinerun.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-14'
+  license: apache-2.0

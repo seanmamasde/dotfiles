@@ -1,0 +1,22 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: clustermetricsinks.observability.knative.dev
+spec:
+  group: observability.knative.dev
+  names:
+    kind: ClusterMetricSink
+    plural: clustermetricsinks
+    singular: clustermetricsink
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          required:
+          - outputs
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

@@ -1,0 +1,14 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: terraformplans.ctl.isla.solutions
+spec:
+  group: ctl.isla.solutions
+  names:
+    kind: TerraformPlan
+    plural: terraformplans
+    shortNames:
+    - tfplan
+    singular: terraformplan
+  scope: Namespaced
+  version: v1

@@ -1,0 +1,119 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: gameservers.stable.agones.dev
+spec:
+  group: stable.agones.dev
+  names:
+    kind: GameServer
+    plural: gameservers
+    shortNames:
+    - gs
+    singular: gameserver
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            container:
+              description: if there is more than one container, specify which one
+                is the game server
+              maxLength: 63
+              minLength: 0
+              pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+              title: The container name running the gameserver
+              type: string
+            containerPort:
+              maximum: 65535
+              minimum: 0
+              title: The port that is being opened on the game server process
+              type: integer
+            health:
+              properties:
+                disabled:
+                  title: Disable health checking. defaults to false, but can be set
+                    to true
+                  type: boolean
+                failureThreshold:
+                  maximum: 2147483648
+                  minimum: 1
+                  title: Minimum consecutive failures for the health probe to be considered
+                    failed after having succeeded.
+                  type: integer
+                initialDelaySeconds:
+                  maximum: 2147483648
+                  minimum: 0
+                  title: Number of seconds after the container has started before
+                    health check is initiated. Defaults to 5 seconds
+                  type: integer
+                periodSeconds:
+                  maximum: 2147483648
+                  minimum: 0
+                  title: How long before the server is considered not healthy
+                  type: integer
+              title: Health checking for the running game server
+              type: object
+            hostPort:
+              description: Only required when `portPolicy` is "static". Overwritten
+                when portPolicy is "dynamic".
+              maximum: 65535
+              minimum: 0
+              title: The port exposed on the host
+              type: integer
+            portPolicy:
+              description: 'portPolicy has two options:
+
+                - "dynamic" (default) the system allocates a free hostPort for the
+                gameserver, for game clients to connect to
+
+                - "static", user defines the hostPort that the game client will connect
+                to. Then onus is on the user to ensure that the
+
+                port is available. When static is the policy specified, `hostPort`
+                is required to be populated
+
+                '
+              enum:
+              - dynamic
+              - static
+              title: the port policy that will be applied to the game server
+              type: string
+            protocol:
+              enum:
+              - UDP
+              - TCP
+              title: Protocol being used. Defaults to UDP. TCP is the only other option
+              type: string
+            template:
+              properties:
+                spec:
+                  properties:
+                    containers:
+                      items:
+                        properties:
+                          image:
+                            minLength: 1
+                            type: string
+                          name:
+                            maxLength: 63
+                            minLength: 0
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - image
+                        type: object
+                      minItems: 1
+                      type: array
+                  required:
+                  - containers
+                  type: object
+              required:
+              - spec
+              type: object
+          required:
+          - containerPort
+          - template
+      required:
+      - spec
+  version: v1alpha1

@@ -1,0 +1,4053 @@
+{
+	"name": "cloudcode",
+	"displayName": "Cloud Code",
+	"description": "Cloud Code is Google Cloud's official IDE extension to develop with your favorite Google Cloud services such as Kubernetes, Cloud Run, Cloud APIs, Containers, Google Cloud Build, Apigee APIs. Cloud Code makes developing with Google Cloud (GCP) feel like working on local code.",
+	"version": "1.19.0",
+	"publisher": "googlecloudtools",
+	"// LINT.IfChange(engines)": "",
+	"engines": {
+		"vscode": "^1.63.0"
+	},
+	"// LINT.ThenChange(:dependencies, :test_vscode_version)": "",
+	"license": "SEE LICENSE IN LICENSE",
+	"categories": [
+		"Snippets",
+		"Linters",
+		"Debuggers",
+		"Other"
+	],
+	"keywords": [
+		"Google",
+		"Kubernetes",
+		"k8s",
+		"GCP",
+		"Google Cloud",
+		"Apigee"
+	],
+	"preview": false,
+	"qna": false,
+	"icon": "images/logo.png",
+	"activationEvents": [
+		"*"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"jsonValidation": [
+			{
+				"fileMatch": ".cctemplate",
+				"url": "./schema/template_schema.json"
+			},
+			{
+				"fileMatch": "deployments.json",
+				"url": "./schema/apigee/deployments_schema.json"
+			},
+			{
+				"fileMatch": "debugmask.json",
+				"url": "./schema/apigee/debugmask_schema.json"
+			},
+			{
+				"fileMatch": "flowhooks.json",
+				"url": "./schema/apigee/flowhooks_schema.json"
+			},
+			{
+				"fileMatch": "targetservers.json",
+				"url": "./schema/apigee/targetservers_schema.json"
+			},
+			{
+				"fileMatch": "products.json",
+				"url": "./schema/apigee/products_schema.json"
+			},
+			{
+				"fileMatch": "developers.json",
+				"url": "./schema/apigee/developers_schema.json"
+			},
+			{
+				"fileMatch": "developerapps.json",
+				"url": "./schema/apigee/apps_schema.json"
+			},
+			{
+				"fileMatch": "maps.json",
+				"url": "./schema/apigee/maps_schema.json"
+			}
+		],
+		"languages": [
+			{
+				"id": "ignore",
+				"filenames": [
+					".gcloudignore"
+				]
+			},
+			{
+				"id": "Log",
+				"aliases": [
+					"log"
+				],
+				"extensions": [
+					".log"
+				],
+				"configuration": "./log.configuration.json",
+				"mimetypes": [
+					"log",
+					"text/log",
+					"text/x-log",
+					"text/x-code-output",
+					"x-code-output"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "Log",
+				"scopeName": "code.log",
+				"path": "./third_party/vscode-log-output-colorizer/src/syntaxes/log.tmLanguage"
+			}
+		],
+		"configurationDefaults": {
+			"[yaml]": {
+				"editor.insertSpaces": true,
+				"editor.tabSize": 2,
+				"editor.quickSuggestions": {
+					"other": true,
+					"comments": false,
+					"strings": true
+				},
+				"editor.autoIndent": false
+			}
+		},
+		"configuration": {
+			"type": "object",
+			"title": "Cloud Code",
+			"properties": {
+				"cloudcode.debug-kubernetes": {
+					"type": "object",
+					"description": "Provide customizations for the Cloud Code debuggers.",
+					"properties": {
+						"suppressNETCoreWarning": {
+							"type": "boolean",
+							"description": "If true, suppress .NET Core debug warning."
+						},
+						"suppressJavaWarning": {
+							"type": "boolean",
+							"description": "If true, suppress Java debug warning."
+						},
+						"suppressPythonWarning": {
+							"type": "boolean",
+							"description": "If true, suppress Python debug warning."
+						},
+						"suppressNodeJSWarning": {
+							"type": "boolean",
+							"description": "If true, suppress Node JS debug warning."
+						},
+						"suppressGoWarning": {
+							"type": "boolean",
+							"description": "If true, suppress Go debug warning."
+						}
+					}
+				},
+				"cloudcode.kubeconfigs": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "Name to reference the KubeConfig."
+							},
+							"configPath": {
+								"type": "string",
+								"description": "Full path to the KubeConfig file."
+							}
+						}
+					},
+					"markdownDescription": "List of KubeConfig files that can be used in the Kubernetes Explorer. Switch between the default KubeConfig and KubeConfigs listed here with the `#cloudcode.active-kubeconfig#` setting."
+				},
+				"cloudcode.apigee.emulators": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"description": "Tag for the emulator image from gcr.io/apigee-release/hybrid/apigee-emulator"
+					},
+					"default": [
+						"1.6.1"
+					],
+					"description": "List of emulator tags to be enabled in the emulator view"
+				},
+				"cloudcode.apigee.dockerOptions": {
+					"type": "object",
+					"properties": {
+						"environmentVariables": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "string"
+							},
+							"description": "Environment variables to be attached, key is the variable name to be exported and the value represents the variable's value",
+							"default": {
+								"XTERM": "xterm-256color"
+							}
+						},
+						"dns": {
+							"type": "string",
+							"description": "DNS settings for the container",
+							"default": "8.8.8.8"
+						},
+						"detached": {
+							"type": "boolean",
+							"description": "Should the container be started in detached mode",
+							"default": true
+						},
+						"privileged": {
+							"type": "boolean",
+							"description": "Should the container be started in priviledged mode",
+							"default": true
+						},
+						"labels": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "string"
+							},
+							"description": "Labels to be assigned, where the key represents label name and the value label's value"
+						},
+						"volumes": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "string"
+							},
+							"description": "Disk volumes to be mounted, where the key represents the host path and the value represents the path mounted in the container"
+						},
+						"additionalArguments": {
+							"type": "string",
+							"description": "Additional arguments to be added to the docker run command (separated by space)"
+						}
+					},
+					"default": {
+						"environmentVariables": {
+							"XTERM": "xterm-256color"
+						},
+						"dns": "8.8.8.8",
+						"detached": true,
+						"privileged": true,
+						"labels": {},
+						"volumes": {},
+						"additionalArguments": ""
+					},
+					"description": "Docker container run settings"
+				},
+				"cloudcode.active-kubeconfig": {
+					"type": "string",
+					"default": "",
+					"markdownDescription": "Name of the active KubeConfig used by the extension. This name should match the name of a KubeConfig stored in `#cloudcode.kubeconfigs#`. If a name isn't provided, the default KubeConfig will be used."
+				},
+				"cloudcode.kubectlExecShell": {
+					"type": "string",
+					"default": "sh",
+					"markdownDescription": "The shell to use when choosing 'Get Terminal' on a Pod in the Clusters Explorer. Commonly used choices include `sh` or `bash`."
+				},
+				"cloudcode.kubectlRequestTimeout": {
+					"type": "string",
+					"default": "5s",
+					"description": "The length of time to wait before giving up on a single kubectl server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests."
+				},
+				"cloudcode.enableExperimentalDeploymentWizard": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the experimental deployment wizard that streamlines the deployment for existing kubernetes applications.",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.samplesBranch": {
+					"type": "string",
+					"default": "v1",
+					"markdownDescription": "Branch to checkout from Google-maintained code sample repositories."
+				},
+				"cloudcode.enableNewWelcomePage": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the new welcome experience."
+				},
+				"cloudcode.beta.enableOutputLogging": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the new Output Logging for kubernetes and cloud run run/debug sessions."
+				},
+				"cloudcode.beta.enableSkaffoldModules": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the new Skaffold modules integration for kubernetes applications."
+				},
+				"cloudcode.beta.enableBuildEnvironmentsInit": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable setting up Build Environments on run/debug/deploy sessions."
+				},
+				"cloudcode.beta.enableApiBrowserV2": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable V2 version of Api Browser."
+				},
+				"cloudcode.beta.enableArtifactRegistry": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enables Artifact Registry support in kubernetes inner dev loop."
+				},
+				"cloudcode.beta.enableBlueprints": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enables Blueprints configuration."
+				},
+				"cloudcode.beta.enableSendLogs": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enables the ability to send logs on crashes and failures.",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.beta.enableOneActivityBar": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable the new One Activity Bar. **Changing this setting requires a reload of vscode. [Click here](command:workbench.action.reloadWindow) to reload**",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.beta.enableVMExplorer": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Enable the new VM Explorer",
+					"deprecationMessage": "Internal feature flag"
+				},
+				"cloudcode.enableBuildpacks": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable buildpacks.",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.enableDeployDebugV2": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable the new deploy and debug flows.",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.beta.enableHatsPartial": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable the Collection of Partial HaTS Response",
+					"deprecationMessage": "Internal feature flag"
+				},
+				"cloudcode.enableMultiSkaffoldConfigsKey": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable support for multiple skaffold configurations."
+				},
+				"cloudcode.enableTelemetry": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable sending usage data to Google. Data collected is subject to the [Google Privacy Policy](https://policies.google.com/privacy)."
+				},
+				"cloudcode.updateAdcOnLogin": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Append a `—-update-adc` flag to `gcloud auth login`. [Read about this flag](https://cloud.google.com/sdk/gcloud/reference/auth/login#--update-adc)."
+				},
+				"cloudcode.updateChannel": {
+					"type": "string",
+					"enum": [
+						"Default",
+						"Insiders"
+					],
+					"markdownDescription": "Automatically install the insiders version of Cloud Code by changing this value to 'Insiders', or set the value as 'Default' to use the stable released version from the marketplace. [Learn more about Insiders builds](https://cloud.google.com/code/docs/vscode/insiders)."
+				},
+				"cloudcode.enableMinikubeGcpAuthPlugin": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable the [minikube gcp-auth plugin](https://minikube.sigs.k8s.io/docs/handbook/addons/gcp-auth/) when starting a Cloud Code run or debug session that is deploying to minikube."
+				},
+				"cloudcode.enableConfigLessExperience": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Enable the experimental config-less run/debug experience for Kubernetes and Cloud Run apps."
+				},
+				"cloudcode.yaml.trace.server": {
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Trace the communication between VSCode and the language server in an output window."
+				},
+				"cloudcode.yaml.schemas": {
+					"type": "object",
+					"default": {},
+					"description": "Associate schemas to YAML files in the current workspace."
+				},
+				"cloudcode.yaml.format.enable": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable default YAML formatter (requires restart)."
+				},
+				"cloudcode.yaml.format.singleQuote": {
+					"type": "boolean",
+					"default": false,
+					"description": "Use single quotes instead of double quotes."
+				},
+				"cloudcode.yaml.format.bracketSpacing": {
+					"type": "boolean",
+					"default": true,
+					"description": "Print spaces between brackets in objects."
+				},
+				"cloudcode.yaml.format.proseWrap": {
+					"type": "string",
+					"default": "preserve",
+					"enum": [
+						"preserve",
+						"never",
+						"always"
+					],
+					"enumDescriptions": [
+						"Wrap prose; if it exceeds print-width.",
+						"Never wrap; keep prose on the same line.",
+						"Keep prose as-is."
+					],
+					"description": "Choose when to automatically wrap prose."
+				},
+				"cloudcode.yaml.validate": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable validation feature."
+				},
+				"cloudcode.yaml.hover": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable hover feature."
+				},
+				"cloudcode.yaml.completion": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable YAML code completion."
+				},
+				"cloudcode.yaml.customTags": {
+					"type": "array",
+					"default": [],
+					"description": "Custom tags the parser should recognize and validate against."
+				},
+				"cloudcode.yaml.clusterResourceCompletion": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable resource completions from the active cluster. This setting may impact completion performance."
+				},
+				"cloudcode.yaml.yamlFileMatcher": {
+					"type": "string",
+					"default": "**/*.yaml",
+					"markdownDescription": "Glob pattern matching YAML files in the workspace. YAML editing support such as completion, inline definitions, and linting would be available for this file type. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options)."
+				},
+				"cloudcode.yaml.enableKubernetesSupport": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable Kubernetes YAML editing support."
+				},
+				"cloudcode.yaml.enableMigrateForAnthosSupport": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable Migrate for Anthos YAML editing support."
+				},
+				"cloudcode.yaml.kubernetesVersion": {
+					"type": "string",
+					"default": "v1.24.0",
+					"enum": [
+						"v1.19.0",
+						"v1.20.0",
+						"v1.21.0",
+						"v1.22.0",
+						"v1.23.0",
+						"v1.24.0"
+					],
+					"description": "Select the Kubernetes version Cloud Code should utilize when providing YAML editing support."
+				},
+				"cloudcode.yaml.crdSchemaLocations": {
+					"type": "array",
+					"item": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "Array of locations pointing to Kubernetes CRD schema. Each of these can be set to a local path (example: `/files/crd.yaml`) or URL (example: `http://github.com/user/repo/crd.yaml`)."
+				},
+				"cloudcode.cloudshell.project": {
+					"type": "string",
+					"default": "",
+					"markdownDescription": "Default project to use in Cloud Shell. If not set, the existing default will be used or you will be prompted to set one. For more information on how to get started with developing in a Cloud Shell environment, view this [quickstart](https://cloud.google.com/code/docs/vscode/quickstart-remote-dev)."
+				},
+				"cloudcode.autoDependencies": {
+					"type": "string",
+					"default": "on",
+					"enum": [
+						"on",
+						"off"
+					],
+					"markdownDescription": "Automatically install and update required Cloud Code dependencies such as the [Cloud SDK](https://cloud.google.com/sdk/gcloud), [Skaffold](https://skaffold.dev/), [minikube](https://minikube.sigs.k8s.io/docs/), and [Kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)."
+				},
+				"cloudcode.verboseLogging": {
+					"type": "boolean",
+					"default": false,
+					"description": "Display extension debug information in the 'Cloud Code' output window."
+				},
+				"cloudcode.minikubeStatusBar": {
+					"type": "boolean",
+					"default": true,
+					"description": "Display minikube status in the status bar."
+				},
+				"cloudcode.enableCustomApplications": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable Custom Sample Application Support",
+					"deprecationMessage": "Internal feature flag"
+				},
+				"cloudcode.customApplications": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "object",
+						"properties": {
+							"branchName": {
+								"type": "string",
+								"description": "Branch name in git repository",
+								"default": ""
+							},
+							"repoUrl": {
+								"type": "string",
+								"description": "Git path pointing to the repository",
+								"default": ""
+							},
+							"localPath": {
+								"type": "string",
+								"description": "Folder where the sample repository has been stored locally",
+								"default": ""
+							}
+						}
+					},
+					"description": "List of custom samples in Cloud Code"
+				},
+				"cloudcode.enableGkeAutopilotSupport": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable deployment support for GKE-Autopilot clusters"
+				},
+				"cloudcode.enableCrashReporting": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable reporting unexpected Cloud Code crashes to Google",
+					"deprecationMessage": "Internal feature flag."
+				},
+				"cloudcode.showWelcomeOrReleaseNotes": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable displaying welcome and release notes on first use of cloud code and subsequent updates.",
+					"deprecationMessage": "Internal feature flag."
+				}
+			}
+		},
+		"debuggers": [
+			{
+				"type": "cloudcode",
+				"label": "Cloud Code",
+				"configurationAttributes": {
+					"attach": {
+						"properties": {
+							"language": {
+								"type": "string",
+								"enum": [
+									"Node",
+									"NETCore",
+									"Java",
+									"Python",
+									"Go"
+								],
+								"description": "Programming language of the application being debugged.",
+								"default": null
+							},
+							"debugPort": {
+								"type": "number",
+								"description": "Debug Port used on the container.",
+								"default": 9229
+							},
+							"remoteRoot": {
+								"type": "string",
+								"description": "Absolute path to the remote directory containing the program",
+								"default": "Path to the Remote Directory Containing the Program"
+							},
+							"podSelector": {
+								"type": "object",
+								"description": "Selector to choose debugging pod. Usually a dictionary where key is app and value is the name of the deployment will suffice. See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more information.",
+								"default": {
+									"app": "deployment-name"
+								}
+							},
+							"localRoot": {
+								"type": "string",
+								"description": "Path to the local directory containing the program",
+								"default": "^\"\\${workspaceFolder}\""
+							},
+							"containerName": {
+								"type": "string",
+								"description": "Name of the container to be debugged. This field will only be used if more than one container is found in the pod.",
+								"default": "container-name"
+							},
+							"protocol": {
+								"type": "string",
+								"enum": [
+									"auto",
+									"inspector",
+									"legacy"
+								],
+								"description": "Node.js debug protocol used",
+								"default": "auto"
+							}
+						}
+					}
+				}
+			},
+			{
+				"type": "cloudcode.kubernetes",
+				"label": "Cloud Code: Kubernetes",
+				"configurationAttributes": {
+					"launch": {
+						"properties": {
+							"skaffoldConfig": {
+								"type": "string",
+								"description": "Path to the skaffold configuration file used for running the app.",
+								"default": "${workspaceFolder}/skaffold.yaml"
+							},
+							"profile": {
+								"type": "string",
+								"description": "Name of the skaffold profile. Remove this field to use the default profile.",
+								"default": "profile-name"
+							},
+							"imageRegistry": {
+								"type": "string",
+								"description": "Image registry to push the container images to. For example, gcr.io/{Google Cloud Project ID} or docker.io/{Repository Name}",
+								"default": "gcr.io/${gcpProjectId}"
+							},
+							"watch": {
+								"type": "boolean",
+								"description": "Watches for changes in the workspace and re-runs the application. Defaults to true.",
+								"default": true
+							},
+							"cleanUp": {
+								"type": "boolean",
+								"description": "Deployed kubernetes resources will be cleaned up after the application is terminated. Defaults to true.",
+								"default": true
+							},
+							"autoStop": {
+								"type": "boolean",
+								"description": "Minikube clusters started automatically by Cloud Code will stop after the user is done with the extension. Defaults to true.",
+								"default": true
+							},
+							"portForward": {
+								"type": "boolean",
+								"description": "Forwards ports for exposed kubernetes resources on the cluster to your local machine. Defaults to true.",
+								"default": true
+							},
+							"resourceDeletionTimeoutMins": {
+								"type": "number",
+								"description": "Timeout in minutes for skaffold to wait on resource deletions before redeploying.",
+								"default": 2
+							},
+							"skaffoldFlags": {
+								"type": "object",
+								"description": "Skaffold flags",
+								"properties": {
+									"modules": {
+										"type": "array",
+										"item": {
+											"type": "string"
+										},
+										"description": "skaffold modules"
+									}
+								}
+							},
+							"debug": {
+								"type": "array",
+								"items": {
+									"properties": {
+										"image": {
+											"type": "string",
+											"description": "The name of the container image."
+										},
+										"sourceFileMap": {
+											"type": "object",
+											"description": "Path mapping used by the debugger. The key is the local path and the value is the path on the remote container.",
+											"default": {
+												"${workspaceFolder}": "${containerAppRoot}"
+											}
+										}
+									}
+								},
+								"description": "An array of image names and their respective source paths mapped from a local source. Any additional fields will be passed along to the respective language debugger. For example, justMyCode for the Python debugger.",
+								"default": []
+							}
+						}
+					},
+					"attach": {
+						"properties": {
+							"language": {
+								"type": "string",
+								"enum": [
+									"Node",
+									"NETCore",
+									"Java",
+									"Python",
+									"Go"
+								],
+								"description": "Programming language of the application being debugged.",
+								"default": null
+							},
+							"debugPort": {
+								"type": "number",
+								"description": "Debug Port used on the container.",
+								"default": 9229
+							},
+							"remoteRoot": {
+								"type": "string",
+								"description": "Absolute path to the remote directory containing the program",
+								"default": "Path to the Remote Directory Containing the Program"
+							},
+							"podSelector": {
+								"type": "object",
+								"description": "Selector to choose debugging pod. Usually a dictionary where key is app and value is the name of the deployment will suffice. See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more information.",
+								"default": {
+									"app": "deployment-name"
+								}
+							},
+							"localRoot": {
+								"type": "string",
+								"description": "Path to the local directory containing the program",
+								"default": "^\"\\${workspaceFolder}\""
+							},
+							"containerName": {
+								"type": "string",
+								"description": "Name of the container to be debugged. This field will only be used if more than one container is found in the pod.",
+								"default": "container-name"
+							},
+							"protocol": {
+								"type": "string",
+								"enum": [
+									"auto",
+									"inspector",
+									"legacy"
+								],
+								"description": "Node.js option: debug protocol to use",
+								"default": "auto"
+							},
+							"justMyCode": {
+								"type": "boolean",
+								"description": "Python option: debug only user-written code.",
+								"default": true
+							}
+						}
+					}
+				},
+				"configurationSnippets": [
+					{
+						"label": "Cloud Code: Run/Debug Kubernetes App",
+						"description": "Configuration for running or debugging an app on a Kubernetes cluster",
+						"body": {
+							"name": "Kubernetes: Run/Debug",
+							"type": "cloudcode.kubernetes",
+							"request": "launch",
+							"skaffoldConfig": "^\"\\${workspaceFolder}/skaffold.yaml\"",
+							"watch": true,
+							"cleanUp": true,
+							"portForward": true
+						}
+					},
+					{
+						"label": "Cloud Code: Attach (NodeJS) to k8s Pod",
+						"description": "Configuration for attaching a debugger to a kubernetes pod (NodeJS)",
+						"body": {
+							"name": "Attach to Kubernetes Pod (NodeJS)",
+							"type": "cloudcode.kubernetes",
+							"request": "attach",
+							"language": "Node",
+							"debugPort": 9229,
+							"podSelector": {
+								"app": "deployment-name"
+							},
+							"localRoot": "^\"\\${workspaceFolder}\"",
+							"remoteRoot": "Path to the Remote Directory Containing the Program"
+						}
+					},
+					{
+						"label": "Cloud Code: Attach (.NET Core) to k8s Pod",
+						"description": "Configuration for attaching a debugger to a kubernetes pod (.NET Core)",
+						"body": {
+							"name": "Attach to Kubernetes Pod (.NET Core)",
+							"type": "cloudcode.kubernetes",
+							"request": "attach",
+							"language": "NETCore",
+							"podSelector": {
+								"app": "deployment-name"
+							},
+							"localRoot": "^\"\\${workspaceFolder}\"",
+							"remoteRoot": "Path to the Remote Directory Containing the Program"
+						}
+					},
+					{
+						"label": "Cloud Code: Attach (Java) to k8s Pod",
+						"description": "Configuration for attaching a debugger to a kubernetes pod (Java)",
+						"body": {
+							"name": "Attach to Kubernetes Pod (Java)",
+							"type": "cloudcode.kubernetes",
+							"request": "attach",
+							"language": "Java",
+							"debugPort": 50005,
+							"podSelector": {
+								"app": "deployment-name"
+							}
+						}
+					},
+					{
+						"label": "Cloud Code: Attach (Python) to k8s Pod",
+						"description": "Configuration for attaching a debugger to a kubernetes pod (Python)",
+						"body": {
+							"name": "Attach to Kubernetes Pod (Python)",
+							"type": "cloudcode.kubernetes",
+							"request": "attach",
+							"language": "Python",
+							"debugPort": 3000,
+							"podSelector": {
+								"app": "deployment-name"
+							},
+							"localRoot": "^\"\\${workspaceFolder}\"",
+							"remoteRoot": "Path to the Remote Directory Containing the Program"
+						}
+					},
+					{
+						"label": "Cloud Code: Attach (Go) to k8s Pod",
+						"description": "Configuration for attaching a debugger to a kubernetes pod (Go)",
+						"body": {
+							"name": "Attach to Kubernetes Pod (Go)",
+							"type": "cloudcode.kubernetes",
+							"request": "attach",
+							"language": "Go",
+							"debugPort": 2345,
+							"podSelector": {
+								"app": "deployment-name"
+							},
+							"localRoot": "^\"\\${workspaceFolder}\"",
+							"remoteRoot": "Path to the Remote Directory Containing the Program"
+						}
+					}
+				]
+			},
+			{
+				"type": "cloudcode.cloudrun",
+				"label": "Cloud Code: Cloud Run",
+				"configurationAttributes": {
+					"launch": {
+						"properties": {
+							"service": {
+								"type": "object",
+								"description": "Service Settings",
+								"properties": {
+									"name": {
+										"type": "string",
+										"description": "Name of the service",
+										"default": "service-name"
+									},
+									"containerPort": {
+										"type": "number",
+										"description": "Container Port",
+										"default": 8080
+									},
+									"serviceAccountName": {
+										"type": "string",
+										"description": "Service Account",
+										"default": ""
+									},
+									"env": {
+										"type": "array",
+										"description": "Environment Variables",
+										"items": {
+											"type": "object",
+											"description": "Environment Variable",
+											"properties": {
+												"name": {
+													"type": "string",
+													"description": "name",
+													"default": ""
+												},
+												"value": {
+													"type": "string",
+													"description": "value",
+													"default": ""
+												}
+											}
+										},
+										"default": []
+									},
+									"cloudSqlInstances": {
+										"type": "array",
+										"description": "Cloud Sql Instances",
+										"default": []
+									},
+									"resources": {
+										"type": "object",
+										"description": "resources",
+										"properties": {
+											"limits": {
+												"type": "object",
+												"description": "limits",
+												"properties": {
+													"cpu": {
+														"type": "number",
+														"description": "Container CPU limit. Limit is expressed as a number of CPU. Fractional CPU limits are allowed (e.g. 1.5).",
+														"default": 1
+													},
+													"memory": {
+														"type": "string",
+														"description": "Memory in MiB",
+														"default": "256Mi"
+													}
+												},
+												"default": {
+													"memory": "256Mi"
+												}
+											}
+										},
+										"default": {
+											"limits": {
+												"memory": "256Mi"
+											}
+										}
+									}
+								}
+							},
+							"image": {
+								"type": "string",
+								"description": "Name of the image",
+								"default": "image-name"
+							},
+							"build": {
+								"type": "object",
+								"description": "Build Settings. Specify one of [docker, jib, buildpacks].",
+								"properties": {
+									"docker": {
+										"type": "object",
+										"description": "Builds image from a Dockerfile",
+										"properties": {
+											"path": {
+												"type": "string",
+												"description": "Dockerfile path",
+												"default": "${workspaceFolder}/Dockerfile"
+											},
+											"target": {
+												"type": "string",
+												"description": "Dockerfile target name to build",
+												"default": ""
+											},
+											"buildArgs": {
+												"type": "object",
+												"description": "Arguments passed to the docker build",
+												"default": {}
+											}
+										}
+									},
+									"jibMaven": {
+										"type": "object",
+										"description": "Builds image using the Jib Maven Plugin",
+										"properties": {
+											"path": {
+												"type": "string",
+												"description": "Build file path. Ex: pom.xml, .mvn directory",
+												"default": "${workspaceFolder}/pom.xml"
+											},
+											"project": {
+												"type": "string",
+												"description": "Java Project name. Ex: org.springframework.boot:frontend",
+												"default": ""
+											}
+										}
+									},
+									"jibGradle": {
+										"type": "object",
+										"description": "Builds image using the Jib Gradle Plugin",
+										"properties": {
+											"path": {
+												"type": "string",
+												"description": "Build file path. Ex: build.gradle, gradle.properties, settings.gradle or the Gradle wrapper script (gradlew, gradlew.bat, or gradlew.cmd)",
+												"default": "${workspaceFolder}/build.gradle"
+											},
+											"project": {
+												"type": "string",
+												"description": "Java Project name. Ex: org.springframework.boot:frontend",
+												"default": ""
+											}
+										}
+									},
+									"buildpacks": {
+										"type": "object",
+										"description": "Builds image using Cloud Native Buildpacks",
+										"properties": {
+											"path": {
+												"type": "string",
+												"description": "Entry point file path.",
+												"default": "${workspaceFolder}/package.json"
+											},
+											"builder": {
+												"type": "string",
+												"description": "Builder image used",
+												"default": "heroku/buildpacks"
+											},
+											"env": {
+												"type": "array",
+												"description": "Environment Variables",
+												"items": {
+													"type": "object",
+													"description": "Environment Variable",
+													"properties": {
+														"name": {
+															"type": "string",
+															"description": "name",
+															"default": ""
+														},
+														"value": {
+															"type": "string",
+															"description": "value",
+															"default": ""
+														}
+													}
+												},
+												"default": [
+													{
+														"name": "",
+														"value": ""
+													}
+												]
+											}
+										}
+									}
+								}
+							},
+							"target": {
+								"type": "object",
+								"description": "Target to run the app. Only minikube is currently supported.",
+								"properties": {
+									"minikube": {
+										"type": "object",
+										"description": "Cloud Code managed minikube.",
+										"properties": {}
+									}
+								},
+								"default": {
+									"minikube": {}
+								}
+							},
+							"watch": {
+								"type": "boolean",
+								"description": "Watches for changes in the workspace and re-runs the application. Defaults to true.",
+								"default": true
+							},
+							"autoStop": {
+								"type": "boolean",
+								"description": "Minikube clusters started automatically by Cloud Code will stop after the user is done with the extension. Defaults to true.",
+								"default": true
+							},
+							"debug": {
+								"type": "object",
+								"description": "Debug Settings",
+								"properties": {
+									"sourceFileMap": {
+										"type": "object",
+										"description": "Path mapping used by the debugger. The key is the local path and the value is the path on the remote container.",
+										"default": {
+											"${workspaceFolder}": "${containerAppRoot}"
+										}
+									}
+								}
+							},
+							"externalPortForward": {
+								"type": "number",
+								"markdownDescription": "When this is set, Cloud Code will port forward a version of the service to `0.0.0.0` so it is accessible to other devices on the network. This is useful for debugging your service on mobile devices."
+							}
+						}
+					}
+				},
+				"configurationSnippets": [
+					{
+						"label": "Cloud Code: Run/Debug Cloud Run App",
+						"description": "Configuration for running and debugging a Cloud Run app locally",
+						"body": {
+							"name": "Cloud Run: Run/Debug Locally",
+							"type": "cloudcode.cloudrun",
+							"request": "launch",
+							"build": {
+								"docker": {
+									"path": "${1:Dockerfile}"
+								}
+							},
+							"image": "^\"\\${workspaceFolderBasename}\"",
+							"service": {
+								"name": "^\"\\${workspaceFolderBasename}\"",
+								"containerPort": 8080,
+								"resources": {
+									"limits": {
+										"memory": "256Mi"
+									}
+								}
+							},
+							"target": {
+								"minikube": {}
+							},
+							"watch": true
+						}
+					}
+				]
+			}
+		],
+		"walkthroughs": [
+			{
+				"id": "one-activity-bar",
+				"title": "Customize Cloud Code Sidebar",
+				"description": "This walkthrough helps you customize the views that appear in the Cloud Code sidebar.",
+				"when": "config.cloudcode.beta.enableOneActivityBar",
+				"steps": [
+					{
+						"id": "one_activity_bar",
+						"title": "Unified activity bar",
+						"description": "All explorers are consolidated into a single Activity bar icon.",
+						"media": {
+							"image": "images/walkthrough/one_activity_bar.png",
+							"altText": "Unified Activity Bar"
+						}
+					},
+					{
+						"id": "project_selector",
+						"title": "Use the Project Selector status bar item",
+						"description": "The project selector in the bottom status bar applies to all Cloud Code explorers.",
+						"media": {
+							"image": "images/walkthrough/project_selector.png",
+							"altText": "New Project Selector status bar item"
+						}
+					},
+					{
+						"id": "hide_show_view",
+						"title": "Hide and show explorer views",
+						"description": "The top Cloud Code More menu (three dots) lets you choose which views are shown.",
+						"media": {
+							"image": "images/walkthrough/show_hide_explorers.gif",
+							"altText": "Show & Hide explorers"
+						}
+					},
+					{
+						"id": "rearrange_view",
+						"title": "Rearrange views",
+						"description": "You can drag explorers to reorder them in the Cloud Code activity bar.",
+						"media": {
+							"image": "images/walkthrough/reorder_explorers.gif",
+							"altText": "Reorder explorers"
+						}
+					},
+					{
+						"id": "split_explorers",
+						"title": "Move a view to other activity bar",
+						"description": "You can drag an explorer to a different activity bar to create your own layout.",
+						"media": {
+							"image": "images/walkthrough/split_explorers.gif",
+							"altText": "Move a view to other activity bar"
+						}
+					}
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "cloudcode.refreshKubectlExplorer",
+				"title": "Refresh Kubernetes Explorer",
+				"icon": "$(refresh)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.setupKubectlClusterProxy",
+				"title": "Set up Kubectl Proxying for cluster",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.cancelKubectlClusterProxy",
+				"title": "Cancel Kubectl Proxying for cluster",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.gke.setupPrivateNodesCloudNat",
+				"title": "Grant private GKE nodes outbound internet access",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openKubeDocs",
+				"title": "Open Documentation",
+				"icon": "$(question)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.refreshCloudRunExplorer",
+				"title": "Refresh Cloud Run Service Explorer",
+				"icon": "$(refresh)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.refreshSecretsExplorer",
+				"title": "Refresh Secrets Explorer",
+				"icon": "$(refresh)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.refreshGceExplorer",
+				"title": "Refresh Compute Engine Explorer",
+				"icon": "$(refresh)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.compute.ui.vm.open.in.console",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.compute.ui.vm.firewall.open.in.console",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.compute.ui.vm.disk.open.in.console",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.gce.sshVmInstance",
+				"title": "Open SSH",
+				"icon": "$(terminal)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.switchKubeConfig",
+				"title": "Switch KubeConfig",
+				"icon": {
+					"light": "images/light/switch.svg",
+					"dark": "images/dark/switch.svg"
+				},
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.kubernetes.openClusterInProviderPortal",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.sharedExplorer.chooseProject",
+				"title": "Switch Project",
+				"icon": {
+					"light": "images/light/switch.svg",
+					"dark": "images/dark/switch.svg"
+				},
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openKubeconfig",
+				"title": "Open File",
+				"icon": "$(link-external)",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.removeKubeConfig",
+				"title": "Remove from List",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.removeKubeConfigCommandPalette",
+				"title": "Remove KubeConfig from Kubernetes Explorer",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.refreshKubectlCollection",
+				"title": "Refresh",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.setKubectlCluster",
+				"title": "Set as Active Cluster",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.setKubectlContext",
+				"title": "Set as Active Context",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.setKubectlNamespace",
+				"title": "Set as Active Namespace",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.deleteKubectlResource",
+				"title": "Delete",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.describeKubectlResource",
+				"title": "Describe",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.toggleApiExplorerCategories",
+				"title": "Toggle Categories",
+				"category": "Cloud Code",
+				"icon": "$(list-unordered)"
+			},
+			{
+				"command": "cloudcode.searchApi",
+				"title": "Search for API",
+				"category": "Cloud Code",
+				"icon": "$(search)"
+			},
+			{
+				"command": "cloudcode.metricsKubectlResource",
+				"title": "View Metrics",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.getKubectlContainerTerminal",
+				"title": "Get Terminal",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openKubernetesDashboard",
+				"title": "Open Kubernetes Dashboard",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.copyResourceValue",
+				"title": "Copy Resource Name",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.copyLeafValue",
+				"title": "Copy Value",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.applyTriggerYaml",
+				"title": "Apply Trigger",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openKubectlAddress",
+				"title": "Open Address",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.diffConfiguration",
+				"title": "Diff Current JSON/YAML File with K8s Deployed Resource",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.createConfiguration",
+				"title": "Create Kubernetes Resource from Current File",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.applyConfiguration",
+				"title": "Apply Current JSON/YAML File to K8s Deployed Resource",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.dryrun.configuration.serverside",
+				"title": "Dry-run Current Config for Server-side Validation",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.dryrun.configuration.clientside",
+				"title": "Dry-run Current Config for Client-side Validation",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.deleteKubectlCluster",
+				"title": "Remove Context Under Cluster",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.manageCustomRepos",
+				"title": "Manage Custom Sample Repositories",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.deleteKubectlContext",
+				"title": "Remove Context",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.createK8sAppExplorerTitle",
+				"title": "Open a Kubernetes Sample",
+				"category": "Cloud Code",
+				"icon": "$(new-folder)"
+			},
+			{
+				"command": "cloudcode.runK8sAppExplorerTitle",
+				"title": "Run App",
+				"category": "Cloud Code",
+				"icon": "$(play)"
+			},
+			{
+				"command": "cloudcode.debugK8sAppExplorerTitle",
+				"title": "Debug App",
+				"category": "Cloud Code",
+				"icon": "$(debug)"
+			},
+			{
+				"command": "cloudcode.createNewApp",
+				"title": "New Application",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.createCloudRunAppExplorerTitle",
+				"title": "Create New Cloud Run App",
+				"category": "Cloud Code",
+				"icon": "$(new-folder)"
+			},
+			{
+				"command": "cloudcode.runCloudRunAppExplorerTitle",
+				"title": "Run App on Local Cloud Run Emulator",
+				"category": "Cloud Code",
+				"icon": "$(play)"
+			},
+			{
+				"command": "cloudcode.debugCloudRunAppExplorerTitle",
+				"title": "Debug App on Local Cloud Run Emulator",
+				"category": "Cloud Code",
+				"icon": "$(debug)"
+			},
+			{
+				"command": "cloudcode.cloudRunOpenDocs",
+				"title": "Open Documentation",
+				"category": "Cloud Code",
+				"icon": "$(question)"
+			},
+			{
+				"command": "cloudcode.cloudRunDeployRevision",
+				"title": "Deploy to Cloud Run",
+				"category": "Cloud Code",
+				"icon": "$(cloud-upload)"
+			},
+			{
+				"command": "cloudcode.cloudRunDeployService",
+				"title": "Deploy to Cloud Run",
+				"category": "Cloud Code",
+				"icon": "$(cloud-upload)"
+			},
+			{
+				"command": "cloudcode.cloudRunOpenInConsole",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.cloudRunOpenEndpoint",
+				"title": "Open URL",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.cloudRunOpenContainerImage",
+				"title": "Open Container Image URL",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openGceDocs",
+				"title": "Open Documentation",
+				"category": "Cloud Code",
+				"icon": "$(question)"
+			},
+			{
+				"command": "cloudcode.runKubernetesApp",
+				"title": "Run on Kubernetes",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.debugKubernetesApp",
+				"title": "Debug on Kubernetes",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.runCloudRunApp",
+				"title": "Run on Cloud Run Emulator",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.debugCloudRunApp",
+				"title": "Debug on Cloud Run Emulator",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.deployCloudRunApp",
+				"title": "Deploy to Cloud Run",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.welcome",
+				"title": "Welcome",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.changeLogs",
+				"title": "Change Logs",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openApiDetail",
+				"title": "Open API Detail Page",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openCloudShellReadme",
+				"title": "Welcome to Remote Development",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.statusbarCommand",
+				"title": "Open Cloud Code Status Bar Menu",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.mountSecretVolume",
+				"title": "Mount Secret as Volume",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.addSecretEnvironmentVariable",
+				"title": "Add Secret as Environment Variable",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.openDocs",
+				"title": "Open Documentation",
+				"category": "Cloud Code",
+				"icon": "$(question)"
+			},
+			{
+				"command": "cloudcode.secrets.viewVersionValue",
+				"title": "Show Version Value",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.enableVersion",
+				"title": "Enable Version",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.disableVersion",
+				"title": "Disable Version",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.destroyVersion",
+				"title": "Destroy Version",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.createVersion",
+				"title": "Create Secret Version",
+				"category": "Cloud Code",
+				"icon": "$(add)"
+			},
+			{
+				"command": "cloudcode.secrets.createVersionWithText",
+				"title": "Add Version to Secret in Secret Manager...",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.create",
+				"title": "Create Secret",
+				"category": "Cloud Code",
+				"icon": "$(add)"
+			},
+			{
+				"command": "cloudcode.secrets.createWithText",
+				"title": "Create Secret in Secret Manager...",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.openCloudConsole",
+				"title": "Open in Cloud Console",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.editPermissions",
+				"title": "Edit Permissions in Cloud Console",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.secrets.search",
+				"title": "Search for Secret",
+				"category": "Cloud Code",
+				"icon": "$(search)"
+			},
+			{
+				"command": "cloudcode.secrets.createLabel",
+				"title": "Create Label",
+				"category": "Cloud Code",
+				"icon": "$(add)"
+			},
+			{
+				"command": "cloudcode.secrets.editLabel",
+				"title": "Edit Label",
+				"category": "Cloud Code",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "cloudcode.secrets.copyResourceId",
+				"title": "Copy Resource ID",
+				"category": "Cloud Code",
+				"icon": "$(clippy)"
+			},
+			{
+				"command": "cloudcode.secrets.showCodingInstructions",
+				"title": "Show Coding Instructions",
+				"category": "Cloud Code",
+				"icon": "$(code)"
+			},
+			{
+				"command": "cloudcode.openLogsViewer",
+				"title": "View Logs",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/logging.svg",
+					"dark": "images/dark/logging.svg"
+				}
+			},
+			{
+				"command": "cloudcode.reportIssueOnGithub",
+				"title": "Report Extension Issue on Github",
+				"category": "Cloud Code",
+				"icon": "$(report)"
+			},
+			{
+				"command": "cloudcode.cloudSdkTroubleshooting",
+				"title": "Troubleshoot Problems with Cloud SDK",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.viewKubectlYaml",
+				"title": "View YAML",
+				"category": "Cloud Code",
+				"icon": "$(file-symlink-file)"
+			},
+			{
+				"command": "cloudcode.editKubectlYaml",
+				"title": "Edit YAML",
+				"category": "Cloud Code",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "cloudcode.viewKubectlDeploymentLog",
+				"title": "View KubectlDeploymentLog",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.scaleDeployment",
+				"title": "Scale Deployment",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "cloudcode.openUrl",
+				"title": "Open URL",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.gke.runGcloudInit",
+				"title": "Initialize Google Cloud SDK",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.gke.gcloudSignout",
+				"title": "Sign Out of All Accounts in Google Cloud SDK",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.gke.gcloudSignoutContext",
+				"title": "Sign Out of Google Cloud SDK",
+				"category": "Cloud Code",
+				"icon": "$(sign-out)"
+			},
+			{
+				"command": "cloudcode.copyValue",
+				"title": "Copy Value",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.shell.openRecent",
+				"title": "Open in Cloud Shell...",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.exportCoverage",
+				"title": "INTERNAL: Export Code Coverage",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.addClusterToConfig",
+				"title": "Add a Cluster to the KubeConfig",
+				"category": "Cloud Code",
+				"icon": "$(add)"
+			},
+			{
+				"command": "cloudcode.softwareLicensesPrivacyPolicy",
+				"title": "Show Software Licenses and Privacy",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.kubernetes.localDevExplorer.openSkaffoldLogChannel",
+				"title": "Open Skaffold Log",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/logging.svg",
+					"dark": "images/dark/logging.svg"
+				}
+			},
+			{
+				"command": "cloudcode.kubernetes.localDevExplorer.openLaunchConfig",
+				"title": "Open Launch Config",
+				"category": "Cloud Code",
+				"icon": "$(gear)"
+			},
+			{
+				"command": "cloudcode.skaffold.pipeline.trigger",
+				"title": "Rebuild and redeploy the application",
+				"category": "Cloud Code",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "cloudcode.kubernetes.localDevExplorer.openUrl",
+				"title": "Open URL",
+				"category": "Cloud Code",
+				"icon": "$(link-external)"
+			},
+			{
+				"command": "cloudcode.takeSurvey",
+				"title": "Take Survey",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.openSkaffoldEventsV2Log",
+				"title": "Open Skaffold Events V2 Logs",
+				"category": "Cloud Code",
+				"when": "isOutputLoggingEnabled"
+			},
+			{
+				"command": "cloudcode.kubernetes.localDevExplorer.focusView",
+				"title": "Focus on Development Sessions Explorer",
+				"category": "Cloud Code",
+				"when": "isOutputLoggingEnabled"
+			},
+			{
+				"command": "apigee.workspace.create",
+				"title": "Create Apigee workspace",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "apigee.tests.createTestBundle",
+				"title": "Create Apigee test bundle",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "apigee.emulator.setup",
+				"title": "Setup Apigee Emulator",
+				"category": "Cloud Code",
+				"icon": "$(cloud-download)"
+			},
+			{
+				"command": "apigee.emulator.update",
+				"title": "Update Apigee Emulator",
+				"category": "Cloud Code",
+				"icon": "$(sync)"
+			},
+			{
+				"command": "apigee.emulator.copyurl",
+				"title": "Copy URL",
+				"category": "Cloud Code",
+				"icon": "$(chrome-restore)"
+			},
+			{
+				"command": "apigee.container.start",
+				"title": "Start Container",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Play.svg",
+					"dark": "images/dark/Play.svg"
+				}
+			},
+			{
+				"command": "apigee.container.stop",
+				"title": "Stop container",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Stop.svg",
+					"dark": "images/dark/Stop.svg"
+				}
+			},
+			{
+				"command": "apigee.container.reset",
+				"title": "Reset container",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Clear-Layers.svg",
+					"dark": "images/dark/Clear-Layers.svg"
+				}
+			},
+			{
+				"command": "apigee.container.add",
+				"title": "Add container",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.container.delete",
+				"title": "Delete container",
+				"category": "Cloud Code",
+				"icon": "$(trash)"
+			},
+			{
+				"command": "apigee.workspace.open",
+				"title": "Open Apigee workspace",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "apigee.environments.create",
+				"title": "Create Apigee environment",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.environments.create.targetserver",
+				"title": "Create target server",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.environments.create.deployments",
+				"title": "Manage deployments",
+				"icon": {
+					"light": "images/light/Settings.svg",
+					"dark": "images/dark/Settings.svg"
+				}
+			},
+			{
+				"command": "apigee.environments.create.flowhooks",
+				"title": "Manage flow hooks",
+				"icon": {
+					"light": "images/light/Settings.svg",
+					"dark": "images/dark/Settings.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createProxyBundle",
+				"title": "Create Apigee proxy bundle",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.importProxyBundle",
+				"title": "Import Apigee proxy bundle",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Upload.svg",
+					"dark": "images/dark/Upload.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createSharedFlowBundle",
+				"title": "Create Apigee shared flow bundle",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.importSharedFlowBundle",
+				"title": "Import Apigee shared flow bundle",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Upload.svg",
+					"dark": "images/dark/Upload.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createProxyEndpoint",
+				"title": "Create proxy endpoint",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createTargetEndpoint",
+				"title": "Create target endpoint",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createPolicy",
+				"title": "Create policy",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createSharedFlow",
+				"title": "Create shared flow",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.resource.create",
+				"title": "Create resource",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.resource.import",
+				"title": "Import resource",
+				"icon": {
+					"light": "images/light/Upload.svg",
+					"dark": "images/dark/Upload.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.createTestBundle",
+				"title": "Create Apigee test bundle",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.createDeveloper",
+				"title": "Create developer",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.createProduct",
+				"title": "Create API product",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.createApp",
+				"title": "Create developer app",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.createMap",
+				"title": "Create key value map",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.environments.deploy",
+				"title": "Deploy to Apigee Emulator",
+				"icon": {
+					"light": "images/light/Deploy.svg",
+					"dark": "images/dark/Deploy.svg"
+				},
+				"when": "dockerInstalled"
+			},
+			{
+				"command": "apigee.tests.setupTest",
+				"title": "Export test resources to Apigee Emulator",
+				"icon": {
+					"light": "images/light/Export-Test.svg",
+					"dark": "images/dark/Export-Test.svg"
+				},
+				"when": "dockerInstalled"
+			},
+			{
+				"command": "apigee.delete",
+				"title": "Delete"
+			},
+			{
+				"command": "apigee.clone",
+				"title": "Copy"
+			},
+			{
+				"command": "apigee.rename",
+				"title": "Rename"
+			},
+			{
+				"command": "apigee.emulator.refresh",
+				"title": "Refresh Apigee Emulator view",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Refresh.svg",
+					"dark": "images/dark/Refresh.svg"
+				}
+			},
+			{
+				"command": "apigee.emulator.setuptest",
+				"title": "Set up test resources in Apigee Emulator"
+			},
+			{
+				"command": "apigee.explorer.refresh",
+				"title": "Refresh Apigee Explorer view",
+				"category": "Cloud Code",
+				"icon": {
+					"light": "images/light/Refresh.svg",
+					"dark": "images/dark/Refresh.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createSharedFlowBundleMultiple",
+				"title": "Add shared flow element",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.proxies.createProxyMultiple",
+				"title": "Add proxy element",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.environments.createMultiple",
+				"title": "Add resource",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "apigee.tests.multiple",
+				"title": "Add resource",
+				"icon": {
+					"light": "images/light/Add.svg",
+					"dark": "images/dark/Add.svg"
+				}
+			},
+			{
+				"command": "cloudcode.blueprints.editConfiguration",
+				"title": "Edit Blueprints Configuration with Cloud Code",
+				"icon": "$(pencil)"
+			},
+			{
+				"command": "cloudcode.minikubeControl",
+				"title": "Control minikube",
+				"category": "Cloud Code"
+			},
+			{
+				"command": "cloudcode.gcloud.install",
+				"title": "Install Google Cloud CLI",
+				"category": "Cloud Code"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "cloudcode.removeKubeConfig",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.kubernetes.openClusterInProviderPortal",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.toggleApiExplorerCategories",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openApiDetail",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.sharedExplorer.chooseProject",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.copyLeafValue",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.applyTriggerYaml",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenDocs",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployRevision",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployService",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenInConsole",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenEndpoint",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenContainerImage",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openGceDocs",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.viewKubectlDeploymentLog",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.scaleDeployment",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openKubectlAddress",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.mountSecretVolume",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.changeLogs",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.addSecretEnvironmentVariable",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.openDocs",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.viewVersionValue",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.enableVersion",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.disableVersion",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.destroyVersion",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.openCloudConsole",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.editPermissions",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.createVersionWithText",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.createWithText",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.createLabel",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.editLabel",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.secrets.showCodingInstructions",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openUrl",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openKubeconfig",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.gke.runGcloudInit",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.gke.gcloudSignout",
+					"when": "!runningOnCloudShell"
+				},
+				{
+					"command": "cloudcode.gke.gcloudSignoutContext",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.exportCoverage",
+					"when": "cloudcode.exportCoverageVisible"
+				},
+				{
+					"command": "cloudcode.shell.openRecent",
+					"when": "!runningOnCloudShell"
+				},
+				{
+					"command": "cloudcode.refreshCloudRunExplorer",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.createCloudRunAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.runCloudRunAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.debugCloudRunAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.refreshSecretsExplorer",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.refreshGceExplorer",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.refreshKubectlCollection",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.openKubeDocs",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.refreshKubectlExplorer",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.createK8sAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.runK8sAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.debugK8sAppExplorerTitle",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.deleteKubectlCluster",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.deleteKubectlContext",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.setKubectlCluster",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.setKubectlContext",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.setKubectlNamespace",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.reportIssueOnGithub",
+					"when": "!runningInTheia"
+				},
+				{
+					"command": "cloudcode.openCloudShellReadme",
+					"when": "runningOnCloudShell && !runningInTheia"
+				},
+				{
+					"command": "cloudcode.getKubectlContainerTerminal",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "false || runningTest"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openSkaffoldLogChannel",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openLaunchConfig",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.skaffold.pipeline.trigger",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openUrl",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.open.in.console",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.firewall.open.in.console",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.disk.open.in.console",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.gce.sshVmInstance",
+					"when": "false"
+				},
+				{
+					"command": "apigee.emulator.setup",
+					"when": "false"
+				},
+				{
+					"command": "apigee.emulator.update",
+					"when": "false"
+				},
+				{
+					"command": "apigee.emulator.copyurl",
+					"when": "false"
+				},
+				{
+					"command": "apigee.container.add",
+					"when": "false"
+				},
+				{
+					"command": "apigee.container.delete",
+					"when": "false"
+				},
+				{
+					"command": "apigee.container.start",
+					"when": "false"
+				},
+				{
+					"command": "apigee.container.stop",
+					"when": "false"
+				},
+				{
+					"command": "apigee.container.reset",
+					"when": "false"
+				},
+				{
+					"command": "apigee.explorer.refresh",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.emulator.refresh",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.delete",
+					"when": "false"
+				},
+				{
+					"command": "apigee.clone",
+					"when": "false"
+				},
+				{
+					"command": "apigee.rename",
+					"when": "false"
+				},
+				{
+					"command": "apigee.environments.create",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.environments.create.targetserver",
+					"when": "false"
+				},
+				{
+					"command": "apigee.environments.create.deployments",
+					"when": "false"
+				},
+				{
+					"command": "apigee.environments.create.flowhooks",
+					"when": "false"
+				},
+				{
+					"command": "apigee.resource.create",
+					"when": "false"
+				},
+				{
+					"command": "apigee.resource.import",
+					"when": "false"
+				},
+				{
+					"command": "apigee.environments.deploy",
+					"when": "false"
+				},
+				{
+					"command": "apigee.emulator.setuptest",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createProxyBundle",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.proxies.importProxyBundle",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlowBundle",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.proxies.importSharedFlowBundle",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.proxies.createProxyEndpoint",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createTargetEndpoint",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createPolicy",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlow",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.setupTest",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.createTestBundle",
+					"when": "validApigeeWorkspace"
+				},
+				{
+					"command": "apigee.tests.createDeveloper",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.createProduct",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.createApp",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.createMap",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlowBundleMultiple",
+					"when": "false"
+				},
+				{
+					"command": "apigee.proxies.createProxyMultiple",
+					"when": "false"
+				},
+				{
+					"command": "apigee.environments.createMultiple",
+					"when": "false"
+				},
+				{
+					"command": "apigee.tests.multiple",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.blueprints.editConfiguration",
+					"when": "false"
+				},
+				{
+					"command": "cloudcode.gcloud.install",
+					"when": "false"
+				}
+			],
+			"view/title": [
+				{
+					"command": "cloudcode.addClusterToConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "cloudcode.createK8sAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "cloudcode.runK8sAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/",
+					"group": "navigation@2"
+				},
+				{
+					"command": "cloudcode.debugK8sAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/",
+					"group": "navigation@3"
+				},
+				{
+					"command": "cloudcode.refreshKubectlExplorer",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/",
+					"group": "navigation@5"
+				},
+				{
+					"command": "cloudcode.openKubeDocs",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/",
+					"group": "navigation@6"
+				},
+				{
+					"command": "cloudcode.reportIssueOnGithub",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && !runningInTheia"
+				},
+				{
+					"command": "cloudcode.refreshSecretsExplorer",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/",
+					"group": "navigation@3"
+				},
+				{
+					"command": "cloudcode.refreshGceExplorer",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "cloudcode.createCloudRunAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "cloudcode.runCloudRunAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@2"
+				},
+				{
+					"command": "cloudcode.debugCloudRunAppExplorerTitle",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@3"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployService",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@4"
+				},
+				{
+					"command": "cloudcode.refreshCloudRunExplorer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@5"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenDocs",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "navigation@6"
+				},
+				{
+					"command": "cloudcode.openGceDocs",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/",
+					"group": "navigation@2"
+				},
+				{
+					"command": "cloudcode.searchApi",
+					"when": "view =~ /cloudcode(.unified)?.apiExplorer/",
+					"group": "navigation@0"
+				},
+				{
+					"command": "cloudcode.secrets.openDocs",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/",
+					"group": "navigation@4"
+				},
+				{
+					"command": "cloudcode.secrets.create",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "cloudcode.secrets.search",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/",
+					"group": "navigation@2"
+				},
+				{
+					"command": "cloudcode.toggleApiExplorerCategories",
+					"when": "view =~ /cloudcode(.unified)?.apiExplorer/",
+					"group": "navigation@1"
+				},
+				{
+					"command": "apigee.explorer.refresh",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/",
+					"group": "navigation"
+				},
+				{
+					"command": "apigee.workspace.create",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/"
+				},
+				{
+					"command": "apigee.workspace.open",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/"
+				},
+				{
+					"command": "apigee.emulator.refresh",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "cloudcode.applyTriggerYaml",
+					"when": "resourceScheme == file && resourceLangId == yaml && resourceFilename =~ /trigger/ig",
+					"group": "6_copypath"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "cloudcode.secrets.createWithText",
+					"when": "editorTextFocus",
+					"group": "cloudcode@1"
+				},
+				{
+					"command": "cloudcode.secrets.createVersionWithText",
+					"when": "editorTextFocus",
+					"group": "cloudcode@1"
+				},
+				{
+					"command": "cloudcode.blueprints.editConfiguration",
+					"when": "isBlueprintsEnabled && resourceFilename == Kptfile",
+					"group": "cloudcode@1"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "cloudcode.blueprints.editConfiguration",
+					"when": "isBlueprintsEnabled && resourceFilename == Kptfile",
+					"group": "navigation@100"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "cloudcode.setKubectlCluster",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/ && viewItem =~ /-inactive$/",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.cancelKubectlClusterProxy",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/ && viewItem =~ /-proxied-/",
+					"group": "3"
+				},
+				{
+					"command": "cloudcode.setupKubectlClusterProxy",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/",
+					"group": "3"
+				},
+				{
+					"command": "cloudcode.gke.setupPrivateNodesCloudNat",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/ && viewItem =~ /-(auto)?gke-/",
+					"group": "3"
+				},
+				{
+					"command": "cloudcode.setKubectlContext",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeContextObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.openKubernetesDashboard",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/ && viewItem =~ /-active$/",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.refreshKubectlCollection",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeGenericCollection || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeGenericCollection",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.setKubectlNamespace",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeResource || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeResource",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeIngressObject || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeIngressObject",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeContainer || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeContainer",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubectlIPObject || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubectlIPObject",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeSecretNode || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeSecretNode",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeEvent || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeEvent",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeConfigKeyNode || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeConfigKeyNode",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeConfigMapNode || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeConfigMapNode",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyResourceValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.copyLeafValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == leafObject",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.switchKubeConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeConfigPathObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.switchKubeConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == defaultKubeConfigObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.sharedExplorer.chooseProject",
+					"when": "viewItem == ProjectObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.openKubeconfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeConfigPathObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.openKubeconfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == defaultKubeConfigObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.removeKubeConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeConfigPathObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeResource || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeResource",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.gke.gcloudSignoutContext",
+					"when": "!runningOnCloudShell && viewItem == ProjectObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.viewKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeIngressObject || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeIngressObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployRevision",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployRevision",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunServiceRevisionObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunServiceRevisionObject",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenContainerImage",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunServiceRevisionObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenContainerImage",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosRevisionObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployService",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.cloudRunDeployService",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenInConsole",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenInConsole",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenEndpoint",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunManagedServiceObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.cloudRunOpenEndpoint",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == CloudRunAnthosServiceObject",
+					"group": "0"
+				},
+				{
+					"command": "cloudcode.scaleDeployment",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeDeploymentReplicaObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeResource",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeNodeObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?DeploymentObject/",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?PodObject/",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.editKubectlYaml",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeIngressObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.mountSecretVolume",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?DeploymentObject/",
+					"group": "3"
+				},
+				{
+					"command": "cloudcode.addSecretEnvironmentVariable",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?DeploymentObject/",
+					"group": "3"
+				},
+				{
+					"command": "cloudcode.openKubectlAddress",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubectlIPObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeResource || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeResource",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.describeKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeIngressObject || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeIngressObject",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.metricsKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.metricsKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(AutoGke)?NodeObject/",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.refreshKubectlCollection",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeDeploymentCollection || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeDeploymentCollection",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/ || cloudcode.kubernetes.localDevExplorer && viewItem =~ /kube(System|AutoGkeSystem)?DeploymentObject/",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.refreshKubectlCollection",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubePodCollection || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubePodCollection",
+					"group": "8"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/ || cloudcode.kubernetes.localDevExplorer && viewItem =~ /kube(System|AutoGkeSystem)?PodObject/",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeContainer || cloudcode.kubernetes.localDevExplorer && viewItem == kubeContainer",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeNamespace",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeResource",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?DeploymentObject/",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?PodObject/",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeIngressObject",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlResource",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeNodeObject",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.deleteKubectlCluster",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-/ && viewItem =~ /-inactive$/",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.kubernetes.openClusterInProviderPortal",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /^cluster-provider-/",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.openUrl",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == urlObject",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.deleteKubectlContext",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == inactiveKubeContextObject",
+					"group": "9"
+				},
+				{
+					"command": "cloudcode.getKubectlContainerTerminal",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem == kubeContainer || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == kubeContainer",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.getKubectlContainerTerminal",
+					"when": "view =~ /cloudcode(.unified)?.kubectlExplorer/ && viewItem =~ /kube(System)?PodObject/ || view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem =~ /kube(System)?PodObject/",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Disabled",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Disabled",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.showCodingInstructions",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.showCodingInstructions",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Disabled",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.viewVersionValue",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.disableVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.enableVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Disabled",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.destroyVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Enabled",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.destroyVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionObject_Disabled",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.createVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesVersionsObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.copyResourceId",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.secrets.openCloudConsole",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.editPermissions",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.createVersion",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.editPermissions",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesPermissionObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.editPermissions",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesPermissionsObject",
+					"group": "2"
+				},
+				{
+					"command": "cloudcode.secrets.createLabel",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesLabelsObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.secrets.editLabel",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem == SecretsPropertiesLabelObject",
+					"group": "inline@1"
+				},
+				{
+					"command": "cloudcode.openUrl",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/ && viewItem == urlObject",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "view =~ /cloudcode(.unified)?.cloudRunExplorer/",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem != VmInstanceNetworkInterfacesObject && viewItem != VmInstanceExternalIPsObject && viewItem != VmInstanceActiveFirewallRulesObject && viewItem != VmInstanceAssociatedDisksObject && viewItem != VmInstanceFirewallAllowDenyRulesObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "view == cloudcode.cloudRunProperties",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.copyValue",
+					"when": "view =~ /cloudcode(.unified)?.secretsExplorer/ && viewItem != SecretObject && viewItem != SecretsPropertiesVersionObject_Enabled && viewItem != SecretsPropertiesVersionObject_Disabled",
+					"group": "10"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openLaunchConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == K8sLocalDevSessionCollection",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openLaunchConfig",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == K8sLocalDevSessionCollectionOff",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.skaffold.pipeline.trigger",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == K8sLocalDevSessionCollectionOff",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.kubernetes.localDevExplorer.openUrl",
+					"when": "view =~ /cloudcode(.unified)?.kubernetes.localDevExplorer/ && viewItem == K8sLocalDevPortForwardUrlTreeItem",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.open.in.console",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.firewall.open.in.console",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceFirewallRuleObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.firewall.open.in.console",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceFirewallRuleObject",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.disk.open.in.console",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceDiskObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.compute.ui.vm.disk.open.in.console",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceDiskObject",
+					"group": "inline"
+				},
+				{
+					"command": "cloudcode.gce.sshVmInstance",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceObject",
+					"group": "1"
+				},
+				{
+					"command": "cloudcode.gce.sshVmInstance",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "apigee.delete",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.delete\\'.*$/"
+				},
+				{
+					"command": "apigee.clone",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.clone\\'.*$/"
+				},
+				{
+					"command": "apigee.rename",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.rename\\'.*$/"
+				},
+				{
+					"command": "apigee.environments.create",
+					"when": "viewItem =~ /^.*\\'apigee.environments.create\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.environments.create.targetserver",
+					"when": "viewItem =~ /^.*\\'apigee.environments.create.targetserver\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.environments.create.deployments",
+					"when": "viewItem =~ /^.*\\'apigee.environments.create.deployments\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.environments.create.flowhooks",
+					"when": "viewItem =~ /^.*\\'apigee.environments.create.flowhooks\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.resource.create",
+					"when": "viewItem =~ /^.*\\'apigee.resource.create\\'.*$/",
+					"group": "inline@0",
+					"alt": "apigee.resource.create"
+				},
+				{
+					"command": "apigee.resource.import",
+					"when": "viewItem =~ /^.*\\'apigee.resource.import\\'.*$/",
+					"group": "inline@0",
+					"alt": "apigee.resource.import"
+				},
+				{
+					"command": "apigee.proxies.createProxyBundle",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createProxyBundle\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.importProxyBundle",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.importProxyBundle\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlowBundle",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createSharedFlowBundle\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.importSharedFlowBundle",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.importSharedFlowBundle\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createProxyEndpoint",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createProxyEndpoint\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createTargetEndpoint",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createTargetEndpoint\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createPolicy",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createPolicy\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlow",
+					"when": "viewItem =~ /^.*\\'apigee.proxies.createSharedFlow\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.createTestBundle",
+					"when": "viewItem =~ /^.*\\'apigee.tests.createTestBundle\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.createDeveloper",
+					"when": "viewItem =~ /^.*\\'apigee.tests.createDeveloper\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.createProduct",
+					"when": "viewItem =~ /^.*\\'apigee.tests.createProduct\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.createApp",
+					"when": "viewItem =~ /^.*\\'apigee.tests.createApp\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.createMap",
+					"when": "viewItem =~ /^.*\\'apigee.tests.createMap\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.environments.deploy",
+					"when": "dockerInstalled && viewItem =~ /^.*\\'apigee.environments.deploy\\'.*$/",
+					"group": "inline@1"
+				},
+				{
+					"command": "apigee.tests.setupTest",
+					"when": "dockerInstalled && viewItem =~ /^.*\\'apigee.tests.setupTest\\'.*$/",
+					"group": "inline@1"
+				},
+				{
+					"command": "apigee.emulator.setup",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.emulator.setup\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.emulator.update",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.emulator.update\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.emulator.copyurl",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.emulator.copyurl\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.container.start",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.container.start\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.container.stop",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.container.stop\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.container.reset",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.container.reset\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.container.add",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.container.add\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.container.delete",
+					"when": "view =~ /cloudcode(.unified)?.apigee.emulator/ && viewItem =~ /^.*\\'apigee.container.delete\\'.*$/",
+					"group": "inline"
+				},
+				{
+					"command": "apigee.proxies.createSharedFlowBundleMultiple",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.proxies.createSharedFlowBundleMultiple\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.proxies.createProxyMultiple",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.proxies.createProxyMultiple\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.environments.createMultiple",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.environments.createMultiple\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "apigee.tests.multiple",
+					"when": "view =~ /cloudcode(.unified)?.apigee.explorer/ && viewItem =~ /^.*\\'apigee.tests.multiple\\'.*$/",
+					"group": "inline@0"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceObject",
+					"group": "inline@2"
+				},
+				{
+					"command": "cloudcode.openLogsViewer",
+					"when": "view =~ /cloudcode(.unified)?.gceExplorer/ && viewItem == VmInstanceObject",
+					"group": "1"
+				}
+			]
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "1-cloudCodeContainer",
+					"icon": "images/logo.svg",
+					"title": "Cloud Code"
+				},
+				{
+					"id": "1-kubernetesContainer",
+					"icon": "images/kubernetes_logo.svg",
+					"title": "Cloud Code - Kubernetes"
+				},
+				{
+					"id": "2-cloudRunContainer",
+					"icon": "images/cloud_run_logo.svg",
+					"title": "Cloud Code - Cloud Run"
+				},
+				{
+					"id": "3-cloudApiContainer",
+					"icon": "images/cloud_api_logo.svg",
+					"title": "Cloud Code - Cloud APIs"
+				},
+				{
+					"id": "4-cloudSecretsContainer",
+					"icon": "images/secrets_logo.svg",
+					"title": "Cloud Code - Secret Manager"
+				},
+				{
+					"id": "5-apigeeContainer",
+					"icon": "images/Apigee.svg",
+					"title": "Cloud Code - Apigee"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "cloudcode.unified.cloudRunExplorer",
+				"when": "gcloudInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.unified.secretsExplorer",
+				"when": "gcloudInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.unified.gceExplorer",
+				"when": "gcloudInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.unified.kubectlExplorer",
+				"when": "gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.unified.kubernetes.localDevExplorer",
+				"when": "gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.unified.cloudRunExplorer",
+				"when": "!gcloudInstalling && !gcloudLoggedIn",
+				"contents": "%cloudcode.welcomeViews.gcloudLogin%"
+			},
+			{
+				"view": "cloudcode.unified.secretsExplorer",
+				"when": "!gcloudInstalling && !gcloudLoggedIn",
+				"contents": "%cloudcode.welcomeViews.gcloudLogin%"
+			},
+			{
+				"view": "cloudcode.unified.gceExplorer",
+				"when": "!gcloudInstalling && !gcloudLoggedIn",
+				"contents": "%cloudcode.welcomeViews.gcloudLogin%"
+			},
+			{
+				"view": "cloudcode.unified.cloudRunExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProject%"
+			},
+			{
+				"view": "cloudcode.unified.secretsExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProject%"
+			},
+			{
+				"view": "cloudcode.unified.gceExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProject%"
+			},
+			{
+				"view": "cloudcode.unified.cloudRunExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId && !runningOnCloudShell",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProjectSignOut%"
+			},
+			{
+				"view": "cloudcode.unified.secretsExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId && !runningOnCloudShell",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProjectSignOut%"
+			},
+			{
+				"view": "cloudcode.unified.gceExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId && !runningOnCloudShell",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProjectSignOut%"
+			},
+			{
+				"view": "cloudcode.unified.cloudRunExplorer",
+				"when": "gcloudLoggedIn && gcloudProjectId && runExplorerNeedsApiEnable",
+				"contents": "%cloudcode.welcomeViews.explorerEnableRunApi%"
+			},
+			{
+				"view": "cloudcode.unified.secretsExplorer",
+				"when": "gcloudLoggedIn && gcloudProjectId && secretmanagerExplorerNeedsApiEnable",
+				"contents": "%cloudcode.welcomeViews.explorerEnableSecretManagerApi%"
+			},
+			{
+				"view": "cloudcode.unified.gceExplorer",
+				"when": "gcloudLoggedIn && gcloudProjectId && computeExplorerNeedsApiEnable",
+				"contents": "%cloudcode.welcomeViews.explorerEnableComputeApi%"
+			},
+			{
+				"view": "cloudcode.unified.kubectlExplorer",
+				"when": "!gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.kubernetesNoClusters%"
+			},
+			{
+				"view": "cloudcode.unified.kubernetes.localDevExplorer",
+				"when": "!gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.localDevExplorerGetStarted%"
+			},
+			{
+				"view": "cloudcode.unified.apigee.explorer",
+				"when": "!validApigeeWorkspace",
+				"contents": "[Create Apigee workspace](command:apigee.workspace.create)\n[Open Apigee workspace](command:apigee.workspace.open)"
+			},
+			{
+				"view": "cloudcode.unified.apigee.emulator",
+				"when": "dockerInstalled && !validApigeeWorkspace",
+				"contents": "Visible when a valid Apigee workspace is open"
+			},
+			{
+				"view": "cloudcode.unified.apigee.emulator",
+				"when": "!dockerInstalled && validApigeeWorkspace",
+				"contents": "Emulators require docker to be installed"
+			},
+			{
+				"view": "cloudcode.cloudRunExplorer",
+				"when": "gcloudInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.secretsExplorer",
+				"when": "gcloudInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.kubectlExplorer",
+				"when": "gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.kubernetes.localDevExplorer",
+				"when": "gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.installingDependencies%"
+			},
+			{
+				"view": "cloudcode.cloudRunExplorer",
+				"when": "!gcloudInstalling && !gcloudLoggedIn",
+				"contents": "%cloudcode.welcomeViews.gcloudLogin%"
+			},
+			{
+				"view": "cloudcode.secretsExplorer",
+				"when": "!gcloudInstalling && !gcloudLoggedIn",
+				"contents": "%cloudcode.welcomeViews.gcloudLogin%"
+			},
+			{
+				"view": "cloudcode.cloudRunExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProject%"
+			},
+			{
+				"view": "cloudcode.secretsExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProject%"
+			},
+			{
+				"view": "cloudcode.cloudRunExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId && !runningOnCloudShell",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProjectSignOut%"
+			},
+			{
+				"view": "cloudcode.secretsExplorer",
+				"when": "gcloudLoggedIn && !gcloudProjectId && !runningOnCloudShell",
+				"contents": "%cloudcode.welcomeViews.gcloudSelectProjectSignOut%"
+			},
+			{
+				"view": "cloudcode.cloudRunExplorer",
+				"when": "gcloudLoggedIn && gcloudProjectId && runExplorerNeedsApiEnable",
+				"contents": "%cloudcode.welcomeViews.explorerEnableRunApi%"
+			},
+			{
+				"view": "cloudcode.secretsExplorer",
+				"when": "gcloudLoggedIn && gcloudProjectId && secretmanagerExplorerNeedsApiEnable",
+				"contents": "%cloudcode.welcomeViews.explorerEnableSecretManagerApi%"
+			},
+			{
+				"view": "cloudcode.kubectlExplorer",
+				"when": "!gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.kubernetesNoClusters%"
+			},
+			{
+				"view": "cloudcode.kubernetes.localDevExplorer",
+				"when": "!gcloudComponentsInstalling",
+				"contents": "%cloudcode.welcomeViews.localDevExplorerGetStarted%"
+			},
+			{
+				"view": "cloudcode.apigee.explorer",
+				"when": "!validApigeeWorkspace",
+				"contents": "[Create Apigee workspace](command:apigee.workspace.create)\n[Open Apigee workspace](command:apigee.workspace.open)"
+			},
+			{
+				"view": "cloudcode.apigee.emulator",
+				"when": "dockerInstalled && !validApigeeWorkspace",
+				"contents": "Visible when a valid Apigee workspace is open"
+			},
+			{
+				"view": "cloudcode.apigee.emulator",
+				"when": "!dockerInstalled && validApigeeWorkspace",
+				"contents": "Emulators require docker to be installed"
+			}
+		],
+		"views": {
+			"1-cloudCodeContainer": [
+				{
+					"id": "cloudcode.unified.kubernetes.localDevExplorer",
+					"name": "Development Sessions",
+					"when": "isOutputLoggingEnabled && config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/kubernetes_logo.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.kubectlExplorer",
+					"name": "Kubernetes",
+					"when": "config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/kubernetes_logo.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.cloudRunExplorer",
+					"name": "Cloud Run",
+					"when": "config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/cloud_run_logo.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.apiExplorer",
+					"name": "Cloud APIs",
+					"when": "config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/cloud_api_logo.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.secretsExplorer",
+					"name": "Secret Manager",
+					"when": "config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/secrets_logo.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.gceExplorer",
+					"name": "Compute Engine",
+					"when": "config.cloudcode.beta.enableOneActivityBar && config.cloudcode.beta.enableVMExplorer",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.apigee.explorer",
+					"name": "Apigee",
+					"when": "config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/Apigee.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.unified.apigee.emulator",
+					"name": "Apigee Emulators",
+					"contextualTitle": "Emulators",
+					"when": "validApigeeWorkspace && config.cloudcode.beta.enableOneActivityBar",
+					"icon": "images/Apigee.svg",
+					"visibility": "collapsed"
+				},
+				{
+					"id": "cloudcode.helpAndFeedbackExplorer",
+					"name": "Help and Feedback",
+					"when": "config.cloudcode.beta.enableOneActivityBar"
+				}
+			],
+			"1-kubernetesContainer": [
+				{
+					"id": "cloudcode.kubernetes.localDevExplorer",
+					"name": "Development Sessions",
+					"when": "isOutputLoggingEnabled && !config.cloudcode.beta.enableOneActivityBar"
+				},
+				{
+					"id": "cloudcode.kubectlExplorer",
+					"name": "Clusters",
+					"when": "!config.cloudcode.beta.enableOneActivityBar"
+				}
+			],
+			"2-cloudRunContainer": [
+				{
+					"id": "cloudcode.cloudRunExplorer",
+					"name": "Cloud Run",
+					"when": "!config.cloudcode.beta.enableOneActivityBar"
+				}
+			],
+			"3-cloudApiContainer": [
+				{
+					"id": "cloudcode.apiExplorer",
+					"name": "",
+					"when": "!config.cloudcode.beta.enableOneActivityBar"
+				}
+			],
+			"4-cloudSecretsContainer": [
+				{
+					"id": "cloudcode.secretsExplorer",
+					"name": "",
+					"when": "!config.cloudcode.beta.enableOneActivityBar"
+				}
+			],
+			"5-apigeeContainer": [
+				{
+					"id": "cloudcode.apigee.explorer",
+					"name": "Explorer",
+					"contextualTitle": "Explorer",
+					"when": "!config.cloudcode.beta.enableOneActivityBar"
+				},
+				{
+					"id": "cloudcode.apigee.emulator",
+					"name": "Emulators",
+					"contextualTitle": "Emulators",
+					"when": "validApigeeWorkspace && !config.cloudcode.beta.enableOneActivityBar"
+				}
+			]
+		},
+		"snippets": [
+			{
+				"language": "xml",
+				"path": "./snippets/apigee/flow-elements.json"
+			},
+			{
+				"language": "xml",
+				"path": "./snippets/apigee/runtime-variables.json"
+			}
+		]
+	},
+	"scripts": {
+		"copy:markdowns": "copyfiles -u 1 \"cloud-code-vscode/*.md\" ./",
+		"ci:postinstall": "yarn run compile:electron && cd ./src/webview && yarn install --frozen-lockfile && cd ../../third_party/yaml-language-server && yarn install --frozen-lockfile",
+		"vscode:uninstall": "node ./dist/uninstall_hook.js",
+		"compile:release": "yarn run copy:markdowns && cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode production && cd ./src/webview && yarn run build && cd ../.. && pushd . && cd third_party/yaml-language-server && yarn run compile-prod && popd",
+		"compile:dev": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode development && cd ./src/webview && yarn run build:dev && cd ../.. && pushd . && cd third_party/yaml-language-server/ && yarn run compile && popd",
+		"compile:yls": "cd third_party/yaml-language-server && yarn run compile",
+		"compile:yls:coverage": "cd ./third_party/yaml-language-server && yarn run compile-coverage",
+		"compile:electron": "node -e \"process.exit(process.env.KOKORO_GFILE_DIR ? 0 : 1)\" || \"./node_modules/.bin/electron-rebuild\"  --version 11.3.0",
+		"watch": "run-p watch:app watch:webview watch:yaml",
+		"watch:app": "cross-env NODE_OPTIONS=--max_old_space_size=8092 webpack --mode development --watch",
+		"watch:webview": "cd src/webview && yarn run watch:dev",
+		"watch:yaml": "cd third_party/yaml-language-server && yarn run watch",
+		"watch:kubernetes:test": "yarn run test:compile:extension --env tests=unit --watch",
+		"watch:test:int": "yarn run test:compile:extension --watch --env tests=int",
+		"preinstall": "./tools/make_symlinks_and_ignores.sh",
+		"postinstall": "yarn run compile:electron && cd ./src/webview && yarn && cd ../../third_party/yaml-language-server && yarn",
+		"test:compile": "run-p \"test:compile:extension -- --env tests=unit\" test:compile:webview",
+		"test:compile:extension": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode development",
+		"test:compile:webview": "cd ./src/webview && yarn run build:dev",
+		"test:compile:ui": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode development",
+		"test": "yarn run test:extension && cd ./src/webview && yarn run test && cd ../../third_party/yaml-language-server && yarn run test",
+		"posttest": "yarn run lint",
+		"test:windows": "yarn run test:extension && cd ./third_party/yaml-language-server && yarn run test",
+		"posttest:windows": "yarn run posttest",
+		"test:extension": "yarn run test:compile:extension --env tests=unit && node ./dist/dist/run_test.js unit",
+		"test:int:extension": "yarn run test:compile:extension --env tests=int && node ./dist/dist/run_test.js",
+		"test:extension:novs": "mocha --config .mocharc.json",
+		"test:ui:setup": "yarn run test:package && cross-var extest get-vscode -c $npm_package_config_test_version && cross-var extest get-chromedriver -c $npm_package_config_test_version && extest install-vsix -f test.vsix && extest install-from-marketplace golang.go",
+		"test:ui:setup:jpn": "yarn run test:package && cross-var extest get-vscode -c $npm_package_config_test_version && cross-var extest get-chromedriver -c $npm_package_config_test_version && extest install-vsix -f test.vsix && extest install-from-marketplace golang.go ms-python.python vscjava.vscode-java-pack ms-dotnettools.csharp",
+		"test:ui:insider:setup": "yarn run test:package && extest get-vscode -t insider && extest get-chromedriver -t insider && extest install-vsix -t insider -f test.vsix && extest install-from-marketplace --type insider golang.go",
+		"test:ui:insider:setup:jpn": "yarn run test:package && extest get-vscode -t insider && extest get-chromedriver -t insider && extest install-vsix -t insider -f test.vsix && extest install-from-marketplace --type insider golang.go ms-python.python vscjava.vscode-java-pack ms-dotnettools.csharp",
+		"test:ui": "cross-var extest run-tests -c $npm_package_config_test_version \"./dist/dist/all_tests.js\" --mocha_config config.mocharc.js --code_settings \"./src/ui-test/settings.json\"",
+		"test:ui:local": "cross-var extest run-tests -c $npm_package_config_test_version \"./dist/dist/all_tests.js\" --mocha_config local.mocharc.js --code_settings \"./src/ui-test/settings.json\"",
+		"test:ui:insider": "extest run-tests --type insider \"./dist/dist/all_tests.js\" --mocha_config config.mocharc.js --code_settings \"./src/ui-test/settings.json\"",
+		"test:ui:deploy": "yarn run test:compile:ui --env tests=ui:deploy && yarn run test:ui",
+		"test:ui:setup:deploy": " yarn run test:ui:setup && yarn run test:ui:deploy",
+		"test:ui:nondeploy": "yarn run test:compile:ui --env tests=ui:nondeploy && yarn run test:ui",
+		"test:ui:nondeploy:local": "yarn run test:compile:ui --env tests=ui:nondeploy && yarn run test:ui:local",
+		"test:ui:setup:nondeploy": "yarn run test:ui:setup && yarn run test:ui:nondeploy",
+		"test:ui:setup:deploy:helloworld": "yarn run test:ui:setup && yarn run test:compile:ui --env tests=ui:deploy-helloworld && yarn run test:ui",
+		"test:ui:setup:deploy:helloworld:jpn": "yarn run test:ui:setup:jpn && yarn run test:compile:ui --env tests=ui:deploy-helloworld-jpn && yarn run test:ui",
+		"test:ui:setup:deploy:guestbook": "yarn run test:ui:setup && yarn run test:compile:ui --env tests=ui:deploy-guestbook && yarn run test:ui",
+		"test:ui:setup:deploy:guestbook:jpn": "yarn run test:ui:setup:jpn && yarn run test:compile:ui --env tests=ui:deploy-guestbook-jpn && yarn run test:ui",
+		"test:ui:setup:deploy:guestbook:privategke": "yarn run test:ui:setup && yarn run test:compile:ui --env tests=ui:deploy-guestbook-privategke && yarn run test:ui",
+		"test:ui:setup:deploy:cloudrun": "yarn run test:ui:setup && yarn run test:compile:ui --env tests=ui:deploy-cloudrun && yarn run test:ui",
+		"test:ui:setup:deploy:cloudrun:jpn": "yarn run test:ui:setup:jpn && yarn run test:compile:ui --env tests=ui:deploy-cloudrun-jpn && yarn run test:ui",
+		"test:ui:setup:insider:deploy": "yarn run test:ui:insider:setup && yarn run test:compile:ui --env tests=ui:deploy && yarn run test:ui:insider",
+		"test:ui:setup:insider:deploy:helloworld": "yarn run test:ui:insider:setup && yarn run test:compile:ui --env tests=ui:deploy-helloworld && yarn run test:ui:insider",
+		"test:ui:setup:insider:deploy:guestbook": "yarn run test:ui:insider:setup && yarn run test:compile:ui --env tests=ui:deploy-guestbook && yarn run test:ui:insider",
+		"test:ui:setup:insider:deploy:cloudrun": "yarn run test:ui:insider:setup && yarn run test:compile:ui --env tests=ui:deploy-cloudrun && yarn run test:ui:insider",
+		"test:ui:setup:insider:nondeploy": "yarn run test:ui:insider:setup && yarn run test:compile:ui --env tests=ui:nondeploy && yarn run test:ui:insider",
+		"test:ui:setup:cloudcodespecs": "yarn run test:ui:setup && yarn run test:ui:cloudcodespecs",
+		"test:ui:cloudcodespecs": "yarn run test:compile:ui --env tests=ui:cloudcodespecs && yarn run test:ui",
+		"lint": "yarn run check",
+		"lint:fix": "run-p lint:fix:extension lint:fix:webview lint:fix:lsp lint:fix:markdown",
+		"lint:fix:extension": "cross-env NODE_OPTIONS=--max_old_space_size=8192 gts fix",
+		"lint:fix:lsp": "cd ./third_party/yaml-language-server && yarn run fix",
+		"lint:fix:webview": "cd ./src/webview && yarn run fix",
+		"lint:fix:markdown": "/google/bin/releases/corpeng-engdoc/tools/mdformat --in_place $(find -name '*.md' -type f | xargs)",
+		"check": "gts check",
+		"clean": "gts clean && pushd ./third_party/yaml-language-server > /dev/null && yarn run clean && popd > /dev/null && ./tools/make_symlinks_and_ignores.sh --clean ",
+		"package": "yarn run compile:release && pushd dist && vsce package --yarn && popd && mv dist/*.vsix .",
+		"test:package": "yarn run compile:release && pushd dist && vsce package --out test.vsix --yarn && popd && mv dist/*.vsix .",
+		"nexe:lsp": "cd ./third_party/yaml-language-server && yarn run nexe",
+		"prerelease:release": "node ./tools/release_prerelease.js",
+		"release:updatepackagejson": "node ./tools/release_package_json_update.js",
+		"fix": "yarn run lint:fix",
+		"preinstall:docker": "docker build -t ccvs-build:latest -f tools/Dockerfile.build .",
+		"install:docker": "docker run -v $(pwd):/src -it ccvs-build:latest -- install"
+	},
+	"// LINT.IfChange(dependencies)": "",
+	"devDependencies": {
+		"@types/async-lock": "^1.1.1",
+		"@types/clear": "^0.1.2",
+		"@types/fs-extra": "^8.0.0",
+		"@types/get-port": "^4.0.1",
+		"@types/glob": "^5.0.35",
+		"@types/js-yaml": "3.12.0",
+		"@types/lodash": "^4.14.112",
+		"@types/long": "^4.0.0",
+		"@types/lru-cache": "^5.1.0",
+		"@types/mocha": "^9.1.1",
+		"@types/moment": "^2.13.0",
+		"@types/node": "10.14.1",
+		"@types/node-fetch": "~2.1.4",
+		"@types/prettier": "^1.16.1",
+		"@types/prismjs": "^1.16.6",
+		"@types/proper-lockfile": "^4.1.1",
+		"@types/query-string": "^6.2.0",
+		"@types/request": "^2.48.4",
+		"@types/semver": "^7.3.4",
+		"@types/shell-quote": "^1.6.1",
+		"@types/shelljs": "^0.8.0",
+		"@types/string-argv": "^0.1.0",
+		"@types/tar": "^4.0.4",
+		"@types/tmp": "0.0.33",
+		"@types/unzip-stream": "^0.3.0",
+		"@types/uuid": "^3.4.3",
+		"@types/vscode": "1.63.0",
+		"@types/webpack": "^5.28.0",
+		"@types/webpack-node-externals": "^2.5.2",
+		"@types/xml2js": "^0.4.5",
+		"body-parser": "^1.19.0",
+		"copyfiles": "^2.4.1",
+		"cross-env": "^5.2.0",
+		"cross-var-src-patch": "^1.1.1",
+		"electron-rebuild": "^2.3.5",
+		"express": "^4.18.1",
+		"fork-ts-checker-webpack-plugin": "^5.2.0",
+		"gts": "^1.1.0",
+		"mocha": "^9.1.1",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^1.19.1",
+		"source-map-support": "^0.5.4",
+		"ts-loader": "^5.3.3",
+		"ts-node": "^9.0.0",
+		"tslint": "^5.18.0",
+		"typemoq": "^2.1.0",
+		"typescript": "^3.8.3",
+		"typescript-json-schema": "^0.40.0",
+		"vsce": "^2.7.0",
+		"vscode-extension-tester": "^4.2.4",
+		"vscode-test": "^1.0.0",
+		"webpack": "^5.72.0",
+		"webpack-cli": "^4.9.2",
+		"webpack-node-externals": "^2.5.2"
+	},
+	"dependencies": {
+		"async-lock": "^1.2.0",
+		"async-mutex": "^0.3.2",
+		"chalk": "^4.1.2",
+		"clear": "^0.1.0",
+		"commander": "^8.3.0",
+		"csvtojson": "^2.0.10",
+		"decache": "^4.4.0",
+		"find-process": "^1.2.1",
+		"fs-extra": "^8.1.0",
+		"get-port": "^4.0.1",
+		"glob": "^7.1.2",
+		"googleapis": "^100.0.0",
+		"is-elevated": "^2.0.1",
+		"js-yaml": "^3.13.1",
+		"lodash": "^4.17.21",
+		"long": "^4.0.0",
+		"lru-cache": "^5.1.0",
+		"moment": "^2.27.0",
+		"node-fetch": "^2.6.7",
+		"node-pty": "^0.10.0",
+		"p-queue": "^6.3.0",
+		"prismjs": "^1.25.0",
+		"proper-lockfile": "^4.1.2",
+		"protobufjs": "^6.11.3",
+		"query-string": "^6.2.0",
+		"request": "^2.88.0",
+		"semver": "^7.3.4",
+		"shell-quote": "^1.6.1",
+		"shelljs": "^0.8.5",
+		"simple-git": "^3.7.1",
+		"stacktrace-parser": "^0.1.10",
+		"string-argv": "^0.1.0",
+		"tar": "^6.1.9",
+		"tmp": "0.0.33",
+		"tree-kill": "^1.2.2",
+		"unzip-stream": "^0.3.1",
+		"uuid": "^3.3.2",
+		"vscode-debugadapter": "~1.31.0",
+		"vscode-debugprotocol": "~1.31.0",
+		"vscode-languageclient": "^5.2.1",
+		"xml2js": "^0.4.23"
+	},
+	"// LINT.ThenChange(yarn.lock)": "",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/GoogleCloudPlatform/cloud-code-vscode.git"
+	},
+	"resolutions": {
+		"gts/**/trim-newlines": "^3.0.1",
+		"gts/**/ansi-regex": "^3.0.1",
+		"gts/**/yargs-parser": "^13.1.2"
+	},
+	"bugs": {
+		"url": "https://github.com/GoogleCloudPlatform/cloud-code-vscode/issues"
+	},
+	"config": {
+		"test_version": "1.66.0"
+	},
+	"__metadata": {
+		"id": "5e8803a2-3dc8-42b3-9c5f-ea9d37828c03",
+		"publisherId": "f24fd523-af08-49d8-bb0b-f4eda502706e",
+		"publisherDisplayName": "Google Cloud",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641321101
+	}
+}

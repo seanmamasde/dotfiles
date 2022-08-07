@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["hydra.ory.sh"]
+  repoUrl: https://github.com/ory/k8s
+  strategy: manual
+status:
+  howAdded: original
+  lastModifiedDate: 2019-10-20
+  license: apache-2.0

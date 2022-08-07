@@ -1,0 +1,188 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    registry.knative.dev/eventTypes: "[\n  { \"type\": \"com.google.cloud.scheduler.job.execute\"\
+      , \"description\": \"This event is sent when a job is executed in Cloud Scheduler.\"\
+      }\n]\n"
+  labels:
+    duck.knative.dev/source: 'true'
+    events.cloud.google.com/crd-install: 'true'
+    events.cloud.google.com/release: devel
+  name: cloudschedulersources.events.cloud.google.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.conditions[?(@.type=="Ready")].status
+    name: Ready
+    type: string
+  - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+    name: Reason
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: events.cloud.google.com
+  names:
+    categories:
+    - all
+    - knative
+    - cloudschedulersource
+    - sources
+    kind: CloudSchedulerSource
+    plural: cloudschedulersources
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            ceOverrides:
+              description: 'Defines overrides to control modifications of the event
+                sent to the sink.
+
+                '
+              properties:
+                extensions:
+                  description: 'Extensions specify what attribute are added or overridden
+                    on the outbound event. Each `Extensions` key-value pair are set
+                    on the event as an attribute extension independently.
+
+                    '
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+              type: object
+            data:
+              description: 'Data to send in the payload of the Event.
+
+                '
+              type: string
+            googleServiceAccount:
+              description: 'GCP service account used to poll the Cloud Pub/Sub Subscription.
+                The value of the service account must be a valid Google service account
+                (see https://cloud.google.com/iam/docs/service-accounts).
+
+                '
+              type: string
+            location:
+              description: 'Location to create the Scheduler job in.
+
+                '
+              type: string
+            project:
+              description: 'Google Cloud Project ID of the project into which the
+                topic should be created. If omitted uses the Project ID from the GKE
+                cluster metadata service.
+
+                '
+              type: string
+            schedule:
+              description: 'Frequency using the unix-cron format. Or App Engine Cron
+                format.
+
+                '
+              type: string
+            secret:
+              description: 'Credential used to poll the Cloud Pub/Sub Subscription.
+                It is not used to create or delete the Subscription, only to poll
+                it. The value of the secret entry must be a service account key in
+                the JSON format (see https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
+                Defaults to secret.name of ''google-cloud-key'' and secret.key of
+                ''key.json''.
+
+                '
+              properties:
+                key:
+                  type: string
+                name:
+                  type: string
+                optional:
+                  type: boolean
+              type: object
+            sink:
+              description: 'Sink which receives the notifications.
+
+                '
+              properties:
+                ref:
+                  properties:
+                    apiVersion:
+                      minLength: 1
+                      type: string
+                    kind:
+                      minLength: 1
+                      type: string
+                    name:
+                      minLength: 1
+                      type: string
+                    namespace:
+                      type: string
+                  required:
+                  - apiVersion
+                  - kind
+                  - name
+                  type: object
+                uri:
+                  minLength: 1
+                  type: string
+              type: object
+          required:
+          - location
+          - schedule
+          - sink
+          - data
+          type: object
+        status:
+          properties:
+            ceAttributes:
+              items:
+                properties:
+                  source:
+                    type: string
+                  type:
+                    type: string
+                type: object
+              type: array
+            conditions:
+              items:
+                properties:
+                  lastTransitionTime:
+                    type: string
+                  message:
+                    type: string
+                  reason:
+                    type: string
+                  severity:
+                    type: string
+                  status:
+                    type: string
+                  type:
+                    type: string
+                required:
+                - type
+                - status
+                type: object
+              type: array
+            jobName:
+              type: string
+            observedGeneration:
+              format: int64
+              type: integer
+            projectId:
+              type: string
+            serviceAccountName:
+              type: string
+            sinkUri:
+              type: string
+            subscriptionId:
+              type: string
+            topicId:
+              type: string
+          type: object
+      type: object
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

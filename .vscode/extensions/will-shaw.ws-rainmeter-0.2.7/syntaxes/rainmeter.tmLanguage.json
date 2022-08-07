@@ -1,0 +1,137 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "rainmeter",
+  "patterns": [
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#bangs"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#entities"
+    },
+    {
+      "include": "#primitives"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#nestedvariables"
+    },
+    {
+      "include": "#comments"
+    }
+  ],
+  "repository": {
+    "bangs": {
+      "name": "entity.name.function.rainmeter",
+      "begin": "!",
+      "end": "\\s|(?=\\])",
+      "patterns": [
+        {
+          "name": "entity.name.function.rainmeter",
+          "match": "\\w+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.rainmeter",
+          "match": "^[\\s]*?[\\w\\d]+"
+        },
+        {
+          "name": "keyword.operator.rainmeter",
+          "match": "[=\\+\\-\\?:><&\\*\\|/]+?"
+        },
+        {
+          "name": "variable.parameter.rainmeter",
+          "match": "^@\\w+"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.rainmeter",
+      "begin": "\"",
+      "end": "(\"|$)",
+      "patterns": [
+        {
+          "name": "constant.character.escape.rainmeter",
+          "match": "\\."
+        },
+        {
+          "name": "variable.parameter.rainmeter",
+          "include": "#variables"
+        },
+        {
+          "name": "variable.parameter.rainmeter.nested",
+          "include": "#nestedvariables"
+        }
+      ]
+    },
+    "entities": {
+      "name": "entity.name.type.rainmeter",
+      "begin": "\\[(?![#$&])",
+      "end": "\\]",
+      "patterns": [
+        {
+          "name": "entity.name.type.rainmeter",
+          "include": "#bangs"
+        },
+        {
+          "name": "variable.parameter.rainmeter",
+          "include": "#variables"
+        },
+        {
+          "name": "string.quoted.double.rainmeter",
+          "include": "#strings"
+        },
+        {
+          "name": "string.quoted.double.rainmeter",
+          "include": "#nestedvariables"
+        }
+      ]
+    },
+    "primitives": {
+      "patterns": [
+        {
+          "name": "constant.numeric.rainmeter",
+          "match": "(?<!%)\\b\\d*?\\.?\\d+\\b"
+        }
+      ]
+    },
+    "nestedvariables": {
+      "name": "variable.parameter.rainmeter.nested",
+      "begin": "\\[[#%&\\$]",
+      "end": "\\]",
+      "patterns": [
+        {
+          "name": "variable.parameter.rainmeter.nested",
+          "include": "#nestedvariables"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.parameter.rainmeter",
+          "match": "(#.*?#|\\$.*?\\$|%.*?%)"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.rainmeter",
+          "match": ";.*"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.rainmeter"
+}

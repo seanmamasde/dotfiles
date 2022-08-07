@@ -1,0 +1,96 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: topics.pubsub.cloud.google.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.conditions[?(@.type=="Ready")].status
+    name: Ready
+    type: string
+  - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+    name: Reason
+    type: string
+  - JSONPath: .status.address.hostname
+    name: Hostname
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: pubsub.cloud.google.com
+  names:
+    categories:
+    - all
+    - knative
+    - pubsub
+    kind: Topic
+    plural: topics
+    singular: topic
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            project:
+              description: ID of the Google Cloud Project to own the Pub/Sub credentials.
+                E.g. 'my-project-1234' rather than its display name, 'My Project'
+                or its number '1234567890'.
+              type: string
+            propagationPolicy:
+              description: Propagation policy defines how Topic controls the Cloud
+                Pub/Sub topic for lifecycle changes. Default is CreateNoDelete.
+              enum:
+              - CreateDelete
+              - CreateNoDelete
+              - NoCreateNoDelete
+              type: string
+            secret:
+              description: Credential to use to manage Cloud Pub/Sub. The value of
+                the secret entry must be a service account key in the JSON format
+                (see https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
+              type: object
+            topic:
+              description: ID of the Cloud Pub/Sub Topic to create. It must be in
+                the form of the unique identifier within the project, not the entire
+                name. E.g. it must be 'laconia', not 'projects/my-gcp-project/topics/laconia'.
+              type: string
+          required:
+          - topic
+        status:
+          properties:
+            address:
+              properties:
+                url:
+                  type: string
+              type: object
+            conditions:
+              items:
+                properties:
+                  lastTransitionTime:
+                    type: string
+                  message:
+                    type: string
+                  reason:
+                    type: string
+                  severity:
+                    type: string
+                  status:
+                    type: string
+                  type:
+                    type: string
+                required:
+                - type
+                - status
+                type: object
+              type: array
+            observedGeneration:
+              format: int64
+              type: integer
+            projectId:
+              type: string
+            topicId:
+              type: string
+          type: object
+  version: v1alpha1

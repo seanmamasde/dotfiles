@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+		<Metadata>
+			<Identity Language="en-US" Id="dotnet-interactive-vscode" Version="1.0.3405010" Publisher="ms-dotnettools" />
+			<DisplayName>.NET Interactive Notebooks</DisplayName>
+			<Description xml:space="preserve">.NET Interactive Notebooks for VS Code.  Git SHA e6a4bd71118e0f7b202c761dd208cfa38bd5683b</Description>
+			<Tags>.NET Core,.NET,C#,data science,dotnet,F#,interactive programming,ipynb,Jupyter,notebooks,PowerShell,keybindings,dotnet-interactive,.NET Interactive,dotnet-interactive.csharp,C# (.NET Interactive),dotnet-interactive.fsharp,F# (.NET Interactive),dotnet-interactive.html,HTML (.NET Interactive),dotnet-interactive.javascript,JavaScript (.NET Interactive),dotnet-interactive.magic-commands,Magic Commands (.NET Interactive),dotnet-interactive.markdown,Markdown (.NET Interactive),dotnet-interactive.mermaid,Mermaid (.NET Interactive),dotnet-interactive.pwsh,PowerShell (.NET Interactive),dotnet-interactive.sql,SQL (.NET Interactive),dotnet-interactive.kql,Kusto Query Language (KQL) (.NET Interactive),git</Tags>
+			<Categories>Data Science,Machine Learning,Notebooks,Visualization</Categories>
+			<GalleryFlags>Public Preview</GalleryFlags>
+			
+			<Properties>
+				<Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.70.0" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="ms-toolsai.jupyter" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionPack" Value="" />
+				<Property Id="Microsoft.VisualStudio.Code.ExtensionKind" Value="workspace" />
+				<Property Id="Microsoft.VisualStudio.Code.LocalizedLanguages" Value="" />
+				
+				
+				<Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="https://github.com/dotnet/interactive.git" />
+				<Property Id="Microsoft.VisualStudio.Services.Links.Getstarted" Value="https://github.com/dotnet/interactive.git" />
+				<Property Id="Microsoft.VisualStudio.Services.Links.GitHub" Value="https://github.com/dotnet/interactive.git" />
+				<Property Id="Microsoft.VisualStudio.Services.Links.Support" Value="https://github.com/dotnet/interactive/issues" />
+				<Property Id="Microsoft.VisualStudio.Services.Links.Learn" Value="https://github.com/dotnet/interactive#readme" />
+				
+				
+				<Property Id="Microsoft.VisualStudio.Services.GitHubFlavoredMarkdown" Value="true" />
+				
+				
+			</Properties>
+			<License>extension/License.txt</License>
+			<Icon>extension/images/icon.png</Icon>
+		</Metadata>
+		<Installation>
+			<InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+		</Installation>
+		<Dependencies/>
+		<Assets>
+			<Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+			<Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" />
+<Asset Type="Microsoft.VisualStudio.Services.Content.License" Path="extension/License.txt" Addressable="true" />
+<Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/images/icon.png" Addressable="true" />
+		</Assets>
+	</PackageManifest>

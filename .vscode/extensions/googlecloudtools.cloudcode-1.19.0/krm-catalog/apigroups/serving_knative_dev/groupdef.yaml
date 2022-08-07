@@ -1,0 +1,18 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - config/core/resources/configuration.yaml
+  - config/core/resources/revision.yaml
+  - config/core/resources/route.yaml
+  - config/core/resources/service.yaml
+  groupNames: ["serving.knative.dev"]
+  repoUrl: https://github.com/knative/serving
+  sampleExactPaths:
+  - test/test_images/helloworld/helloworld.yaml
+  - test/test_images/httpproxy/service.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-20'
+  license: apache-2.0

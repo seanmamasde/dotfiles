@@ -1,0 +1,2106 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>vsls-agent</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Cascade.Agent.AgentCollaborationSession">
+            <summary>
+            Concrete class that honor the CollaborationSession contracts.
+            It will resolve the quiried services based on a runtime registered services and also from a service rpc map
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.AgentCollaborationSession.IsSessionConnected">
+            <summary>
+            Not implemented for agent session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.AgentTelemetryProxy.SlowSyncRpcFault(Microsoft.Cascade.Rpc.RpcSessionPurpose,System.String,System.String,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Send rpc-sync-slow-fault event.
+            </summary>
+            <remarks>
+            VS uses RpcTelemetry.SlowSyncRpcFault method to send a similar event.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.AgentStarted">
+            <summary>
+            The agent started and is ready to receive connections.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.AgentSetupSession">
+            <summary>
+            The agent finished setting up a connection session.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.AuthenticateHostFailed">
+            <summary>
+            A guest failed to authenticate the host.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.AuthenticateGuestFailed">
+            <summary>
+            The host failed to authenticate a guest.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.HttpRequestComplete">
+            <summary>
+            Agent has alerted client that it has made progress in joining/sharing a workspace
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.RelayClientComplete">
+            <summary>
+            Agent has alerted client that it has made a relay client connection
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.RelayServerComplete">
+            <summary>
+            Agent has alerted client that it has made a relay server connection
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.WorkspaceJoinConnectionAttempt">
+            <summary>
+            Agent has alerted the client that it has attempted a connection whilst joining
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.WorkspaceJoinReconnectionAttempt">
+            <summary>
+            Agent has alerted the client that it has attempted a reconnection of a joined workspace.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.WorkspaceJoinCreateSession">
+            <summary>
+            Agent has alerted the client that it has attempted to create a session
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.WorkspaceJoinReconnectSession">
+            <summary>
+            Agent has alerted the client that it has attempted to reconnect to a session.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.DisconnectRpcSession">
+            <summary>
+            The rpc session was disconnected due to lost connectivity.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Operation.CheckSubnet">
+            <summary>
+            Event to indicate whether the guest is on the same subnet as the host.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Fault.SlowSyncRpc">
+            <summary>
+            RPC method synchronous part is too slow.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Fault.CurrentUserUnauthorized">
+            <summary>
+            Event to indicate when getting user profile is unauthorized
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.IndexAttempt">
+            <summary>
+            Description of where we are in the attempt loop
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TargetType">
+            <summary>
+            Description of where the target type is for the operation
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TargetIp">
+            <summary>
+            Description of where the target ip used for the operation
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TargetIpName" -->
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TargetIpDescription">
+            <summary>
+            Description of where the target ip dewcription used for the operation
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TotalAttempt">
+            <summary>
+            Description of how many attempts we have to work through
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.RequestUriMask">
+            <summary>
+            Description of HTTP request mask
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.RequestMethod">
+            <summary>
+            Description of HTTP request method
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ResponseStatusCode">
+            <summary>
+            Description of HTTP response status code
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ResponseReasonPhrase">
+            <summary>
+            Description of HTTP response reason phrase
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ClientTiming">
+            <summary>
+            Duration in ms of this request
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ServerTimingDiagnostics">
+            <summary>
+            Duration in ms of this request from the servers perspective
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.HasHttpsProxy">
+            <summary>
+            Whether user has Proxy set
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.IsEnvironmentProxy">
+            <summary>
+            Whether user has used the environment variables to set proxy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.HadException">
+            <summary>
+            Whether an exception was encountered
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ExceptionMessage">
+            <summary>
+            Content of the exception if we have it
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.Duration">
+            <summary>
+            Property name suffix for properties that contain event duration.
+            The value is the elapsed time in milliseconds.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.OperationDuration">
+            <summary>
+            Description of how long the total operation has take to this point
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.HttpCorrelationId">
+            <summary>
+            A correlation id to correlate Http requests sent from the client with those received by the server
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.HttpServedBy">
+            <summary>
+            The service stamp which returned a particular request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.RelayNamespace">
+            <summary>
+            Namespace of the relay that is being targetted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.SameSubnet">
+            <summary>
+            Property to indicate if the guest is on the same subnet as the host.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.MethodName">
+            <summary>
+            Name of the Rpc method.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.ServiceName">
+            <summary>
+            The name of the RPC service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.SyncRpcDuration">
+            <summary>
+            Duration of synchronous part of RPC method on the RPC server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.TotalRpcDuration">
+            <summary>
+            Duration of synchronous part of RPC method on the RPC server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.AgentTelemetryProxy.Property.RpcSessionPurpose">
+            <summary>
+            Who hosts RPC server. One of <see cref="T:Microsoft.Cascade.Rpc.RpcSessionPurpose"/> enum values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.AuthenticationService.RemoveRecentCollaborator(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes a recent collaborator from the current profile.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.AuthenticationService.RemoveAllRecentCollaborators(System.Threading.CancellationToken)">
+            <summary>
+            Removes all recent collaborators from the current profile.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.AuthenticationService.NoCharSetJsonMediaTypeFormatter">
+            <summary>
+            Omits the charset from the Content-Type header value
+            (because the Node.js auth service doesn't like it).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.AuthenticationService.MessageHandler">
+            <summary>
+            Augments HTTP request messages with auth tokens managed by the authentication service.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.ConfigurationService.MessageHandler">
+            <summary>
+            Adds a user-agent header containing agent and client version information
+            to outgoing HTTP requests.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.FileService">
+            <summary>
+            Implements the agent file service for access to a workspace filesystem.
+            </summary>
+            <remarks>
+            An instance of the FileService is unique to an RPC session and a workspace.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.FileService.Root">
+            <summary>
+            Tracks information about one root directory in a (potentially) multi-root file system,
+            including the associated AnyCode workspace and glob-list filters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.FileService.IsFilteringAndWatcherEnabled">
+            <summary>
+            Enables or disables AnyCode workspace integration.
+            </summary>
+            <remarks>
+            Tests that use the file service with mocked paths may need to disable this.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.FileService.IsIndexingEnabled">
+            <summary>
+            Enables or disables AnyCode Indexing
+            </summary>
+            <remarks>
+            Tests that use the file service with specific expectations of file structures
+            may need to disable this to prevent polution of the file tree
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.AddRootInternalAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Adds a root without raising a <see cref="E:Microsoft.Cascade.Agent.FileService.RootsChanged"/> event.
+            </summary>
+            <returns>
+            Normalized remote path for the added root e.g. /~0,
+            null if <paramref name="rootDir"/> is null or the root already exists.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.ConfigurePersistentRoot(Microsoft.VisualStudio.LiveShare.FileServiceRootConfiguration)">
+            <summary>
+            Configure persistent root.
+            After persistent root is configured, it'll stay in effect forever until the agent terminates.
+            It'll allow use of /~~/ paths that would work based on the root configuration, regardless of active regular roots.
+            </summary>
+            <param name="rootConfiguration">Persistent root configuration. Not null.</param>
+            <param name="cancellationToken"></param>
+            <exception cref="T:System.InvalidOperationException">If there is already persistent root configuration set</exception>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="rootConfiguration"/>, <see cref="P:Microsoft.VisualStudio.LiveShare.FileServiceRootConfiguration.Directories"/>, or any of
+            <see cref="T:Microsoft.VisualStudio.LiveShare.FileServiceRootDirectoryConfiguration"/> property is null.</exception>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.GetFileInfoAsync``1(System.String,Microsoft.Cascade.Contracts.FileListOptions)">
+            <summary>
+            Get file or directory info for a file addressed by vsls: URI path
+            </summary>
+            <typeparam name="F">Type of file info</typeparam>
+            <param name="path">vsls: URI path</param>
+            <param name="options">File list options.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.CanGuestSupportPersistentRoot(System.Int32)">
+            <summary>
+            Get a value indicating whether guest with <paramref name="sessionNumber"/> can support persistent root
+            and the persistent root is configured.
+            </summary>
+            <param name="sessionNumber">Guest's session number.</param>
+            <returns>
+            True if the persistent root is configured and the guest can use it;
+            Otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.CanGuestSupportPersistentRoot">
+            <summary>
+            Get a value indicating whether calling guest can support persistent root
+            and the persistent root is configured.
+            </summary>
+            <returns>
+            True if the persistent root is configured and the calling guest can use it;
+            Otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.CanClientSupportPersistentRoot">
+            <summary>
+            Get a value indicating whether the client can support persistent root and the persistent root is configured.
+            </summary>
+            <returns>
+            True if the persistent root is configured and the client can use it;
+            Otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.TryGetPersistentRemotePath(System.String,System.Boolean)">
+            <summary>
+            Check if <paramref name="localFullPath"/> can be expressed as persistent vsls path.
+            Check if the current RPC client may use persistent paths if <paramref name="checkPermissions"/> is true.
+            </summary>
+            <returns>
+            Null if <paramref name="localFullPath"/> is null,
+            or there is no persistent root configuration, or the path cannot be expressed with it,
+            or if <paramref name="checkPermissions"/> is true and the caller cannot use persistent roots.
+            Otherwise, normalized persistent vsls path with / slashes and without trailing /, e.g. /~~/c$/workspace/foo/bar.cs
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.TryConvertWorkspaceFileId(Microsoft.Cascade.Contracts.WorkspaceFileId,System.Boolean,System.Boolean)">
+            <summary>
+            Try converting <paramref name="workspaceFile"/> to/from persistent form.
+            </summary>
+            <param name="workspaceFile">Workspace file id to convert. May be null.</param>
+            <param name="usePersistentRootIfPossible">
+            A value indicating whether persistent root form should be used if it's possible and allowed.
+            </param>
+            <param name="checkPermissions">Whether to check caller permissions if <paramref name="usePersistentRootIfPossible"/> is true.</param>
+            <returns>
+            The argument <paramref name="workspaceFile"/> if it's already in the right format and that format is allowed.
+            New converted workspace file id if <paramref name="workspaceFile"/> is not null and can be converted.
+            If <paramref name="usePersistentRootIfPossible"/> is true, and <paramref name="workspaceFile"/> cannot be expressed in persistent
+            root form, it's returned as non-persistent form.
+            Otherwise, null.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.GetLocalPath(System.String)">
+            <summary>
+            Given a virtual (workspace) path, returns the local path to a file or directory,
+            or null if the path is invalid or is not under any known root.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.GetRootAndLocalPath(System.String@,System.Boolean)">
+            <summary>
+            Given a virtual (workspace) path, returns the corresponding Root instance
+            along with the local path to a file or directory, and updates the supplied path
+            to a more canonical virtual path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.GetRootFullPaths">
+            <summary>
+            Get full remote paths to the shared workspace roots.
+            Persistent root paths /~~/... are preferred to regular root paths /~0/..
+            if persistent root configuration is set, 
+            shared workspace path can be expressed with it,
+            and the client can use it.
+            If persistent root path is not used, full root path (/~x/) is used instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.UpdateDirectoryListing(Microsoft.Cascade.Agent.FileService.Root,System.String)">
+            <summary>
+            Update the list of visible children for a directory.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.FileService.OnWorkspaceSettingsChangedAsync(System.Object,Microsoft.VisualStudio.Workspace.Settings.WorkspaceSettingsChangedEventArgs)">
+            <summary>
+            Generate file change events corresponding to any files whose visibility
+            has changed as a result of excluded/hidden filter changes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.HubClientHost">
+            <summary>
+            Host a hub client and provide a way to create proxy clients
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.HubClientHost.HubProxyOptions">
+            <summary>
+            Gets the hub proxy options (default is to use the direct hub)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.HubClientHost.ConfigureOptions(Microsoft.AspNetCore.Http.Connections.Client.HttpConnectionOptions)">
+            <summary>
+            Configure options of the http connection to be made.
+            </summary>
+            <param name="options">The options to pass back into the hub builder.</param>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IAuthenticationContext.CurrentUser">
+            <summary>
+            Gets the logged-in user associated with the current RPC channel,
+            or null if no user is logged in.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IAuthenticationContext.Keychain">
+            <summary>
+            Gets or sets the keychain used to cache authentication credentials.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.ILongRunningService">
+            <summary>
+            Interface that a service can implement to delay RPC session disposal and agent shutdown when the client disconnects.
+            Use it to finish long-running operations that the client may have started before it disconnected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.ILongRunningService.WaitForPendingOperationBeforeSessionShutdownAsync(System.Threading.CancellationToken)">
+            <summary>
+            Wait for pending operation before the server can dispose RPC services and shutdown.
+            If there is no pending operation, the implementation must return completed task.
+            </summary>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.INetworkUtility">
+            <summary>
+            Abstracts local network operations for unit testing classes that use network.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IVersionContext.ApiVersion">
+            <summary>
+            Gets the API version to be used in calls to the web service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IVersionContext.ThisAgentVersion">
+            <summary>
+            Gets version information about the current agent process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IVersionContext.CallerAgentVersion">
+            <summary>
+            Gets version information about the agent that is connected on the current RPC channel,
+            or null if this connection is made directly from a client.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IVersionContext.CallerClientVersion">
+            <summary>
+            Gets version information about the client tool that is connected on the current RPC
+            channel, or connected indirectly via another agent, or null if an agent is calling
+            not on behalf of any client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.IVersionContext.CheckRemoteVersionAsync(Microsoft.Cascade.Rpc.IRpcSession)">
+            <summary>
+            Exchanges versions with the remote session, and throws an exception if versions
+            are incompatible.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.IVersionContext.UserSettings">
+            <summary>
+            Gets the user settings for the current RPC session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.IWorkspaceConnector">
+            <summary>
+            Abstracting for creating incoming and outgoing workspace RPC sessions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.IWorkspaceConnector.AcceptSessionsAsync(System.Net.Sockets.TcpListener,Microsoft.Cascade.Agent.SharedWorkspace,Microsoft.VisualStudio.Ssh.Algorithms.IKeyPair,System.Threading.CancellationToken)">
+            <summary>
+            Starts listening for incoming RPC sessions on a TCP port and/or relay endpoint.
+            </summary>
+            <param name="port">TCP port to listen on, or 0 for relay-only</param>
+            <param name="workspace">Workspace that incoming sessions will connect to;
+            includes relay endpoint info</param>
+            <param name="hostPrivateKey">Private key used to authenticate the host.</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.IWorkspaceConnector.CreateRpcClients(Microsoft.Cascade.Contracts.ConnectionMode,System.String[],System.String,System.String,System.String[],System.String,System.String)">
+            <summary>
+            Creates a list of RPC clients to be used for connecting to a remote workspace.
+            </summary>
+            <param name="mode">Connection mode that determines the type of client(s)
+            to create</param>
+            <param name="directAddresses">URIs (including ports) for direct TCP connections</param>
+            <param name="relayAddress">Relay endpoint URI</param>
+            <param name="relaySas">Relay shared access signature</param>
+            <param name="joiningUserSessionToken">Token for authenticating with the host</param>
+            <param name="hostPublicKeys">Public keys used to authenticate the host.</param>
+            <param name="hubId">The optional relay hub identifier</param>
+            <returns>List of RPC clients, in priority order</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.IWorkspaceConnector.OpenSessionAsync(System.Collections.Generic.IEnumerable{Microsoft.Cascade.Rpc.IRpcClient},System.Threading.CancellationToken)">
+            <summary>
+            Given a list of RPC clients, tries connecting each in order until a successful
+            connection is made and a session is esablished.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Cascade.Agent.IWorkspaceConnector.ServerDisconnected">
+            <summary>
+            This event is fired when the server accepting connections goes offline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.IWorkspaceConnector.ReconnectToSessionAsync(System.Collections.Generic.IEnumerable{Microsoft.Cascade.Rpc.IRpcClient},Microsoft.Cascade.Rpc.IRpcSession,System.Threading.CancellationToken)">
+            <summary>
+            Tries to connect a given set of rpc clients to an existing session.
+            </summary>
+            <returns>Connection mode used in the session.</returns>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.JoinedWorkspace">
+            <summary>
+            Entry in the active-objects list to track which workspaces are currently joined by this agent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.JoinedWorkspace.Id">
+            <summary>
+            Workspace ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.JoinedWorkspace.HostWorkspaceService">
+            <summary>
+            Proxy to the host WorkspaceService that was joined.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.LocalCascadeClient">
+            <summary>
+            Implements ICasadeClient but looking first for services available on the Rpc session
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.NetworkUtility.VirtualNames">
+             <summary>
+             List of substrings possibly found in a network interface name or
+             description, which indicate the the interface is virtual and should be skipped.
+             </summary>
+             <remarks>
+             This list does not need to be completely exhaustive; it's mostly an optimization.
+             If a virtual IP address is returned and a client tries to connect to that address
+             (and Cascade port), the attempted connection will quickly fail and the client
+             will move on to the next IP address or to the relay.
+            
+             Note VPN interfaces MUST NOT be skipped, but those don't seem to have the word
+             "virtual" in their name.
+             </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Microsoft.Cascade.Agent.ObjectTracker" -->
+        <member name="M:Microsoft.Cascade.Agent.Program.DisplayNetworkInfo">
+            <summary>
+            Displays information about network interfaces and IP addresses
+            that may be useful for diagnosing direct peer-to-peer connectivity
+            issues with Cascade sessions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RelayHubRpcServer">
+            <summary>
+            Server for accepting JSON-RPC sessions via a signalR relay hub
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.RelayHubRpcServer.HostFlags.JoinReadAck">
+            Will send join ready ack 
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RelayRpcClient">
+            <summary>
+            Client for opening a JSON-RPC session via an Azure Relay connection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RelayRpcServer">
+            <summary>
+            Server for accepting JSON-RPC sessions via an Azure Relay connection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RelayStream">
+            <summary>
+            Wraps a HybridConnectionStream to assist with performing a clean shutdown.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.RelayStream.Dispose(System.Boolean)">
+            <summary>
+            Disposes the stream.
+            </summary>
+            <remarks>
+            A relay stream must not be disposed concurrently with a read operation --
+            the HybridConnectionStream Shutdown() method throws an exception in that case.
+            The <code>finalRequest</code> parameter to <code>IRpcStream.SendRequestAsync</code>
+            can be used to ensure the RPC session stream is disposed at a point when there are
+            no pending read operations.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.RelayTokenProvider.ReadNewShareSasAsync">
+            <summary>
+            Reads the relay shared access signature from the workspace record. Throws an exception if the communication with the service fails,
+            or if the information cannot be found. 
+            </summary>
+            <exception cref="T:Microsoft.Cascade.Agent.HttpResponseStatusException">When communicating with the service fails.</exception>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RpcSessionHelpers">
+            <summary>
+            Utils on a IRpcSession
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.RpcSessionHelpers.GetDispatcherService(Microsoft.Cascade.Rpc.IRpcService)">
+            <summary>
+            Method to return the 'Service' object of the RpcDispatcher instance 
+            </summary>
+            <param name="rpcDisptacher"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.RpcSessionHelpers.GetDispatcherService(Microsoft.Cascade.Rpc.IRpcSession,System.Type,System.String)">
+            <summary>
+            Attempt to discover a service on the existing RpcDispatcher Services being registered on the session
+            </summary>
+            <param name="rpcSession">The rpc session to find the services</param>
+            <param name="serviceType">Type of the servcie being looked</param>
+            <param name="serviceName">Name of the service</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.RpcSessionServiceProvider">
+            <summary>
+            This class will implement IServiceProvider based on an Rpc session that could have
+            the dispatcher service implemented
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Server.AutoStop">
+            <summary>
+            True to stop the server after all RPC sessions have disconnected
+            and no local workspaces remain shared.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Server.RpcSessionBaseInfo">
+            <summary>
+            Base class to hold an rpc session entity
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Server.RpcSessionInfo">
+            <summary>
+            Class to keep track of the connected rpc sessions
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Server.RpcSessionInfo.InitializeRequest">
+            <summary>
+            The original initialize request made to initialize this rpc session
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Server.SessionReconnectInfo">
+            <summary>
+            Class to track an Rpc session to be reconnected
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Server.AgentSessionService">
+            <summary>
+            Implement IAgentSessionService
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Server.KeepAliveReason">
+            <summary>
+            Reason on why to trigger a keep alive on the agent
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.Server.KeepAliveReason.AgentStarted">
+            <summary>
+            When the agent is started
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.Server.KeepAliveReason.RpcSessionDisconnect">
+            <summary>
+            When an rpc is disconnect and we want to keep it alive until it could re-connect again
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.Server.KeepAliveReason.RpcAgentSessionService">
+            <summary>
+            When an rpc agent session service decide to keep the agent alive more time
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.ServiceProviderExtensions">
+            <summary>
+            Helper methods to acquire services via <see cref="T:System.IServiceProvider"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedInvitationLinkInfo">
+            <summary>
+            Data provided to the service to create an invitation link
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.InvitationLink">
+            <summary>
+            Invitation link object received from the service
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.BrokerAuthorizationService">
+            <summary>
+            Implementation of the broker authorization service.
+            </summary>
+            <remarks>
+            The service is added into every local RPC session so that any broker process connected to the agent
+            will be able to authorize itself given a valid broker token.
+            The service injects an RPC relay for each permitted service name bridging the current
+            client RPC session with target workspace remote sessions.
+            Once authorized for the first time it's not possible to re-authorize the broker with a different token.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.BrokerAuthorizationService.AuthorizeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.BrokerManager">
+            <summary>
+            A container of the registered broker entries shared across client and broker sessions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.BrokerManagerService">
+            <summary>
+            Implementation of the broker manager service.
+            </summary>
+            <remarks>
+            The service instance is created by the <see cref="T:Microsoft.Cascade.Agent.WorkspaceService"/> on every remote join
+            operation so that it gets access to both host and guest RPC sessions.
+            The service is disposed when the joined workspace is disposed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.BrokerManagerService.RegisterAsync(Microsoft.Cascade.Contracts.BrokerManifest,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.BrokerManagerService.TryRevokeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.TaskBrokerRunner">
+            <summary>
+            Facilitates task broker CLI command executions, such as <c>run-task</c>, <c>monitor-tasks</c>, or <c>monitor-output</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.TaskBrokerRunner.RunTaskAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs a workspace task and monitors a task output when available.
+            </summary>
+            <param name="taskUid">The nique task ID</param>
+            <param name="brokerToken">The broker token</param>
+            <param name="cancellationToken">The cancellation token. Used to terminate the task execution.</param>
+            <returns>True if operation succeeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.TaskBrokerRunner.MonitorTaskAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Monitors a workspace task execution and streams its output messages.
+            </summary>
+            <param name="taskUid">Unique ID of a task to monitor.</param>
+            <param name="taskExecutionId">Unique ID of a task execution to monitor.</param>
+            <param name="brokerToken">The broker token.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>True if operation succeeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.TaskBrokerRunner.MonitorOutputAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Streams content of a task output stream to the console output.
+            </summary>
+            <param name="streamName">The unique ID of the stream.</param>
+            <param name="streamCondition">The stream condition.</param>
+            <param name="brokerToken">The broker token.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>True if operation succeeded, or false otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.TaskOutputBuffer">
+            <summary>
+            Implementation of a task output buffer allowing exclusive single writer or
+            simultaneous readers access.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.TaskOutputBuffer.ReaderWriterContext">
+            <summary>
+            Keeps shared context to synchronize readers and writers access.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.TaskOutputBuffer.SynchronizedStream">
+            <summary>
+            Provides a synchronization layer on top of the memory stream.
+            Used both for writing and reading operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedTerminal.ExternalTerminal">
+            <summary>
+            Represents a worker synchronizing i/o streams of an external terminal application.
+            Upon start it launches a terminal process and connects to its standard i/o.
+            </summary>
+            <seealso cref="T:Microsoft.Cascade.Agent.SharedTerminal.TerminalBase" />
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedTerminal.IntegratedTerminal">
+            <summary>
+            Represents a worker synchronizing i/o streams of a terminal integrated into a client.
+            Upon start it attempts to connect to a named pipe to send/receive raw terminal data.
+            </summary>
+            <seealso cref="T:Microsoft.Cascade.Agent.SharedTerminal.TerminalBase" />
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedTerminal.TerminalBase">
+            <summary>
+            Base class for terminal workers synchronizing i/o streams of a terminal application.
+            </summary>
+            <seealso cref="T:Microsoft.VisualStudio.Threading.IAsyncDisposable" />
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.SharedTerminal.TerminalEndpoint.WriteStringAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Writes UTF-8 string to the terminal stream.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedWorkspace">
+            <summary>
+            Keeps track of data about a shared workspace used internally by the agent.
+            </summary>
+            <remarks>
+            Currently this data is not persisted anywhere. Eventually it should be persisted
+            either locally or in the cloud, so that if the agent process is restarted then
+            the shared-workspace state will not be lost.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.SharedWorkspace.RpcSession">
+            <summary>
+            Keep track of the rpc session that initiate this workspace
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.SharedWorkspace.HasId(System.String)">
+            <summary>
+            Gets whether the workspace has the id either directly or as an invitation id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SharedWorkspaceListener">
+            <summary>
+            Finds a free tcp port and starts tcp listener if connection mode allows that.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SshRpcSessionFactory">
+            <summary>
+            Channel factory that establishes an SSH session and channel over the stream
+            before passing the channel stream to another factory.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.SshRpcSessionFactory.ReconnectTimeout">
+            <summary>
+            Disconnected SSH server sessions are available for reconnection for a short time.
+            (If a client has not reconnected within this time, they'll have to do a full rejoin.)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.SshRpcSessionFactory.#ctor(Microsoft.Cascade.Rpc.IRpcSessionFactory,Microsoft.VisualStudio.Ssh.Algorithms.IKeyPair,Microsoft.Cascade.Agent.AgentTelemetryProxy,System.Boolean,System.Diagnostics.TraceSource)">
+            <summary>
+            Creates a new session factory that constructs an SSH server session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.SshRpcSessionFactory.#ctor(Microsoft.Cascade.Rpc.IRpcSessionFactory,System.String,System.TimeSpan,Microsoft.Cascade.Agent.AgentTelemetryProxy,System.Boolean,System.Diagnostics.TraceSource)">
+            <summary>
+            Creates a new session factory that constructs an SSH client session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.SshRpcSessionFactory.DisableStreamTransport">
+            <summary>
+            This property is only for testing back-compat. Normally this should be always false.
+            Only tests set it to true.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.SshStreamTransport">
+            <summary>
+            Provides means for transporting stream over ssh session
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.AsyncEncodingConverter">
+            <summary>
+            Statefull encoding converter.
+            Reading from it will read from the underlying reader and convert fromEncoding -> toEncoding.
+            One call to ReadAsync can only result in atmost one call to ReadAsync on the underlying reader.
+            Writing to it will convert toEncoding -> fromEncoding and write to the underlying writer.
+            One call to WriteAsync may result to multiple calls on the underlying writer.
+            Reading or writing is exclusive, meaning that only one consumer can read or write at a time.
+            Reading can happen in parallel with writing.
+            Cancelling reading or writing may cause undetermined behavior of subsequent reading or writing.
+            Disposing will dispose the underlying readerwriter.
+            </summary>
+            <remarks>
+            We cannot use StreamReader/StreamWriter for encoding conversion because
+            we need to guarantee that one read from the caller will translate to one read from the underlying reader,
+            which is not a guarantee in StreamReader.
+            Having multiple reads instead of one is bad - the read from terminal is waiting on user input,
+            and if we start waiting more than necessary, the already available input wouldn't be property processed.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.IStreamProvider">
+            <summary>
+            Extensions that provide a stream returned by the <see cref="T:Microsoft.Cascade.Contracts.IStreamService"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Streams.IStreamProvider.StreamName">
+            <summary>
+            Name of the stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Streams.IStreamProvider.Streams">
+            <summary>
+            The <see cref="T:Microsoft.Cascade.Agent.Streams.RemoteStream"/> objects representing the streams created by this provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.Streams.IStreamProvider.Initialize(Microsoft.Cascade.Agent.SharedWorkspace)">
+            <summary>
+            Initialize the Stream provider. This is typically where the stream could be created.
+            </summary>
+            <param name="workspace"></param>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.Streams.IStreamProvider.GetStreamAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a <see cref="T:Microsoft.Cascade.Agent.Streams.RemoteStream"/> satisfying some condition that is given.
+            </summary>
+            <param name="condition">An object that can be used to filter down to one of the streams created by this provider.</param>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.PipeStreamTransportService">
+            <summary>
+            Provides means for transporting stream over named pipe
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.RemoteReaderWriterProxy">
+            <summary>
+            Represents a bi-directional stream that wraps an arbitrary IDisposableAsyncReaderWriter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Streams.RemoteStream.Id">
+            <summary>
+            Id of the stream.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.RemoteStreamProxy">
+            <summary>
+            Represents a bi-directional stream that wraps an arbitrary stream
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.Streams.ServerSharingService.StreamId">
+            <summary>
+            Unique stream id to allow multiple streams going to the same forwarded port or pipe.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.Streams.ServerSharingService.Initialize(Microsoft.Cascade.Agent.SharedWorkspace)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.Streams.ServerSharingService.SharedServerData.referenceCount">
+            <summary>
+            Reference count to support multiple sharing sessions for the same port.
+            I.e. session 1 starts automatically when debugger starts, session 2 is requested
+            explicitly by the user.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Streams.StreamService">
+            <summary>
+            A service that allows reading and writing to streams of data.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Tokens.CertificateResult">
+            <summary>
+            Result item from listing public certificates.
+            </summary>
+            <remarks>
+            This class is designed to be compatible with the JSON Web Key (JWK) specification:
+            https://tools.ietf.org/html/draft-ietf-jose-json-web-key-41 .
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.Issuer">
+            <summary>
+            Gets or sets the issuer for which this certificate is used to sign tokens.
+            </summary>
+            <remarks>
+            This value is omitted when certificates are requested for a single specific issuer.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.KeyType">
+            <summary>
+            Gets or sets the key type. This is always "RSA" for certificates.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.KeyId">
+            <summary>
+            Gets or sets the key ID. This is often, but not necessarily, the same as the thumbprint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.Thumbprint">
+            <summary>
+            Gets or sets the certificate thumbprint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.PublicCertificate">
+            <summary>
+            Gets or sets the base64-encoded public certificate bytes.
+            </summary>
+            <remarks>
+            This is an array to accommodate a certificate chain. The first item in the array
+            is the certificate for token validation; the others can be used to verify the first.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.Modulus">
+            <summary>
+            Gets or sets the RSA key modulus, in Base64urlUInt encoding.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.Exponent">
+            <summary>
+            Gets or sets the RSA key exponent, in Base64urlUInt encoding.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateResult.IsPrimary">
+            <summary>
+            Gets or sets a value indicating whether this is the primary certificate for the issuer.
+            </summary>
+            <remarks>
+            The primary certificate corresponds to the private certificate currently used to sign
+            tokens for this issuer. Non-primary certificates may have been primary in the past or
+            may become primary in the future, so validators should also consider them when
+            validating tokens from the issuer.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Tokens.CertificateSetResult">
+            <summary>
+            Result from listing public certificates.
+            </summary>
+            <remarks>
+            This class is designed to be compatible with the JSON Web Key Set (JWKS) specification:
+            https://tools.ietf.org/html/draft-ietf-jose-json-web-key-41 .
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.Tokens.CertificateSetResult.Certificates">
+            <summary>
+            Gets or sets the set of certificates.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.Tokens.JwtReader">
+            <summary>
+            Similar to the `JwtReader` class from the VSSaaS-SDK, but highly simplified. Compared to
+            that one, this class does not include support for tenant-specific issuers, encrypted tokens,
+            audience validation, or decoding without validating. Also it uses `TraceSource` instead of
+            `IDiagnosticsLogger`.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.IWebApiCollection`1">
+            <summary>
+            Interface for basic CRUD operations over a REST+JSON collection API.
+            </summary>
+            <typeparam name="T">Collection item DTO type</typeparam>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WebApiCollection`1">
+            <summary>
+            Implements basic CRUD operations over a REST+JSON collection API.
+            </summary>
+            <typeparam name="T">Collection item DTO type</typeparam>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceConnector.DirectConnectTimeout">
+            <summary>
+            Time spent trying to connect directly before trying the next connection option.
+            This should be long enough to establish a connection on the same local network,
+            but short enough not to cause an unreasonable delay when the connection fails.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceConnector.HandshakeTimeout">
+            <summary>
+            Time spent waiting for the initial packet exchange after connecting, before
+            trying the next connection option. (VPN gateways may sometimes "accept" TCP
+            connections without actually enabling communication.)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceIdGenerator.GenerateId(System.String[],System.String,System.String)">
+            <summary>
+            Generates a predictable/repeatable ID for a workspace.
+            </summary>
+            <remarks>
+            The ID is a hash of the following parameters:
+             - System ID (MAC address of the first non-loopback network interface)
+             - User ID (from USERNAME environment variable)
+             - Workspace root directory path(s) (case-insensitive)
+            The hash is formatted as uppercase hex chars, truncated to a length of 20.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceService">
+            <summary>
+            Implements the agent workspace service for listing, sharing, and joining workspaces.
+            </summary>
+            <remarks>
+            The workspace service is never proxied to a remote agent. When joining a remote
+            workspace, the join requst goes to the local agent first, and then the local agent
+            creates an RPC session to the remote agent and sets up proxes for the OTHER services.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.WorkspaceService.LocalJoinNotSupported">
+            <summary>
+            TODO: remove this once we fully support the local join workspace
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.SetWorkspaceReadyForConnectionAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Set shared workspace as ready for connection.
+            </summary>
+            <param name="workspaceId">Id for the workspace</param>
+            <param name="cancellationToken">Cancellation token</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.UpdateWorkspaceOwnerAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.RegisterServicesAsync(System.String[],Microsoft.Cascade.Contracts.CollectionChangeType,System.Threading.CancellationToken)">
+            <summary>
+            Registers or unregisters service proxies that enable the client to provide
+            RPC services to other clients in the workspace.
+            </summary>
+            <remarks>
+            The RPC routing mechanism is built around a SharedWorkspace instance
+            (one per workspace) that exists in the owner’s agent process for as long as
+            the workspace is shared. That instance has an RpcServiceMap that tracks all
+            services currently available in the workspace, indexed by service name. The
+            values in the map are either actual service instances (for services like the
+            file service that are provided by the owner agent) or service proxies that
+            relay to the client that provides the service. (For non-owner clients, there
+            is an additional proxy hop through the other agent.) The ServiceMap raises a
+            ServicesChanged event when its contents change, and the change notification
+            gets propagated to other agents and clients, informing them to update their
+            proxies for the changed services.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.RegisterWorkspaceServices(Microsoft.Cascade.Agent.SharedWorkspace)">
+            <summary>
+            Called when sharing or joining a workspace. Register the workspace's available
+            services with the client session, and notifies the client of their availability.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.OnRemoteWorkspaceServicesChanged(System.Object,Microsoft.Cascade.Contracts.WorkspaceServicesChangedEventArgs)">
+            <summary>
+            Called when a joiner is notified that some workspace services have changed.
+            Updates proxies to maintain routing of messages to/from changed services,
+            and forwards the notification to the client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.AddRemoteWorkspaceServiceRelay(System.String)">
+            <summary>
+            Adds a service relay for the added remote service.
+            </summary>
+            <param name="serviceName"></param>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceService.OnWorkspaceServicesChanged(System.Object,Microsoft.Cascade.Rpc.ServicesChangedEventArgs)">
+            <summary>
+            Notifies each client session in the sharer's agent process about any changes
+            to available workspace services.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceSettingsProviderFactory">
+            <summary>
+            Factory for AnyCode workspace settings, used by Live Share for file-change
+            events and glob-list path matching.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.WorkspaceSettingsProviderFactory.Priority">
+            <summary>
+            Priority 0 enables overriding AnyCode's built-in default settings.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceSettingsProvider">
+            <summary>
+            AnyCode workspace settings provider for one root directory.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceSettingsProvider.ExcludedItemsKey">
+            <summary>
+            Files that should be completely excluded from file service and thus inaccessible
+            to guests.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceSettingsProvider.HiddenItemsKey">
+            <summary>
+            Files that should be hidden from guests' directory listings by default (unless the
+            `IncludeHidden` option is specified). Hidden files may still be accessed using
+            a direct path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceSettingsProvider.ReadonlyItemsKey">
+            <summary>
+            Files that cannot be modified by any guests.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceSettingsProvider.GitignoreItemsKey">
+            <summary>
+            Files that are matched by .gitignore. This list may be included in one of the other lists
+            based on a config setting.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceSettingsSource">
+            <summary>
+            AnyCode workspace settings source for one (sub-)directory. Glob lists in settings
+            are hierarchical, meaning they include/override lists from parent directories.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.GuestJoinResult">
+            <summary>
+            Possible outcomes when guest requests to join collaboration session
+            Success = guest is accepted by host
+            Rejected = guest is rejected by host
+            Canceled = guest cancels request before host responds
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceUserService.GuestSession">
+            <summary>
+            Represents a guest.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Agent.WorkspaceUserService.guestSessions">
+            <summary>
+            Represents a collection of guests who have participated in the current session at all.
+            Includes all guests who have made requests to join a session, even if approval-required mode is on.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Agent.WorkspaceUserService.SupportsRemoteLS">
+            <summary>
+            Returns a bool indicating whether the user has remote LS support.
+            Note: to be removed when multi-participant remote LS support is implemented.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceUserService.AddUserToWorkspaceAsync(System.Threading.CancellationToken)">
+            <summary>
+            Takes the currently logged-in user and asks the Cascade services to associate self with
+            the specified workspace (as provided to the constructor).
+            </summary>
+            <param name="cancellationToken">A cancellation token, optional</param>
+            <returns>A SharedWorkspace confirming the user has joined, and containing workspace
+            details including user token to be shared with session peers.</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceUserService.GetGuestUserProfileAsync(System.String,System.Threading.CancellationToken)">
+             <summary>
+             Takes a guest user token and either validates it directly and extracts the profile
+             from claims, or sends it to the Cascade services to obtain the profile of the person
+             who's represented by the user token.
+            
+             This method can throw a RemoteException or an Exception if the operation fails.
+             </summary>
+             <param name="userToken">The user token as received from the remote user</param>
+             <param name="cancellationToken">A cancellation token, optional</param>
+             <returns>A WorkspaceUserProfile with the information of the remote user</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceUserService.ValidateGuestTokenAndGetProfile(System.String)">
+            <summary>
+            Attempts to validate a guest session token and build a profile from token claims.
+            </summary>
+            <returns>Guest user profile, or null if not enough information was available to validate or
+            build a profile directly. In that case, the profile might be obtained by calling the service.</returns>
+            <exception cref="T:System.UnauthorizedAccessException">The token is definitely invalid for some reason
+            described in the exception message.</exception>
+        </member>
+        <member name="E:Microsoft.Cascade.Agent.WorkspaceUserService.WorkspaceSessionChanged">
+            <summary>
+            Event to be triggered everytime a user joins or unjoins a workspace session
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceUserService.ValidateHostIdentity(Microsoft.Cascade.Contracts.WorkspaceUserProfile,System.String,Microsoft.Cascade.Contracts.WorkspaceUserProfile,Microsoft.Cascade.Contracts.UserInfo)">
+            <summary>
+            Ensures that the identity provided by the host matches the authenticated host
+            identity reported by the service when joining.
+            </summary>
+            <param name="hostProfile">Host profile self-provided by the host (required, modified)</param>
+            <param name="workspaceOwnerId">Workspace owner ID as reported by the service (required)</param>
+            <param name="authenticatedOwnerProfile">Owner profile as reported by the service (optional)</param>
+            <param name="currentUser">Current user profile (optional)</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Agent.WorkspaceUserService.CreateTokenReader(Microsoft.Cascade.Agent.Tokens.CertificateSetResult)">
+            <summary>
+            Creates a token reader that can validate guest session tokens, using validation keys
+            that were provided by the service.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.IHeartbeatService">
+            <summary>
+            Interface for heartbeat operation. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.IWorkspaceWebService">
+            <summary>
+            Defines the workspace web service interface.
+            </summary>
+            <typeparam name="T">DTO type</typeparam>
+        </member>
+        <member name="T:Microsoft.Cascade.Agent.WorkspaceWebService">
+            <summary>
+            Workspace web service implementation. 
+            </summary>
+            <typeparam name="T">DTO type</typeparam>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.IApplication">
+            <summary>
+            Application actions that control how the console and console window behave
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Platforms.IApplication.EnvironmentVariableNameComparer">
+            <summary>
+            Get string comparer that is used to compare environment variable names
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Platforms.IApplication.TerminalEnvironment">
+            <summary>
+            Gets environment variables that caller must for terminal
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.IApplication.StartTerminalAsync(Microsoft.Cascade.Contracts.TerminalOptions,System.Collections.Generic.IDictionary{System.String,System.String},System.Diagnostics.TraceSource,System.Threading.CancellationToken)">
+            <summary>
+            Starts a new terminal and returns a connection to it.
+            The connection then can be used to listen for terminal stdio and detect when it exits
+            </summary>
+            <param name="options">Terminal options that defines how terminal is started. Instead of options' Enviroment, <paramref name="environment"/> is used though.</param>
+            <param name="environment">Environment for the terminal to start.</param>
+            <param name="trace">Trace source</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Terminal connection.</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.IApplication.EnableVirtualTerminal">
+            <summary>
+            Enable terminal in the console app.
+            After calling this method, stdio is pass-through, and terminal window respects escape codes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.IApplication.Activate">
+            <summary>
+            Activate and focus the app.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.IApplication.OpenStdio">
+            <summary>
+            Gets stdio
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.ITerminalConnection">
+            <summary>
+            Connection to a running terminal process.
+            IDisposableAsyncReaderWriter can be used to access stdio and to close the process on dispose.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Platforms.ITerminalConnection.ProcessExited">
+            <summary>
+            Event fired when the terminal process exits
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Platforms.ITerminalConnection.Pid">
+            <summary>
+            Terminal process ID
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Platforms.ITerminalConnection.ExitCode">
+            <summary>
+            Terminal process exit code
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.ITerminalConnection.WaitForExit(System.Int32)">
+            <summary>
+            Wait for terminal process to exit up to a given timeout.
+            </summary>
+            <param name="milliseconds">Timeout to wait for process exit.</param>
+            <returns>True if the process exits within the timeout, otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.ITerminalConnection.Kill">
+            <summary>
+            Mercelessly kill terminal process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.ITerminalConnection.Resize(System.Int32,System.Int32)">
+            <summary>
+            Change size of the terminal
+            </summary>
+            <param name="cols">New columns</param>
+            <param name="rows">New rows</param>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.KeychainFile">
+             <summary>
+             Reads and writes credentials from/to a simple JSON file.
+             </summary>
+             <remarks>
+             This implementation does not apply any special access controls to the file,
+             but it does preserve any controls that may be already in place. So for a little
+             more security, a user could create an empty file ahead of time and apply
+             access controls that limit access to the single user.
+            
+             Still, this is inherently less secure than the default platform-specific keychain
+             implementations, therefore it should only be used in environments where the
+             default is not functional.
+             </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Mac.AppWindows">
+            <summary>
+            Gets information about visible windows on Mac OS.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Mac.NativeMethods">
+            <summary>
+            Defines native types and methods for interop with Mac OS system APIs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.BRKINT">
+            <summary>
+            Map BREAK to SIGINTR
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.ICRNL">
+            <summary>
+            Map CR to NL (ala CRMOD)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.IXON">
+            <summary>
+            Enable output flow control
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.IXANY">
+            <summary>
+            Any char will restart after stop
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.IMAXBEL">
+            <summary>
+            Ring bell on input queue full
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermInputFlag.IUTF8">
+            <summary>
+            Maintain state for UTF-8 VERASE
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermOuptutFlag.NONE">
+            <summary>
+            No output processing
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermOuptutFlag.OPOST">
+            <summary>
+            Enable following output processing
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermOuptutFlag.ONLCR">
+            <summary>
+            Map NL to CR-NL (ala CRMOD)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermOuptutFlag.OCRNL">
+            <summary>
+            Map CR to NL
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermOuptutFlag.ONLRET">
+            <summary>
+            Don't output CR
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermConrolFlag.CS8">
+            <summary>
+            8 bits
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermConrolFlag.CREAD">
+            <summary>
+            Enable receiver
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermConrolFlag.HUPCL">
+            <summary>
+            Hang up on last close
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ECHOKE">
+            <summary>
+            Visual erase for line kill
+            </summary>        
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ECHOE">
+            <summary>
+            Visually erase chars
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ECHOK">
+            <summary>
+            Echo NL after line kill
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ECHO">
+            <summary>
+            Enable echoing
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ECHOCTL">
+            <summary>
+            Echo control chars as ^(Char)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ISIG">
+            <summary>
+            Enable signals INTR, QUIT, [D]SUSP
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.ICANON">
+            <summary>
+            Canonicalize input lines
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Mac.NativeMethods.TermLocalFlag.IEXTEN">
+            <summary>
+            Enable DISCARD and LNEXT
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Mac.ObjcObject">
+            <summary>
+            Represents an Obj-C object backed by a native handle.
+            It is often but not always an instance of (a subclass of) NSObject.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Mac.Selector">
+            <summary>
+            Represents an Obj-C selector (name of a method) backed by a native handle.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.PlatformServices">
+            <summary>
+            Abstracts access to components that require different implementations
+            on different platforms.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Unix.TerminalStream">
+            <summary>
+            A stream used to interact with forked terminal.
+            The only difference is that it cannot seek.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Windows.AppWindows">
+            <summary>
+            Gets information about visible windows on Mac OS.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Windows.LpwstrMarshaler">
+            <summary>
+            Marshals a LPWStr (wchar_t *) to a string without destroying the LPWStr.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.NativeMethods.SetConsoleCtrlHandler(Microsoft.Cascade.Platforms.Windows.NativeMethods.HandlerRoutine,System.Boolean)">
+            <summary>
+            Adds or removes an application-defined HandlerRoutine function from the list of handler functions for the
+            calling process.
+            </summary>
+            <param name="Handler">A pointer to the application-defined HandlerRoutine function to be added or removed.
+            This parameter can be NULL.</param>
+            <param name="Add">If this parameter is TRUE, the handler is added; if it is FALSE, the handler is removed.</param>
+            <returns>
+            If the function succeeds, the return value is nonzero.
+            If the function fails, the return value is zero.To get extended error information, call GetLastError.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Windows.NativeMethods.HandlerRoutine">
+            <summary>
+            An application-defined function used with the SetConsoleCtrlHandler function. A console process uses this
+            function to handle control signals received by the process. When the signal is received, the system creates a
+            new thread in the process to execute the function.
+            </summary>
+            <param name="CtrlType">The type of control signal received by the handler.</param>
+            <returns>
+            If the function handles the control signal, it should return TRUE. If it returns FALSE, the next handler
+            function in the list of handlers for this process is used.
+            </returns>
+            <remarks>
+            https://docs.microsoft.com/en-us/windows/console/handlerroutine
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes">
+            <summary>
+            The type of control signal received by the handler.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes.CTRL_C_EVENT">
+            <summary>
+            A CTRL+C signal was received, either from keyboard input or from a signal generated by the
+            GenerateConsoleCtrlEvent function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes.CTRL_BREAK_EVENT">
+            <summary>
+            A CTRL+BREAK signal was received, either from keyboard input or from a signal generated by
+            GenerateConsoleCtrlEvent.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes.CTRL_CLOSE_EVENT">
+            <summary>
+            A signal that the system sends to all processes attached to a console when the user closes the console
+            (either by clicking Close on the console window's window menu, or by clicking the End Task button command
+            from Task Manager).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes.CTRL_LOGOFF_EVENT">
+            <summary>
+            A signal that the system sends to all console processes when a user is logging off. This signal does not
+            indicate which user is logging off, so no assumptions can be made.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.NativeMethods.CtrlTypes.CTRL_SHUTDOWN_EVENT">
+            <summary>
+            A signal that the system sends when the system is shutting down. Interactive applications are not present
+            by the time the system sends this signal, therefore it can be received only be services in this situation.
+            Services also have their own notification mechanism for shutdown events. For more information, see Handler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.NativeMethods.STARTUPINFOEX.InitAttributeListAttachedToConPTY(Microsoft.Cascade.Platforms.Windows.SafePseudoConsoleHandle)">
+            <summary>
+            Initializes the specified startup info struct with the required properties and
+            updates its thread attribute list with the specified ConPTY handle.
+            </summary>
+            <param name="hPC">Pseudo console handle.</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.NativeMethods.CreatePseudoConsole(Microsoft.Cascade.Platforms.Windows.NativeMethods.Coord,System.IntPtr,System.IntPtr,System.UInt32,System.IntPtr@)">
+            <summary>
+            HRESULT WINAPI CreatePseudoConsole(
+               _In_ COORD size,
+               _In_ HANDLE hInput,
+               _In_ HANDLE hOutput,
+               _In_ DWORD dwFlags,
+               _Out_ HPCON* phPC
+            );
+            </summary>
+            <remarks>
+            See https://docs.microsoft.com/en-us/windows/console/createpseudoconsole
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.NativeMethods.ResizePseudoConsole(Microsoft.Cascade.Platforms.Windows.SafePseudoConsoleHandle,Microsoft.Cascade.Platforms.Windows.NativeMethods.Coord)">
+            <summary>
+            HRESULT WINAPI ResizePseudoConsole(
+              _In_ HPCON hPC,
+              _In_ COORD size
+            );
+            </summary>
+            <remarks>
+            See https://docs.microsoft.com/en-us/windows/console/resizepseudoconsole
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.NativeMethods.ClosePseudoConsole(System.IntPtr)">
+            <summary>
+            void WINAPI ClosePseudoConsole(
+              _In_ HPCON hPC 
+            );
+            </summary>
+            <remarks>
+            See https://docs.microsoft.com/en-us/windows/console/closepseudoconsole
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Platforms.Windows.SafeKernelHandle.InitialSetHandle(System.IntPtr)">
+            <summary>
+            Use this method with the default constructor to allow the memory allocation
+            for the handle to happen before the CER call to get it.
+            </summary>
+            <param name="handle"></param>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_FLAG_CONERR">
+            <summary>
+            Create a new screen buffer(connected to the "conerr" terminal pipe) and
+            pass it to child processes as the STDERR handle.This flag also prevents
+            the agent from reopening CONOUT$ when it polls -- regardless of whether the
+            active screen buffer changes, winpty continues to monitor the original
+            primary screen buffer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_FLAG_PLAIN_OUTPUT">
+            <summary>
+            Don't output escape sequences.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_FLAG_COLOR_ESCAPES">
+            <summary>
+            Do output color escape sequences.  These escapes are output by default, but
+            are suppressed with WINPTY_FLAG_PLAIN_OUTPUT.  Use this flag to reenable
+            them.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_FLAG_ALLOW_CURPROC_DESKTOP_CREATION">
+            <summary>
+            On XP and Vista, winpty needs to put the hidden console on a desktop in a
+            service window station so that its polling does not interfere with other
+            (visible) console windows.  To create this desktop, it must change the
+            process' window station (i.e. SetProcessWindowStation) for the duration of
+            the winpty_open call.  In theory, this change could interfere with the
+            winpty client (e.g. other threads, spawning children), so winpty by default
+            spawns a special agent process to create the hidden desktop.  Spawning
+            processes on Windows is slow, though, so if
+            WINPTY_FLAG_ALLOW_CURPROC_DESKTOP_CREATION is set, winpty changes this
+            process' window station instead.
+            See https://github.com/rprichard/winpty/issues/58.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_MOUSE_MODE_NONE">
+            <summary>
+            QuickEdit mode is initially disabled, and the agent does not send mouse
+            mode sequences to the terminal.  If it receives mouse input, though, it
+            still writes MOUSE_EVENT_RECORD values into CONIN.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_MOUSE_MODE_AUTO">
+             <summary>
+             QuickEdit mode is initially enabled.  As CONIN enters or leaves mouse
+             input mode (i.e. where ENABLE_MOUSE_INPUT is on and ENABLE_QUICK_EDIT_MODE
+             is off), the agent enables or disables mouse input on the terminal.
+            
+             This is the default mode.
+             </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_MOUSE_MODE_FORCE">
+            <summary>
+            QuickEdit mode is initially disabled, and the agent enables the terminal's
+            mouse input mode.  It does not disable terminal mouse mode (until exit).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN">
+            <summary>
+            If the spawn is marked "auto-shutdown", then the agent shuts down console
+            output once the process exits.  The agent stops polling for new console
+            output, and once all pending data has been written to the output pipe, the
+            agent closes the pipe.  (At that point, the pipe may still have data in it,
+            which the client may read.  Once all the data has been read, further reads
+            return EOF.)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_SPAWN_FLAG_EXIT_AFTER_SHUTDOWN">
+             <summary>
+             After the agent shuts down output, and after all output has been written
+             into the pipe(s), exit the agent by closing the console.  If there any
+             surviving processes still attached to the console, they are killed.
+            
+             Note: With this flag, an RPC call (e.g. winpty_set_size) issued after the
+             agent exits will fail with an I/O or dead-agent error.
+             </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Platforms.Windows.WinptyNativeInterop.WINPTY_SPAWN_FLAG_MASK">
+            <summary>
+            All the spawn flags.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.ClientNames">
+            <summary>
+            Names of GitHub token client apps supported for token exchange.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ClientNames.VisualStudio">
+            <summary>
+            Visual Studio.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ClientNames.VSCode">
+            <summary>
+            VS Code.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ClientNames.SupportedClients">
+            <summary>
+            List of supported clients
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.ErrorDetails">
+            <summary>
+            Error details that can be returned as JSON from an HTTP request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ErrorDetails.Message">
+            <summary>
+            Gets or sets the error message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ErrorDetails.StackTrace">
+            <summary>
+            Gets or sets the error stack trace.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.ExchangeParameters">
+            <summary>
+            Request parameters for exchanging a token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Token">
+            <summary>
+            Gets or sets the token to be exchanged, if that token was not specified in the
+            `Authorization` request header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Provider">
+            <summary>
+            Gets or sets the name of the token provider, if a <see cref="P:Microsoft.Cascade.Tokens.ExchangeParameters.Token"/> was specified
+            in the body.
+            </summary>
+            <remarks>
+            Required if the <see cref="P:Microsoft.Cascade.Tokens.ExchangeParameters.Token" /> property is specified. Must be one of the values
+            from <see cref="T:Microsoft.Cascade.Tokens.ProviderNames" />.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Client">
+             <summary>
+             Gets or sets the name of the client that the token was issued to.
+             </summary>
+             <remarks>
+             Recommended if the <see cref="P:Microsoft.Cascade.Tokens.ExchangeParameters.Provider" /> is <see cref="F:Microsoft.Cascade.Tokens.ProviderNames.GitHub"/>.
+             Must be one of the values from <see cref="T:Microsoft.Cascade.Tokens.ClientNames" />.
+            
+             The token will be considered invalid if it was not issued to the specified client.
+            
+             If unspecified, the token is validated against multiple clients, which may be slower.
+             </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Audience">
+            <summary>
+            Gets or sets the optional requested audience for the resulting token.
+            </summary>
+            <remarks>If unspecified, the configured default audience will be used.</remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Lifetime">
+            <summary>
+            Gets or sets the optional requested lifetime for the resulting token.
+            </summary>
+            <remarks>
+            If the requested lifetime is greater than the configured maximum, the maximum is used.
+            If unspecified, the configured default lifetime will be used.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ExchangeParameters.Scopes">
+            <summary>
+            Gets or sets the optional requested scopes for the resulting token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.IssueResult">
+            <summary>
+            Result from issuing or exchanging a token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.IssueResult.Token">
+            <summary>
+            Gets or sets the issued token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.ProblemDetails">
+             <summary>
+             Structure of error details returned by the token service, including validation errors.
+             </summary>
+             <remarks>
+             This object may be returned with a response status code of 400 (or other 4xx code).
+            
+             Compatible with RFC 7807 Problem Details (https://tools.ietf.org/html/rfc7807) and
+             https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.problemdetails
+             but doesn't require adding a dependency on that package.
+             </remarks>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ProblemDetails.Title">
+            <summary>
+            Gets or sets the error title.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ProblemDetails.Detail">
+            <summary>
+            Gets or sets the error detail.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.ProblemDetails.Errors">
+            <summary>
+            Gets or sets additional details about individual request properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.ProviderNames">
+            <summary>
+            Names identity providers known to the token service, for which token-exchange is supported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ProviderNames.Microsoft">
+            <summary>
+            Microsoft (AAD/MSA) identity provider.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ProviderNames.AAD">
+            <summary>
+            Alternate Microsoft (AAD/MSA) identity provider.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Tokens.ProviderNames.GitHub">
+            <summary>
+            GitHub identity provider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Tokens.TokenServiceClient">
+            <summary>
+            Client for token service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cascade.Tokens.TokenServiceClient.DefaultExchangeTokenLifetime">
+            <summary>
+            The default lifetime value for the Cascade-exchanged authentication token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Tokens.TokenServiceClient.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="!:TokenServiceClient2"/> class
+            with an HTTP client and no client authentication callback.
+            </summary>
+            <param name="httpClient">HttpClient with base address set to the token service
+            (not including any API path).</param>
+            <remarks>
+            Only some of the token service APIs can be called with no authentication.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Cascade.Tokens.TokenServiceClient.#ctor(System.Net.Http.HttpClient,System.Func{System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})">
+            <summary>
+            Initializes a new instance of the <see cref="!:TokenServiceClient2"/> class
+            with an HTTP client and a client authentication callback.
+            </summary>
+            <param name="httpClient">HttpClient with base address set to the token service
+            (not including any API path).</param>
+            <param name="authCallback">Async callback for retrieving a client auth token.</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Tokens.TokenServiceClient.ConvertResponseAsync``1(System.Net.Http.HttpResponseMessage,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Converts a token service HTTP response to a result object (or exception).
+            </summary>
+            <typeparam name="T">Type of result expected.</typeparam>
+            <param name="response">Response from a token service request.</param>
+            <param name="allowNotFound">True if 404 Not Found is a valid response.</param>
+            <param name="cancellation">Cancellation token.</param>
+            <returns>Result object of the requested type, or null if the response is Not Found
+            and <paramref name="allowNotFound"/> is true.</returns>
+            <exception cref="T:System.ArgumentException">The service returned a
+            400 Bad Request response.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">The service return a 401 Unauthorized
+            or 403 Forbidden response.</exception>
+        </member>
+        <member name="M:Microsoft.Cascade.Tokens.TokenServiceClient.ExchangeAsync(Microsoft.Cascade.Tokens.ExchangeParameters,System.Threading.CancellationToken)">
+            <summary>
+            Exchanges a token for a newly issued JWT token via the token service.
+            </summary>
+            <param name="exchangeParameters">Input token and parameters for the exchange.</param>
+            <param name="cancellation">Cancellation token.</param>
+            <returns>The issued JWT token.</returns>
+            <exception cref="T:System.ArgumentException">Some claims or parameters were missing or invalid.
+            The exception message often contains details.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">The client authentication token was
+            missing or invalid.</exception>
+        </member>
+        <member name="T:Microsoft.Cascade.Shared.JsonExtensions">
+            <summary>
+            Json extensions
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Shared.JsonExtensions.JsonSerializationMaxDepth">
+            <summary>
+            The max depth for serialization.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Shared.JsonExtensions.ObjectSerializationSettings">
+            <summary>
+            The JSON object serialization settings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cascade.Shared.JsonExtensions.JsonObjectSerializer">
+            <summary>
+            The JSON object serializer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cascade.Shared.JsonExtensions.FromJToken``1(Newtonsoft.Json.Linq.JToken)">
+            <summary>
+            Deserialize object directly from JToken.
+            </summary>
+            <typeparam name="T">Type of object.</typeparam>
+            <param name="jtoken">The JToken to be deserialized.</param>
+        </member>
+        <member name="M:Microsoft.Cascade.Shared.JsonExtensions.GetPropertyOrNull``1(Newtonsoft.Json.Linq.JObject,System.String)">
+            <summary>
+            Extract the property directly from JObject.
+            </summary>
+            <typeparam name="T">Type of property to return.</typeparam>
+            <param name="jobject">The JObject to be deserialized.</param>
+            <param name="propertyName">The property name.</param>
+        </member>
+        <member name="T:Microsoft.Cascade.Common.TokenPayload">
+            <summary>
+            Represent a auth token with the values we are able to decode
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cascade.Common.AuthenticationHelpers">
+            <summary>
+            Class to help parsing auth tokens
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters">
+            <summary>
+            Helper class to provider WorspaceSettings representation for in-memory list of filters
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters.DefaultExcludedKey">
+            <summary>
+             Gets default excluded key
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters"/> class.
+            </summary>
+            <param name="filters">the list of exclude filters</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters.#ctor(System.String[],System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters"/> class.
+            </summary>
+            <param name="filters">the list of exclude filters</param>
+            <param name="excludedKey">Exclude key</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters.GetKeys">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFilters.GetProperty``1(System.String,``0@,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase">
+            <summary>
+            Base implementation for exclude filters settings translato.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.#ctor(Microsoft.VisualStudio.Workspace.IWorkspace)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase"/> class.
+            </summary>
+            <param name="workspace">the owning workspace</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.OnWorkspaceSettingsChanged">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.Microsoft#VisualStudio#Workspace#Settings#IWorkspaceSettingsProvider#GetSingleSettings(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.Microsoft#VisualStudio#Workspace#Settings#IWorkspaceSettingsProvider#DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.CreateObjectForScope(System.String)">
+            <summary>
+            Create a Workspace compatible exclude list from an external source
+            </summary>
+            <param name="absoluteScopePath">the absolute path of the settings scope</param>
+            <returns>excluded list settings</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.ExcludeFiltersSettingsProviderBase.CheckForSettingsChange(System.IO.FileSystemEventArgs,System.String@)">
+            <summary>
+            check if a file change event needs to generate a settings change.
+            </summary>
+            <param name="e">file change event args</param>
+            <param name="scope">the affected scope</param>
+            <returns>true if settings changed</returns>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory">
+            <summary>
+            .gitignore translator
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory"/> class.
+            </summary>
+            <param name="excludedKey">Exclude key settings value</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.Microsoft#VisualStudio#Workspace#Settings#IWorkspaceSettingsProviderFactory#Priority">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.Microsoft#VisualStudio#Workspace#Settings#IWorkspaceSettingsProviderFactory#CreateSettingsProvider(Microsoft.VisualStudio.Workspace.IWorkspace)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.GitIgnoreSettingsProvider.#ctor(Microsoft.VisualStudio.Workspace.IWorkspace,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.GitIgnoreSettingsProvider"/> class.
+            </summary>
+            <param name="workspace">the owning workspace</param>
+            <param name="excludedKey">Exclude key settings value</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.GitIgnoreSettingsProvider.CreateObjectForScope(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Workspace.Extensions.ExternalSettingsImporters.GitIgnoreFiltersProviderFactory.GitIgnoreSettingsProvider.CheckForSettingsChange(System.IO.FileSystemEventArgs,System.String@)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.VisualStudio.LiveShare.Common.ConcurrentHashSet`1">
+            <summary>
+            Helper class for a concurrent hashset
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+    </members>
+</doc>

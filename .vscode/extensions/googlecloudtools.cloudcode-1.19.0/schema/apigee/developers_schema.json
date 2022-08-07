@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Developer"
+  },
+  "definitions": {
+    "Developer": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email address of the developer"
+        },
+        "userName": {
+          "type": "string",
+          "description": "Unique user name associated with the developer."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the developer"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the developer"
+        },
+        "status": {
+          "type": "string",
+          "default": "active",
+          "enum": [
+            "active",
+            "inactive"
+          ],
+          "description": "Developer status"
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "./common_schema.json#/definitions/Attribute"
+          },
+          "maxItems": 18,
+          "description": "Developer attributes"
+        }
+      },
+      "required": [
+        "email",
+        "userName",
+        "firstName",
+        "lastName"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New developer",
+          "description": "Creates a new developer",
+          "body": {
+            "email": "",
+            "userName": "",
+            "firstName": "",
+            "lastName": "",
+            "status": "active",
+            "attributes":[]
+          }
+        }
+      ]
+    }
+  }
+}

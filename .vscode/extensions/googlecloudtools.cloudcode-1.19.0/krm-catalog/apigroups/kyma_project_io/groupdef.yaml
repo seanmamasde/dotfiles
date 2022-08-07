@@ -1,0 +1,19 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: 
+  - applicationconnector.kyma-project.io
+  - assetstore.kyma-project.io
+  - authentication.kyma-project.io
+  - cms.kyma-project.io
+  - compass.kyma-project.io
+  - eventing.kyma-project.io
+  - serverless.kyma-project.io
+  - servicecatalog.kyma-project.io
+  - ui.kyma-project.io
+  repoUrl: https://github.com/kyma-project/kyma
+  strategy: manual
+status:
+  howAdded: original
+  lastModifiedDate: 2019-10-20
+  license: apache-2.0

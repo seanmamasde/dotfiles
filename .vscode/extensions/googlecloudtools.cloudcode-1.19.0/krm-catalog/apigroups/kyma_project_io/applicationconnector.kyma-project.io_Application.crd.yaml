@@ -1,0 +1,108 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    helm.sh/hook: crd-install
+  name: applications.applicationconnector.kyma-project.io
+spec:
+  group: applicationconnector.kyma-project.io
+  names:
+    kind: Application
+    plural: applications
+    shortNames:
+    - app
+    singular: application
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            accessLabel:
+              maxLength: 63
+              pattern: ^([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]$
+              type: string
+            compassMetadata:
+              properties:
+                authentication:
+                  properties:
+                    clientIds:
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - clientIds
+                  type: object
+              required:
+              - authentication
+              type: object
+            services:
+              items:
+                properties:
+                  description:
+                    type: string
+                  displayName:
+                    type: string
+                  entries:
+                    items:
+                      properties:
+                        accessLabel:
+                          maxLength: 63
+                          pattern: ^([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]$
+                          type: string
+                        credentials:
+                          properties:
+                            authenticationUrl:
+                              type: string
+                            csrfInfo:
+                              properties:
+                                tokenEndpointURL:
+                                  type: string
+                              required:
+                              - tokenEndpointURL
+                              type: object
+                            secretName:
+                              type: string
+                            type:
+                              type: string
+                          required:
+                          - type
+                          - secretName
+                          type: object
+                        gatewayUrl:
+                          type: string
+                        targetUrl:
+                          type: string
+                        type:
+                          enum:
+                          - API
+                          - Events
+                          type: string
+                      required:
+                      - type
+                      type: object
+                    type: array
+                  id:
+                    type: string
+                  identifier:
+                    type: string
+                  longDescription:
+                    type: string
+                  name:
+                    type: string
+                  providerDisplayName:
+                    type: string
+                  tags:
+                    items:
+                      type: string
+                    type: array
+                required:
+                - id
+                - name
+                - displayName
+                - providerDisplayName
+                - description
+                - entries
+                type: object
+              type: array
+  version: v1alpha1

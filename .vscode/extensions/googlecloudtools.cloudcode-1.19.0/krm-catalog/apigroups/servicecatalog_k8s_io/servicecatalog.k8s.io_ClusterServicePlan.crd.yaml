@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: clusterserviceplans.servicecatalog.k8s.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.externalName
+    name: External-Name
+    type: string
+  - JSONPath: .spec.clusterServiceBrokerName
+    name: Broker
+    type: string
+  - JSONPath: .spec.clusterServiceClassRef.name
+    name: Class
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: servicecatalog.k8s.io
+  names:
+    categories:
+    - all
+    - svcat
+    kind: ClusterServicePlan
+    plural: clusterserviceplans
+    singular: clusterserviceplan
+  scope: Cluster
+  subresources:
+    status: {}
+  version: v1beta1

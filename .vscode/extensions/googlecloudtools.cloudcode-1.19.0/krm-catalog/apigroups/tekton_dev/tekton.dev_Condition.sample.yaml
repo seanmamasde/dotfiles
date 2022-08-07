@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Condition
+metadata:
+  name: file-exists
+spec:
+  check:
+    image: alpine
+    script: test -f $(resources.workspace.path)/$(params.path)
+  params:
+  - name: path
+  resources:
+  - name: workspace
+    type: git

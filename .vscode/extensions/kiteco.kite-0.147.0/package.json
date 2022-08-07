@@ -1,0 +1,444 @@
+{
+	"name": "kite",
+	"displayName": "Kite AutoComplete AI Code: Python, Java, Go, PHP, C/C#/C++, Javascript, HTML/CSS, Typescript, React, Ruby, Scala, Kotlin, Bash, Vue, React",
+	"description": "AI code completions for all languages, intellisense, code snippets, code signatures, and cursor-following documentation for VS Code. Kite supports .js .jsx .vue .tsx .ts .css .html .less .c .cc .cpp .cs .h .hpp .m .scala .java .kt .py .go .php .rb and .sh filetypes.",
+	"version": "0.147.0",
+	"publisher": "kiteco",
+	"engines": {
+		"vscode": "^1.34.0"
+	},
+	"icon": "logo.png",
+	"galleryBanner": {
+		"color": "#11182F",
+		"theme": "dark"
+	},
+	"author": {
+		"name": "Kite"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kiteco/vscode-plugin.git"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Other"
+	],
+	"keywords": [
+		"autocomplete",
+		"intellicode",
+		"intellisense",
+		"documentation",
+		"snippets",
+		"method completion",
+		"python",
+		"java",
+		"html",
+		"autocomplete",
+		"javascript",
+		"typescript",
+		"php",
+		"python",
+		"ruby",
+		"go",
+		"golang",
+		"bash",
+		"kotlin",
+		"html",
+		"css",
+		"rust",
+		"c",
+		"cpp",
+		"c++",
+		"csharp",
+		"c#",
+		"objective-c",
+		"objectivec",
+		"ai",
+		"react",
+		".js",
+		".jsx",
+		".vue",
+		".tsx",
+		".ts",
+		".css",
+		".html",
+		".less",
+		".c",
+		".cc",
+		".cpp",
+		".cs",
+		".h",
+		".hpp",
+		".m",
+		".scala",
+		".java",
+		".kt",
+		".py",
+		".go",
+		".php",
+		".rb",
+		".sh"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./dist/kite-extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "c",
+				"aliases": [
+					"c",
+					"C"
+				],
+				"extensions": [
+					".c",
+					".h"
+				]
+			},
+			{
+				"id": "cpp",
+				"aliases": [
+					"cpp",
+					"c++",
+					"C++"
+				],
+				"extensions": [
+					".cc",
+					".cpp",
+					".hpp"
+				]
+			},
+			{
+				"id": "csharp",
+				"aliases": [
+					"csharp",
+					"Csharp",
+					"CSharp",
+					"c#",
+					"C#"
+				],
+				"extensions": [
+					".cs"
+				]
+			},
+			{
+				"id": "go",
+				"aliases": [
+					"go",
+					"Go",
+					"golang",
+					"Golang"
+				],
+				"extensions": [
+					".go"
+				]
+			},
+			{
+				"id": "html",
+				"aliases": [
+					"html",
+					"Html",
+					"HTML"
+				],
+				"extensions": [
+					".html"
+				]
+			},
+			{
+				"id": "java",
+				"aliases": [
+					"java",
+					"Java"
+				],
+				"extensions": [
+					".java"
+				]
+			},
+			{
+				"id": "javascript",
+				"aliases": [
+					"JavaScript",
+					"Javascript",
+					"js",
+					"javascript"
+				],
+				"extensions": [
+					".js",
+					".jsx",
+					".vue"
+				]
+			},
+			{
+				"id": "kotlin",
+				"aliases": [
+					"kotlin",
+					"Kotlin"
+				],
+				"extensions": [
+					".kt"
+				]
+			},
+			{
+				"id": "less",
+				"aliases": [
+					"less",
+					"Less"
+				],
+				"extensions": [
+					".less"
+				]
+			},
+			{
+				"id": "objective-c",
+				"aliases": [
+					"objective-c",
+					"Objective-C"
+				],
+				"extensions": [
+					".m"
+				]
+			},
+			{
+				"id": "php",
+				"aliases": [
+					"php",
+					"PHP",
+					"Php"
+				],
+				"extensions": [
+					".php"
+				]
+			},
+			{
+				"id": "python",
+				"aliases": [
+					"Python",
+					"python"
+				],
+				"extensions": [
+					".py",
+					".pyw"
+				]
+			},
+			{
+				"id": "ruby",
+				"aliases": [
+					"ruby",
+					"Ruby"
+				],
+				"extensions": [
+					".rb"
+				]
+			},
+			{
+				"id": "scala",
+				"aliases": [
+					"scala",
+					"Scala"
+				],
+				"extensions": [
+					".scala"
+				]
+			},
+			{
+				"id": "shellscript",
+				"aliases": [
+					"bash",
+					"Bash",
+					"shellscript",
+					"Shellscript"
+				],
+				"extensions": [
+					".sh"
+				]
+			},
+			{
+				"id": "typescript",
+				"aliases": [
+					"typescript",
+					"Typescript"
+				],
+				"extensions": [
+					".ts"
+				]
+			},
+			{
+				"id": "typescriptreact",
+				"extensions": [
+					".tsx"
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "kite.help",
+				"title": "Kite: Help"
+			},
+			{
+				"command": "kite.docs-at-cursor",
+				"title": "Kite: Docs At Cursor"
+			},
+			{
+				"command": "kite.open-settings",
+				"title": "Kite: Engine Settings"
+			},
+			{
+				"command": "kite.open-copilot",
+				"title": "Kite: Open Copilot"
+			},
+			{
+				"command": "kite.related-code-from-file",
+				"title": "Kite: Find Related Code From File"
+			},
+			{
+				"command": "kite.related-code-from-line",
+				"title": "Kite: Find Related Code From Line"
+			},
+			{
+				"command": "kite.python-tutorial",
+				"title": "Kite: Python Tutorial"
+			},
+			{
+				"command": "kite.javascript-tutorial",
+				"title": "Kite: Javascript Tutorial"
+			},
+			{
+				"command": "kite.go-tutorial",
+				"title": "Kite: Go Tutorial"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "!editorHasMultipleSelections",
+					"command": "kite.related-code-from-line",
+					"group": "0_navigation"
+				}
+			]
+		},
+		"configuration": {
+			"type": "object",
+			"title": "Kite Configuration",
+			"properties": {
+				"kite.showWelcomeNotificationOnStartup": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether or not to show the Kite welcome notification on startup."
+				},
+				"kite.pollingInterval": {
+					"type": "integer",
+					"default": 5000,
+					"description": "Interval in milliseconds at which the Kite extension polls Kite Engine to get the status of the current file."
+				},
+				"kite.developerMode": {
+					"type": "boolean",
+					"default": false,
+					"description": "Displays JSON data used by a view and also updates sample.html with the last rendered HTML."
+				},
+				"kite.startKiteEngineOnStartup": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically start Kite Engine on editor startup if it's not already running."
+				},
+				"kite.loggingLevel": {
+					"type": "string",
+					"default": "info",
+					"enum": [
+						"silly",
+						"verbose",
+						"debug",
+						"info",
+						"warning",
+						"error"
+					],
+					"description": "The verbosity level of Kite's logs."
+				},
+				"kite.enableSnippets": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable snippet completions"
+				},
+				"kite.enableOptionalCompletionsTriggers": {
+					"type": "boolean",
+					"default": false,
+					"description": "For JavaScript and Go: Enabling this will cause Kite to trigger completions after a space, ( and [. Note that this may cause completions from other providers to not show up."
+				},
+				"kite.completions.disabledFileExtensions": {
+					"type": "array",
+					"default": [],
+					"description": "Array of file extensions for which Kite will not provide completions, e.g. ['.go', '.ts']. Requires restart of VSCode."
+				},
+				"kite.codefinder.enableLineDecoration": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enables line decoration for Kite code finder."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"compile-test": "rm -rf ./out/test && webpack --config config/webpack.tests.config.js --mode none",
+		"test": "npm run compile-test && node ./out/test/runTests.js",
+		"cleanup": "rm -f package-lock.json && rm -rf node_modules",
+		"vscode:prepublish": "webpack --config config/webpack.config.js --mode production",
+		"compile-prod": "webpack --config config/webpack.config.js --mode production",
+		"compile": "webpack --config config/webpack.config.js --mode none",
+		"watch": "webpack --config config/webpack.config.js --mode none --watch",
+		"install-local": "vsce package && code --install-extension kite-*.vsix && rm kite-*.vsix"
+	},
+	"dependencies": {
+		"kite-api": "=3.21.0",
+		"kite-connector": "=3.16.0",
+		"md5": "^2.2.0",
+		"mixpanel": "^0.5.0",
+		"open": "^7.3.0",
+		"rollbar": "^2.3.8"
+	},
+	"devDependencies": {
+		"@atom/temp": "^0.8.4",
+		"@babel/runtime": "^7.12.5",
+		"@types/chai": "^4.2.14",
+		"@types/md5": "^2.2.1",
+		"@types/mixpanel": "^2.14.2",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/sinon": "^9.0.9",
+		"@types/vscode": "^1.34.0",
+		"@typescript-eslint/eslint-plugin": "^4.7.0",
+		"@typescript-eslint/parser": "^4.7.0",
+		"chai": "^4.2.0",
+		"copy-webpack-plugin": "^5.0.2",
+		"editors-json-tests": "git://github.com/kiteco/editors-json-tests.git#master",
+		"eslint": ">=4.18.2",
+		"fs-plus": "^3.0.2",
+		"glob": "^7.1.6",
+		"jsdom": "^10",
+		"jsdom-global": "^3",
+		"mocha": "^6.1.4",
+		"sinon": "^9.2.2",
+		"source-map-support": "^0.5.19",
+		"terser": "^3.17.0",
+		"ts-loader": "^8.0.11",
+		"typescript": "^4.0.5",
+		"vsce": "^1.59.0",
+		"vscode-test": "^1.5.0",
+		"webpack": "^5.10.3",
+		"webpack-cli": "^4.2.0",
+		"webpack-merge-and-include-globally": "^2.1.16",
+		"webpack-node-externals": "^2.5.2",
+		"widjet-test-utils": "^1.8.0"
+	},
+	"__metadata": {
+		"id": "d697a7e8-00fa-4039-9067-4b69a9a90f6e",
+		"publisherId": "202e7bef-8dda-4cf3-89b7-0df74948ab8c",
+		"publisherDisplayName": "Kite",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641313982
+	}
+}

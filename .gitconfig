@@ -11,3 +11,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[safe]
+	directory = C:/Users/SeanMa/scoop/apps/scoop/current
+	directory = C:/Users/SeanMa/scoop/buckets/main

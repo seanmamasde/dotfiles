@@ -1,0 +1,172 @@
+{
+	"name": "vscodeintellicode-completions",
+	"displayName": "IntelliCode Completions",
+	"description": "IntelliCode Completions: AI-driven code auto-completion",
+	"version": "1.0.16",
+	"publisher": "VisualStudioExptTeam",
+	"author": {
+		"name": "Microsoft"
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"repository": {
+		"url": "https://github.com/MicrosoftDocs/intellicode"
+	},
+	"bugs": {
+		"url": "https://go.microsoft.com/fwlink/?linkid=2005855"
+	},
+	"engines": {
+		"vscode": "^1.68.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "images/icon.png",
+	"aiKey": "AIF-d9b70cd4-b9f9-4d70-929b-a071c400b217",
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
+		"onLanguage:python",
+		"onLanguage:typescript",
+		"onLanguage:typescriptreact"
+	],
+	"main": "./dist/extension",
+	"contributes": {
+		"commands": [],
+		"configuration": {
+			"title": "IntelliCode Completions",
+			"properties": {
+				"intellicodeCompletions.loggingLevel": {
+					"type": "string",
+					"enum": [
+						"ALL",
+						"DEBUG",
+						"INFO",
+						"WARN",
+						"ERROR",
+						"FATAL",
+						"OFF"
+					],
+					"default": "ERROR",
+					"description": "Logging level for console"
+				},
+				"intellicodeCompletions.parseErrorFilter": {
+					"type": "boolean",
+					"default": true,
+					"description": "Filter out completions which introduce parsing errors"
+				},
+				"intellicodeCompletions.snippetCompletions": {
+					"type": "boolean",
+					"default": true,
+					"description": "Use snippet completions when the model suggests a placeholder literal"
+				},
+				"intellicodeCompletions.language.python": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable completions in Python files",
+					"tags": [
+						"experimental"
+					]
+				},
+				"intellicodeCompletions.language.typescript": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable completions in TypeScript files",
+					"tags": [
+						"experimental"
+					]
+				},
+				"intellicodeCompletions.language.javascript": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable completions in JavaScript files",
+					"tags": [
+						"experimental"
+					]
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run webpack",
+		"prepack": "npm run webpack",
+		"webpack": "webpack --mode production",
+		"devpack": "webpack --mode development",
+		"lint": "eslint ./ --ext ts",
+		"prettier": "npx prettier --write \"src/**/*.ts\"",
+		"test-regUnit": "mocha --require ts-node/register --recursive src/tests/regularTests/unit/**/*.ts",
+		"test-regModel": "mocha -require ts-node/register --colors src/tests/regularTests/model/suite/model.test.ts -",
+		"setup": "npm run skipLibCheck && npm run copyModelFiles && npm run copyWasmFiles",
+		"skipLibCheck": "tsc --skipLibCheck -p ./",
+		"copyModelFiles": "copyfiles -u 1 src/model/* out",
+		"copyWasmFiles": "copyfiles -u 1 src/lib/**/*.wasm out",
+		"test-extUnit": "npm run setup && node ./out/tests/extensionTests/unit/runTest.js",
+		"copyIntegrationTestFiles": "copyfiles -u 1 src/tests/extensionTests/integration/suite/inlineCompletionProvider/testFiles/* out",
+		"test-ExtIntegration": "npm run setup && npm run copyIntegrationTestFiles && node ./out/tests/extensionTests/integration/runTest.js",
+		"copySmokeTestFiles": "copyfiles -u 1 src/tests/extensionTests/smoke/suite/completionDriven/testFiles/* out && copyfiles -u 1 src/tests/extensionTests/smoke/suite/vscodeEditor/testFiles/* out",
+		"test-ExtSmoke": "npm run setup && npm run copySmokeTestFiles && node ./out/tests/extensionTests/smoke/runTest.js"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.2.15",
+		"@types/glob": "^7.1.1",
+		"@types/lru-cache": "^5.1.0",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "^14.x",
+		"@types/node-fetch": "^2.5.10",
+		"@types/proxyquire": "^1.3.28",
+		"@types/unzipper": "^0.10.3",
+		"@types/uuid": "^8.3.2",
+		"@types/vscode": "^1.68.0",
+		"@types/yargs": "^17.0.2",
+		"@typescript-eslint/eslint-plugin": "^4.23.0",
+		"@typescript-eslint/parser": "^4.23.0",
+		"chai": "^4.2.0",
+		"copy-webpack-plugin": "^8.1.0",
+		"copyfiles": "^2.4.1",
+		"eslint": "^7.26.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-prefer-arrow": "^1.2.3",
+		"glob": "^7.1.4",
+		"mocha": "^9.0.3",
+		"proxyquire": "^2.1.3",
+		"shelljs": "^0.8.4",
+		"tar": "^6.1.0",
+		"tmp": "^0.2.1",
+		"ts-loader": "^8.0.18",
+		"ts-node": "^9.1.1",
+		"typed-emitter": "^1.4.0",
+		"typemoq": "^2.1.0",
+		"typescript": "^4.1.0",
+		"vis-network": "9.1.0",
+		"vsce": "^2.6.7",
+		"vscode-test": "^1.6.1",
+		"webpack": "^5.64.4",
+		"webpack-cli": "^4.9.1",
+		"yargs": "^17.1.1"
+	},
+	"dependencies": {
+		"applicationinsights": "^1.7.2",
+		"async-mutex": "^0.3.1",
+		"await-semaphore": "^0.1.3",
+		"lru-cache": "^5.1.1",
+		"minimist": "^1.2.6",
+		"node-fetch": "^2.6.1",
+		"onnxruntime-node": "^1.10.0",
+		"path": "^0.12.7",
+		"tas-client": "^0.1.16",
+		"unzipper": "^0.10.11",
+		"uuid": "^8.3.2",
+		"@vscode/extension-telemetry": "0.6.2",
+		"web-tree-sitter": "^0.19.4"
+	},
+	"__metadata": {
+		"id": "b8febe71-368d-482e-96f5-6f53d03e640b",
+		"publisherId": "e8db1608-52e8-4d8d-92a6-779c5db302a9",
+		"publisherDisplayName": "Microsoft",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": true,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1659625298440
+	}
+}

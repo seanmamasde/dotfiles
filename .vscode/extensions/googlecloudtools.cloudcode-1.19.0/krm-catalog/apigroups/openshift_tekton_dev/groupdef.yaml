@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["openshift.tekton.dev"]
+  repoUrl: https://github.com/nikhil-thomas/imagestream-resource
+  strategy: manual
+status:
+  howAdded: original
+  lastModifiedDate: 2019-10-20
+  license: apache-2.0

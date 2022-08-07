@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/TargetServer"
+  },
+  "description": "Target server definitions",
+  "definitions": {
+    "TargetServer": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this target server enabled or not",
+          "default": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Unique name for the target server"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description for the target server"
+        },
+        "host": {
+          "type": "string",
+          "description": "Host address for the target server"
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Port where the target server is reachable"
+        },
+        "protocol": {
+          "type": "string",
+          "default": "HTTP",
+          "enum": ["HTTP", "GRPC"],
+          "description": "Protocol for communicating with the target server"
+        }
+      },
+      "required": [
+        "name",
+        "host",
+        "port"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New HTTP target server",
+          "description": "Creates a new HTTP target server",
+          "body": {
+            "name": "server_name",
+            "description": "description",
+            "host": "Host address",
+            "port": 80,
+            "enabled": true,
+            "protocol": "HTTP"
+          }
+        },
+        {
+          "label": "New GRPC target server",
+          "description": "Creates a new GRPC target server",
+          "body": {
+            "name": "server_name",
+            "description": "description",
+            "host": "Host address",
+            "port": 80,
+            "enabled": true,
+            "protocol": "GRPC"
+          }
+        }
+      ]
+    }
+  }
+}

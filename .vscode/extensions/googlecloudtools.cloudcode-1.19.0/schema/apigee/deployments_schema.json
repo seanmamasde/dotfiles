@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "proxies": {
+      "type": "array",
+      "description": "List of proxies to be deployed",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sharedflows": {
+      "type": "array",
+      "description": "List of shared flows to be deployed",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "proxies",
+    "sharedflows"
+  ]
+}

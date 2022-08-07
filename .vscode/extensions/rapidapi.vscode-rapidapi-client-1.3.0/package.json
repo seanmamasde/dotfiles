@@ -1,0 +1,341 @@
+{
+	"name": "vscode-rapidapi-client",
+	"displayName": "RapidAPI Client",
+	"description": "RapidAPI Client is a full-featured HTTP client that lets you test and describes the APIs you build or consume. Designed to work with your VS Code themes, RapidAPI Client makes composing requests, inspecting responses, generating code, and types for application development simple and intuitive.",
+	"icon": "assets/rapidapi-logo-128x128.png",
+	"version": "1.3.0",
+	"preview": false,
+	"private": true,
+	"publisher": "RapidAPI",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/RapidAPI/feedback"
+	},
+	"galleryBanner": {
+		"color": "#1d4371",
+		"theme": "dark"
+	},
+	"engines": {
+		"vscode": "^1.66.2"
+	},
+	"extensionKind": [
+		"ui"
+	],
+	"categories": [
+		"Programming Languages",
+		"Testing"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"keywords": [
+		"API Testing",
+		"API",
+		"OpenAPI",
+		"API Client",
+		"REST",
+		"GraphQL"
+	],
+	"bugs": {
+		"url": "https://github.com/RapidAPI/feedback/issues"
+	},
+	"qna": "https://github.com/RapidAPI/feedback/discussions",
+	"main": "./dist/extension",
+	"contributes": {
+		"walkthroughs": [
+			{
+				"id": "vscode-rapidapi-client.welcome",
+				"title": "Welcome to RapidAPI Client",
+				"description": "This walkthrough will help you get started with the extension.",
+				"steps": [
+					{
+						"id": "vscode-rapidapi-client.welcome.step1",
+						"title": "Getting started",
+						"description": "Click the RapidAPI icon in the activity bar, and start creating your request.\n\n[Open RapidAPI Client](command:vscode-rapidapi-client.open)\n\n[Read our getting started guide](https://rapidapi.com/guides/how-to-use-rapidapi-client-for-vscode-to-test-apis)",
+						"media": {
+							"markdown": "assets/walkthrough/welcome-step1.md"
+						}
+					},
+					{
+						"id": "vscode-rapidapi-client.welcome.step2",
+						"title": "Generate code or types snippets",
+						"description": "From our request view, you'll be able to automatically generate code snippets for the request or response.",
+						"media": {
+							"markdown": "assets/walkthrough/welcome-step2.md"
+						}
+					},
+					{
+						"id": "vscode-rapidapi-client.welcome.step3",
+						"title": "The API development companion",
+						"description": "Creating APIs is a breeze when you have our RapidAPI Client as your companion",
+						"media": {
+							"markdown": "assets/walkthrough/welcome-step3.md"
+						}
+					},
+					{
+						"id": "vscode-rapidapi-client.welcome.step4",
+						"title": "A deep dive",
+						"description": "Want to know all the extension features?\n\n[Deep dive into the RapidAPI Client](https://rapidapi.com/guides/a-deep-dive-into-rapidapi-client-for-vs-code)",
+						"media": {
+							"markdown": "assets/walkthrough/welcome-step4.md"
+						}
+					}
+				]
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "rapidapi-explorer",
+					"title": "RapidAPI",
+					"icon": "assets/rapidapi-logo.svg"
+				}
+			]
+		},
+		"views": {
+			"rapidapi-explorer": [
+				{
+					"id": "vscode-rapidapi-client.panel",
+					"name": "RapidAPI",
+					"icon": "assets/rapidapi-logo.svg",
+					"contextualTitle": "RapidAPI",
+					"type": "webview"
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "vscode-rapidapi-client.welcome",
+				"title": "Welcome",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.open",
+				"title": "Focus on RapidAPI",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.changelog",
+				"title": "Check out the changelog",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.createRequest",
+				"title": "RapidAPI: Create new request"
+			},
+			{
+				"command": "vscode-rapidapi-client.createRequestFromClipboard",
+				"title": "RapidAPI: Create new request from clipboard"
+			},
+			{
+				"command": "vscode-rapidapi-client.openManageEnvironments",
+				"title": "Manage environments",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.signIn",
+				"title": "Sign in",
+				"category": "RapidAPI",
+				"icon": "$(sign-in)"
+			},
+			{
+				"command": "vscode-rapidapi-client.signOut",
+				"title": "Sign out",
+				"category": "RapidAPI",
+				"icon": "$(sign-out)"
+			},
+			{
+				"command": "vscode-rapidapi-client.sync",
+				"title": "Sync",
+				"category": "RapidAPI",
+				"icon": "$(sync)"
+			},
+			{
+				"command": "vscode-rapidapi-client.projectSelection",
+				"title": "Create or open a project",
+				"category": "RapidAPI",
+				"icon": "$(library)"
+			},
+			{
+				"command": "vscode-rapidapi-client.projectCreation",
+				"title": "Create new project",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.projectRemoval",
+				"title": "Remove a local project",
+				"category": "RapidAPI"
+			},
+			{
+				"command": "vscode-rapidapi-client.clearCache",
+				"title": "Clear cache",
+				"category": "RapidAPI"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "vscode-rapidapi-client.openManageEnvironments",
+					"when": "false"
+				},
+				{
+					"command": "vscode-rapidapi-client.signIn",
+					"when": "false"
+				},
+				{
+					"command": "vscode-rapidapi-client.signOut",
+					"when": "false"
+				},
+				{
+					"command": "vscode-rapidapi-client.sync",
+					"when": "false"
+				},
+				{
+					"command": "vscode-rapidapi-client.projectCreation",
+					"when": "rapidapi:paw:signedIn"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "vscode-rapidapi-client.createRequest",
+					"group": "rapidapi"
+				}
+			],
+			"view/title": [
+				{
+					"command": "vscode-rapidapi-client.signIn",
+					"group": "navigation@10",
+					"when": "view == vscode-rapidapi-client.panel && rapidapi:paw:signedIn == false"
+				},
+				{
+					"command": "vscode-rapidapi-client.signOut",
+					"group": "navigation@10",
+					"when": "view == vscode-rapidapi-client.panel && rapidapi:paw:signedIn"
+				},
+				{
+					"command": "vscode-rapidapi-client.projectSelection",
+					"group": "navigation@9",
+					"when": "view == vscode-rapidapi-client.panel"
+				},
+				{
+					"command": "vscode-rapidapi-client.sync",
+					"group": "navigation@8",
+					"when": "view == vscode-rapidapi-client.panel && rapidapi:paw:signedIn && rapidapi:paw:cloudSync"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "workbench.view.extension.rapidapi-explorer",
+				"key": "ctrl+shift+r",
+				"mac": "cmd+shift+r",
+				"linux": "ctrl+shift+r"
+			}
+		],
+		"configuration": {
+			"title": "RapidAPI Client Settings",
+			"properties": {
+				"rapidapi.codegen.default": {
+					"type": "string",
+					"description": "The default code generator language. The extension will first try to use the most used language from your project, then fall back to this value.",
+					"default": "typescript"
+				},
+				"rapidapi.requests.sendRequestBody": {
+					"type": "boolean",
+					"description": "Always send the request body. By default the request body will not be sent for GET, HEAD, CONNECT, OPTIONS, and TRACE requests.",
+					"default": false
+				},
+				"rapidapi.requests.timeout": {
+					"type": "number",
+					"description": "The timeout for requests in milliseconds (default: 15000).",
+					"default": 15000
+				},
+				"rapidapi.terminalLink.enabled": {
+					"type": "boolean",
+					"description": "Enable or disable the terminal link handler of RapidAPI.",
+					"default": null
+				},
+				"rapidapi.logging.level": {
+					"type": "string",
+					"description": "The logging level for the extension, all logs are shown in the VS Code extension output view.",
+					"default": "info",
+					"enum": [
+						"error",
+						"warn",
+						"info",
+						"verbose"
+					]
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:package": "npx vsce package --yarn",
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack",
+		"watch": "cross-env NODE_ENV=DEV webpack --watch",
+		"clean": "rimraf dist",
+		"package": "webpack --mode production --config ./webpack/extension.config.js",
+		"dev": "webpack --mode development --watch --config ./webpack/extension.config.js"
+	},
+	"devDependencies": {
+		"@estruyf/vscode-theme-converter": "1.1.0",
+		"@types/analytics-node": "^3.1.7",
+		"@types/cors": "^2.8.12",
+		"@types/eventsource": "^1.1.8",
+		"@types/express": "^4.17.13",
+		"@types/glob": "^7.1.4",
+		"@types/httpsnippet": "^1.23.1",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "^17.0.12",
+		"@types/node-fetch": "2",
+		"@types/react": "^17.0.38",
+		"@types/react-dom": "^17.0.11",
+		"@types/stringify-object": "^4.0.1",
+		"@types/vscode": "^1.66.2",
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
+		"@vscode/test-electron": "^1.6.2",
+		"@vscode/webview-ui-toolkit": "^0.9.0",
+		"analytics-node": "^6.0.0",
+		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.1.0",
+		"eventsource": "^2.0.1",
+		"express": "4.17.2",
+		"file-loader": "^6.2.0",
+		"glob": "^7.1.7",
+		"httpsnippet": "^2.0.0",
+		"jsonc-parser": "^3.0.0",
+		"mocha": "^9.1.3",
+		"node-fetch": "2",
+		"npm-run-all": "^4.1.5",
+		"quicktype-core": "^6.0.70",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"stringify-object": "^4.0.1",
+		"ts-loader": "^9.2.5",
+		"typescript": "^4.4.4",
+		"uuid": "^8.3.2",
+		"vscode-nls": "^5.0.0",
+		"web-vitals": "^2.1.4",
+		"webpack": "^5.52.1",
+		"webpack-cli": "^4.8.0",
+		"webpack-dev-server": "^4.7.3"
+	},
+	"dependencies": {
+		"@sentry/node": "^7.8.0",
+		"parse-curl": "^0.2.6"
+	},
+	"__metadata": {
+		"id": "20230aac-4564-4959-86db-f01c2263f93f",
+		"publisherId": "437f34be-7b3e-47f4-9b42-05c588f39e6f",
+		"publisherDisplayName": "RapidAPI",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1659714748437
+	}
+}

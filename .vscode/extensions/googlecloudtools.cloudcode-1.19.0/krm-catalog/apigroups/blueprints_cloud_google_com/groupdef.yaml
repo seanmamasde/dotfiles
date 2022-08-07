@@ -1,0 +1,14 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - functions/ts/generate-folders/crds/blueprints-hierarchy.yaml
+  - functions/ts/generate-folders/crds/cft-hierarchy.yaml
+  groupNames:
+  - blueprints.cloud.google.com
+  repoUrl: https://github.com/GoogleContainerTools/kpt-functions-catalog
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2021-09-10'
+  license: apache-2.0

@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["vault.banzaicloud.com"]
+  repoUrl: https://github.com/banzaicloud/bank-vaults
+  strategy: manual
+status:
+  howAdded: original
+  lastModifiedDate: 2019-10-20
+  license: apache-2.0

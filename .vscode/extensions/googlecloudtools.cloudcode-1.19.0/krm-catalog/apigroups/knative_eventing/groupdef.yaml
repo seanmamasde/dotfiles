@@ -1,0 +1,37 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - config/core/resources/trigger.yaml
+  - config/core/resources/eventtype.yaml
+  - config/core/resources/sequence.yaml
+  - config/core/resources/parallel.yaml
+  - config/core/resources/subscription.yaml
+  - config/core/resources/channel.yaml
+  - config/channels/in-memory-channel/300-in-memory-channel.yaml
+  - config/core/resources/apiserversource.yaml
+  - config/core/resources/broker.yaml
+  - config/core/resources/channel.yaml
+  - config/core/resources/sinkbindings.yaml
+  - config/core/resources/pingsource.yaml
+  - config/core/resources/containersource.yaml
+  groupNames:
+  - eventing.knative.dev
+  - flows.knative.dev
+  - messaging.knative.dev
+  - sources.knative.dev
+  repoUrl: https://github.com/knative/eventing
+  sampleExactPaths:
+  - docs/broker/example_triggers.yaml
+  - docs/delivery/imc-one-per-subcriber.yaml
+  - docs/broker/example_triggers.yaml
+  - docs/broker/example_brokers.yaml
+  - docs/examples/channel/source.yaml
+  - docs/examples/channel/subscription.yaml
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-14'
+  license: apache-2.0

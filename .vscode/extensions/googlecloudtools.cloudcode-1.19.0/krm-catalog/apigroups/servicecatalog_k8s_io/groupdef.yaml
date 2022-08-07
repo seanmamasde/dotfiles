@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["servicecatalog.k8s.io"]
+  repoUrl: https://github.com/kubernetes-sigs/service-catalog
+  strategy: manual
+status:
+  howAdded: original
+  lastModifiedDate: 2019-10-20
+  license: apache-2.0

@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["kubeflow.org"]
+  repoUrl: https://github.com/kubeflow/manifests
+  strategy: githubSearch
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-18'
+  license: apache-2.0

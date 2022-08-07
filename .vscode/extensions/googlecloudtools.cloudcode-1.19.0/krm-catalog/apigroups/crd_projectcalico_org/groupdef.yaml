@@ -1,0 +1,25 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - _includes/charts/calico/crds/kdd/02-crd-bgpconfiguration.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-bgppeer.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-blockaffinity.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-clusterinformation.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-felixconfiguration.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-globalnetworkpolicy.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-globalnetworkset.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-hostendpoint.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-ipamblock.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-ipamconfig.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-ipamhandle.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-ippool.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-networkpolicy.yaml
+  - _includes/charts/calico/crds/kdd/02-crd-networkset.yaml
+  groupNames: ["crd.projectcalico.org"]
+  repoUrl: https://github.com/projectcalico/calico
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-18'
+  license: apache-2.0

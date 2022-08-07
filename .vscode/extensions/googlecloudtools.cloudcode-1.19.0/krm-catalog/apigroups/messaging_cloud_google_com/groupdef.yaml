@@ -1,0 +1,16 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - config/300-channel.yaml
+  groupNames: ["messaging.cloud.google.com"]
+  repoUrl: https://github.com/google/knative-gcp
+  sampleExactPaths:
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  - docs/examples/channel/channel.yaml
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-19'
+  license: apache-2.0

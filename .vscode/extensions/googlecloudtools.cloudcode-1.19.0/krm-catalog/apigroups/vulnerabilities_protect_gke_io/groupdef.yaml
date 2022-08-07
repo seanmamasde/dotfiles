@@ -1,0 +1,9 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["vulnerabilities.protect.gke.io"]
+  repoUrl: http://google3/cloud/kubernetes/distro/components/gke_protect/image_package_extractor/
+  strategy: manual
+status:
+  howAdded: manual
+  lastModifiedDate: '2022-03-17'

@@ -1,0 +1,239 @@
+{
+	"name": "copilot-labs",
+	"displayName": "GitHub Copilot Labs",
+	"description": "Experimental features for GitHub Copilot",
+	"version": "0.2.221",
+	"build": "221",
+	"buildType": "prod",
+	"publisher": "GitHub",
+	"preview": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/github/copilot-docs"
+	},
+	"qna": "https://github.com/github/feedback/discussions/categories/copilot-feedback",
+	"icon": "assets/github_next@2x.png",
+	"engines": {
+		"vscode": "^1.57.0",
+		"npm": ">=7.0.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./dist/extension",
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "copilot-labs",
+					"title": "GitHub Copilot Labs",
+					"icon": "assets/head.svg"
+				}
+			]
+		},
+		"views": {
+			"copilot-labs": [
+				{
+					"type": "webview",
+					"id": "copilotSidebar.explain",
+					"name": "Explain"
+				},
+				{
+					"type": "webview",
+					"id": "copilotSidebar.translate",
+					"name": "Language translation"
+				}
+			]
+		},
+		"extensionDependencies": [
+			"GitHub.copilot"
+		],
+		"configuration": [
+			{
+				"title": "Copilot Labs",
+				"properties": {
+					"github.copilot-labs.advanced": {
+						"type": "object",
+						"title": "Advanced Settings",
+						"properties": {
+							"secret_key": {
+								"type": "string",
+								"default": "",
+								"description": "Secret API key"
+							},
+							"length": {
+								"type": "integer",
+								"default": 500,
+								"description": "Length of code to generate in tokens"
+							},
+							"temperature": {
+								"type": "string",
+								"default": "",
+								"description": "Override sampling temperature (range 0.0 - 1.0)"
+							},
+							"top_p": {
+								"type": "number",
+								"default": 1,
+								"description": "Top probability mass to consider"
+							},
+							"stops": {
+								"type": "object",
+								"default": {
+									"*": [
+										"\n\n\n"
+									],
+									"python": [
+										"\ndef ",
+										"\nclass ",
+										"\nif ",
+										"\n\n#"
+									]
+								},
+								"description": "Configure per-language stop sequences"
+							},
+							"indentationMode": {
+								"type": "object",
+								"default": {
+									"python": false,
+									"javascript": false,
+									"javascriptreact": false,
+									"jsx": false,
+									"typescript": false,
+									"typescriptreact": false,
+									"go": false,
+									"ruby": false,
+									"*": true
+								},
+								"markdownDescription": "Enable or disable indentation block termination for specified [languages](https://code.visualstudio.com/docs/languages/identifiers). Set to 'client', 'server' or false to disable."
+							},
+							"debug.showScores": {
+								"type": "boolean",
+								"default": false,
+								"description": "Show scores in sorted solutions"
+							},
+							"debug.overrideEngine": {
+								"type": "string",
+								"default": "",
+								"description": "Override engine name"
+							},
+							"debug.overrideProxyUrl": {
+								"type": "string",
+								"default": "",
+								"description": "Override GitHub authentication proxy full URL"
+							},
+							"debug.testOverrideProxyUrl": {
+								"type": "string",
+								"default": "",
+								"description": "Override GitHub authentication proxy URL when running tests"
+							},
+							"debug.filterLogCategories": {
+								"type": "array",
+								"default": [],
+								"description": "Show only log categories listed in this setting. If an array is empty, show all loggers"
+							},
+							"debug.limitPrompts": {
+								"type": "boolean",
+								"default": false,
+								"description": "Temporary debug option to do less work to construct prompts"
+							},
+							"debug.ignoreRepo": {
+								"type": "boolean",
+								"default": false,
+								"description": "Temporary debug option to ignore the repo"
+							}
+						}
+					}
+				}
+			}
+		],
+		"iconFonts": [
+			{
+				"id": "copilot-font",
+				"src": [
+					{
+						"path": "assets/copilot.woff",
+						"format": "woff"
+					}
+				]
+			}
+		]
+	},
+	"scripts": {
+		"postinstall": "npx vscode-dts dev",
+		"vscode:prepublish": "npm-run-all build:extension build:views",
+		"build": "npm-run-all build:*",
+		"build:extension": "webpack --mode production",
+		"build:views": "cd webviews && npm run build",
+		"build:lib": "cd lib && webpack --mode production",
+		"compile": "npm-run-all compile:*",
+		"compile:extension": "webpack --mode development",
+		"compile:views": "cd webviews && npm run compile",
+		"compile:lib": "cd lib && webpack --mode development",
+		"watch": "npm-run-all -p watch:*",
+		"watch:extension": "webpack --mode development --watch",
+		"watch:views": "cd webviews && npm run watch",
+		"watch:lib": "cd lib && webpack --mode development --watch",
+		"lint": "eslint lib extension webviews --ext ts",
+		"test": "npm-run-all test:*",
+		"test:extension": "cd extension && ts-node ./test/runTest.ts",
+		"test:lib": "mocha -u tdd dist/libTest.js",
+		"build_test": "tsc extension/test/run.ts",
+		"get_token": "ts-node script/getToken.ts"
+	},
+	"devDependencies": {
+		"@github/prettier-config": "0.0.4",
+		"@types/crypto-js": "^4.0.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^13.11.0",
+		"@types/uuid": "^8.3.1",
+		"@types/vscode": "^1.57.0",
+		"@typescript-eslint/eslint-plugin": "^4.27.0",
+		"@typescript-eslint/parser": "^4.27.0",
+		"axios": "^0.21.4",
+		"dependency-cruiser": "^9.26.1",
+		"eslint": "^7.29.0",
+		"fantasticon": "^1.2.2",
+		"mocha": "^6.1.4",
+		"npm-run-all": "^4.1.5",
+		"open": "^8.2.1",
+		"prettier": "2.5.1",
+		"ts-dedent": "^2.2.0",
+		"ts-loader": "^8.0.11",
+		"ts-node": "^9.0.0",
+		"typescript": "^4.4.3",
+		"vsce": "1.91.0",
+		"vscode-dts": "^0.3.2",
+		"vscode-test": "^1.3.0",
+		"webpack": "^5.54.0",
+		"webpack-cli": "^4.2.0",
+		"zlib": "^1.0.5"
+	},
+	"dependencies": {
+		"@adobe/helix-fetch": "^3.0.3",
+		"@github/copilot-promptlib": "./github-copilot-promptlib-0.2.17.tgz",
+		"ajv": "^8.6.3",
+		"ajv-errors": "^3.0.0",
+		"crypto-js": "^4.0.0",
+		"get-port": "^5.1.1",
+		"highlight.js": "^11.3.1",
+		"ip-regex": "^4.3.0",
+		"source-map-support": "^0.5.19",
+		"uuid": "^8.3.2",
+		"vscode-extension-telemetry": "^0.1.6",
+		"vscode-uri": "^3.0.2"
+	},
+	"__metadata": {
+		"id": "327edf3f-193d-4147-9bd5-e3763272116f",
+		"publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
+		"publisherDisplayName": "GitHub",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641295456
+	}
+}

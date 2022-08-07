@@ -1,0 +1,22 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames:
+  - bigquery.cnrm.cloud.google.com
+  - bigtable.cnrm.cloud.google.com
+  - compute.cnrm.cloud.google.com
+  - container.cnrm.cloud.google.com
+  - core.cnrm.cloud.google.com
+  - iam.cnrm.cloud.google.com
+  - kms.cnrm.cloud.google.com
+  - pubsub.cnrm.cloud.google.com
+  - redis.cnrm.cloud.google.com
+  - spanner.cnrm.cloud.google.com
+  - sql.cnrm.cloud.google.com
+  - storage.cnrm.cloud.google.com
+  repoUrl: https://github.com/GoogleCloudPlatform/k8s-config-connector
+  strategy: githubSearch
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-14'
+  license: apache-2.0

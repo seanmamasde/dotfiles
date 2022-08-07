@@ -1,0 +1,24 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - config/core/resources/cloudschedulersource.yaml
+  - config/core/resources/cloudauditlogssource.yaml
+  - config/core/resources/cloudbuildsource.yaml
+  - config/core/resources/cloudpubsubsource.yaml
+  - config/core/resources/cloudstoragesource.yaml
+  groupNames: ["events.cloud.google.com"]
+  repoUrl: https://github.com/google/knative-gcp
+  sampleExactPaths:
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  - docs/examples/cloudauditlogssource/cloudauditlogssource.yaml
+  - docs/examples/cloudpubsubsource/cloudpubsubsource.yaml
+  - docs/examples/cloudschedulersource/cloudschedulersource.yaml
+  - docs/examples/cloudstoragesource/cloudstoragesource.yaml
+  - docs/examples/keda/cloudpubsubsource-keda.yaml
+  - docs/examples/pullsubscription/pullsubscription.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-19'
+  license: apache-2.0

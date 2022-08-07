@@ -1,0 +1,27 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: servicebrokers.servicecatalog.k8s.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.url
+    name: URL
+    type: string
+  - JSONPath: .status.lastConditionState
+    name: Status
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: servicecatalog.k8s.io
+  names:
+    categories:
+    - all
+    - svcat
+    kind: ServiceBroker
+    plural: servicebrokers
+    singular: servicebroker
+  scope: Namespaced
+  subresources:
+    status: {}
+  version: v1beta1

@@ -1,0 +1,11 @@
+apiVersion: events.cloud.google.com/v1alpha1
+kind: CloudStorageSource
+metadata:
+  name: cloud-storage-source
+spec:
+  bucket: BUCKET
+  sink:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display

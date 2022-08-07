@@ -1,0 +1,681 @@
+{
+	"name": "vscode-arduino",
+	"displayName": "Arduino",
+	"description": "Arduino for Visual Studio Code",
+	"version": "0.4.12",
+	"publisher": "vsciot-vscode",
+	"aiKey": "f1e4de2f-62b0-45e1-b36e-9216f21bd08e",
+	"preview": true,
+	"engines": {
+		"vscode": "^1.56.0"
+	},
+	"icon": "images/arduino.png",
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-arduino.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Microsoft/vscode-arduino/issues"
+	},
+	"homepage": "https://github.com/Microsoft/vscode-arduino",
+	"categories": [
+		"Programming Languages",
+		"Debuggers",
+		"Snippets",
+		"Formatters"
+	],
+	"keywords": [
+		"arduino",
+		"iot",
+		"snippet",
+		"C",
+		"C++"
+	],
+	"activationEvents": [
+		"workspaceContains:**/*.ino",
+		"onCommand:arduino.verify",
+		"onCommand:arduino.upload",
+		"onCommand:arduino.cliUpload",
+		"onCommand:arduino.uploadUsingProgrammer",
+		"onCommand:arduino.cliUploadUsingProgrammer",
+		"onCommand:arduino.rebuildIntelliSenseConfig",
+		"onCommand:arduino.selectProgrammer",
+		"onCommand:arduino.selectSerialPort",
+		"onCommand:arduino.selectSketch",
+		"onCommand:arduino.changeBaudRate",
+		"onCommand:arduino.changeTimestampFormat",
+		"onCommand:arduino.openSerialMonitor",
+		"onCommand:arduino.sendMessageToSerialPort",
+		"onCommand:arduino.closeSerialMonitor",
+		"onCommand:arduino.changeBoardType",
+		"onCommand:arduino.showBoardConfig",
+		"onCommand:arduino.showBoardManager",
+		"onCommand:arduino.showLibraryManager",
+		"onCommand:arduino.showExamples",
+		"onCommand:arduino.initialize",
+		"onDebug"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"breakpoints": [
+			{
+				"language": "c"
+			},
+			{
+				"language": "cpp"
+			}
+		],
+		"snippets": [
+			{
+				"language": "cpp",
+				"path": "./snippets/arduino.json"
+			},
+			{
+				"language": "c",
+				"path": "./snippets/arduino.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "arduino.initialize",
+				"title": "Arduino: Initialize"
+			},
+			{
+				"command": "arduino.verify",
+				"title": "Arduino: Verify",
+				"icon": {
+					"dark": "images/ArduinoVerify_inverse_16.svg",
+					"light": "images/ArduinoVerify_16.svg"
+				}
+			},
+			{
+				"command": "arduino.upload",
+				"title": "Arduino: Upload",
+				"icon": {
+					"dark": "images/ArduinoUpload_inverse_16.svg",
+					"light": "images/ArduinoUpload_16.svg"
+				}
+			},
+			{
+				"command": "arduino.cliUpload",
+				"title": "Arduino CLI: Upload"
+			},
+			{
+				"command": "arduino.uploadUsingProgrammer",
+				"title": "Arduino: Upload Using Programmer"
+			},
+			{
+				"command": "arduino.cliUploadUsingProgrammer",
+				"title": "Arduino CLI: Upload Using Programmer"
+			},
+			{
+				"command": "arduino.rebuildIntelliSenseConfig",
+				"title": "Arduino: Rebuild IntelliSense Configuration"
+			},
+			{
+				"command": "arduino.selectProgrammer",
+				"title": "Arduino: Select Programmer"
+			},
+			{
+				"command": "arduino.selectSketch",
+				"title": "Arduino: Select Sketch"
+			},
+			{
+				"command": "arduino.selectSerialPort",
+				"title": "Arduino: Select Serial Port"
+			},
+			{
+				"command": "arduino.changeBaudRate",
+				"title": "Arduino: Change Baud Rate"
+			},
+			{
+				"command": "arduino.changeTimestampFormat",
+				"title": "Arduino: Change Timestamp Format"
+			},
+			{
+				"command": "arduino.openSerialMonitor",
+				"title": "Arduino: Open Serial Monitor"
+			},
+			{
+				"command": "arduino.closeSerialMonitor",
+				"title": "Arduino: Close Serial Monitor"
+			},
+			{
+				"command": "arduino.sendMessageToSerialPort",
+				"title": "Arduino: Send Text to Serial Port"
+			},
+			{
+				"command": "arduino.changeBoardType",
+				"title": "Arduino: Change Board Type"
+			},
+			{
+				"command": "arduino.showBoardConfig",
+				"title": "Arduino: Board Config"
+			},
+			{
+				"command": "arduino.showBoardManager",
+				"title": "Arduino: Board Manager"
+			},
+			{
+				"command": "arduino.showLibraryManager",
+				"title": "Arduino: Library Manager"
+			},
+			{
+				"command": "arduino.showExamples",
+				"title": "Arduino: Examples"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"when": "resourceExtname == .ino",
+					"command": "arduino.verify",
+					"group": "navigation"
+				},
+				{
+					"when": "resourceExtname == .ino",
+					"command": "arduino.upload",
+					"group": "navigation"
+				}
+			]
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "arduinoExampleExplorer",
+					"name": "Arduino Examples",
+					"when": "vscode-arduino:showExampleExplorer"
+				}
+			]
+		},
+		"debuggers": [
+			{
+				"type": "arduino",
+				"label": "Arduino",
+				"configurationSnippets": [
+					{
+						"label": "Arduino: Launch Debugger",
+						"description": "Debug Arduino sketch",
+						"body": {
+							"name": "Arduino",
+							"type": "arduino",
+							"request": "launch",
+							"program": "^\"\\${file}\"",
+							"cwd": "^\"\\${workspaceFolder}\"",
+							"MIMode": "gdb",
+							"targetArchitecture": "arm",
+							"miDebuggerPath": "",
+							"debugServerPath": "",
+							"debugServerArgs": "",
+							"customLaunchSetupCommands": [
+								{
+									"text": "target remote localhost:3333"
+								},
+								{
+									"text": "^\"file \\\"\\${file}\\\"\""
+								},
+								{
+									"text": "load"
+								},
+								{
+									"text": "monitor reset halt"
+								},
+								{
+									"text": "monitor reset init"
+								}
+							],
+							"stopAtEntry": true,
+							"serverStarted": "Info\\\\ :\\\\ [\\\\w\\\\d\\\\.]*:\\\\ hardware",
+							"launchCompleteCommand": "exec-continue",
+							"filterStderr": true,
+							"args": []
+						}
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"program"
+						],
+						"properties": {
+							"program": {
+								"type": "string",
+								"description": "Full path to program executable.",
+								"default": "${workspaceFolder}/arduino.elf"
+							},
+							"args": {
+								"type": "array",
+								"description": "Command line arguments passed to the program.",
+								"items": {
+									"type": "string"
+								},
+								"default": []
+							},
+							"type": {
+								"type": "string",
+								"description": "The type of the engine.",
+								"default": "arduino"
+							},
+							"targetArchitecture": {
+								"type": "string",
+								"description": "The architecture of the debugger.",
+								"default": "arm"
+							},
+							"cwd": {
+								"type": "string",
+								"description": "The working directory of the target",
+								"default": "."
+							},
+							"setupCommands": {
+								"type": "array",
+								"description": "One or more GDB commands to execute in order to setup the underlying debugger. Example: \"setupCommands\": [ { \"text\": \"-enable-pretty-printing\", \"description\": \"Enable GDB pretty printing\", \"ignoreFailures\": true }].",
+								"items": {
+									"type": "object",
+									"properties": {
+										"text": {
+											"type": "string",
+											"description": "The debugger command to execute.",
+											"default": ""
+										},
+										"description": {
+											"type": "string",
+											"description": "Optional description for the command.",
+											"default": ""
+										},
+										"ignoreFailures": {
+											"type": "boolean",
+											"description": "If true, failures from the command should be ignored. Default value is false.",
+											"default": "false"
+										}
+									}
+								},
+								"default": []
+							},
+							"customLaunchSetupCommands": {
+								"type": "array",
+								"description": "If provided, this replaces the default commands used to launch a target with some other commands. For example, this can be \"-target-attach\" in order to attach to a target process. An empty command list replaces the launch commands with nothing, which can be useful if the debugger is being provided launch options as command line options. Example: \"customLaunchSetupCommands\": [ { \"text\": \"target-run\", \"description\": \"run target\", \"ignoreFailures\": false }].",
+								"items": {
+									"type": "object",
+									"properties": {
+										"text": {
+											"type": "string",
+											"description": "The debugger command to execute.",
+											"default": ""
+										},
+										"description": {
+											"type": "string",
+											"description": "Optional description for the command.",
+											"default": ""
+										},
+										"ignoreFailures": {
+											"type": "boolean",
+											"description": "If true, failures from the command should be ignored. Default value is false.",
+											"default": ""
+										}
+									}
+								},
+								"default": []
+							},
+							"launchCompleteCommand": {
+								"enum": [
+									"exec-run",
+									"exec-continue",
+									"None"
+								],
+								"description": "The command to execute after the debugger is fully setup in order to cause the target process to run. Allowed values are \"exec-run\", \"exec-continue\", \"None\". The default value is \"exec-run\".",
+								"default": "exec-run"
+							},
+							"visualizerFile": {
+								"type": "string",
+								"description": ".natvis file to be used when debugging this process. This option is not compatible with GDB pretty printing. Please also see \"showDisplayString\" if using this setting.",
+								"default": ""
+							},
+							"showDisplayString": {
+								"type": "boolean",
+								"description": "When a visualizerFile is specified, showDisplayString will enable the display string. Turning this option on can cause slower performance during debugging.",
+								"default": "true"
+							},
+							"additionalSOLibSearchPath": {
+								"type": "string",
+								"description": "Semicolon separated list of directories to use to search for .so files. Example: \"c:\\dir1;c:\\dir2\".",
+								"default": ""
+							},
+							"MIMode": {
+								"type": "string",
+								"description": "Indicates the console debugger that the MIDebugEngine will connect to. Allowed values are \"gdb\" \"lldb\".",
+								"default": "gdb"
+							},
+							"miDebuggerPath": {
+								"type": "string",
+								"description": "The path to the mi debugger (such as gdb). When unspecified, it will search path first for the debugger.",
+								"default": "/usr/bin/gdb"
+							},
+							"miDebuggerServerAddress": {
+								"type": "string",
+								"description": "Network address of the MI Debugger Server to connect to (example: localhost:1234).",
+								"default": "serveraddress:port"
+							},
+							"stopAtEntry": {
+								"type": "boolean",
+								"description": "Optional parameter. If true, the debugger should stop at the entrypoint of the target. If processId is passed, has no effect.",
+								"default": false
+							},
+							"debugServerPath": {
+								"type": "string",
+								"description": "Optional full path to debug server to launch. Defaults to null.",
+								"default": ""
+							},
+							"debugServerArgs": {
+								"type": "string",
+								"description": "Optional debug server args. Defaults to null.",
+								"default": ""
+							},
+							"serverStarted": {
+								"type": "string",
+								"description": "Optional server-started pattern to look for in the debug server output. Defaults to null.",
+								"default": ""
+							},
+							"filterStdout": {
+								"type": "boolean",
+								"description": "Search stdout stream for server-started pattern and log stdout to debug output. Defaults to true.",
+								"default": "true"
+							},
+							"filterStderr": {
+								"type": "boolean",
+								"description": "Search stderr stream for server-started pattern and log stderr to debug output. Defaults to false.",
+								"default": "false"
+							},
+							"serverLaunchTimeout": {
+								"type": "integer",
+								"description": "Optional time, in milliseconds, for the debugger to wait for the debugServer to start up. Default is 10000.",
+								"default": "10000"
+							},
+							"coreDumpPath": {
+								"type": "string",
+								"description": "Optional full path to a core dump file for the specified program. Defaults to null.",
+								"default": ""
+							},
+							"externalConsole": {
+								"type": "boolean",
+								"description": "If true, a console is launched for the debuggee. If false, no console is launched. Note this option is ignored in some cases for technical reasons.",
+								"default": "false"
+							},
+							"sourceFileMap": {
+								"type": "object",
+								"description": "Optional source file mappings passed to the debug engine. Example: '{ \"/original/source/path\":\"/current/source/path\" }'",
+								"default": {
+									"<source-path>": "<target-path>"
+								}
+							},
+							"logging": {
+								"type": "object",
+								"description": "Optional flags to determine what types of messages should be logged to the Debug Console.",
+								"default": {},
+								"properties": {
+									"exceptions": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether exception messages should be logged to the Debug Console. Defaults to true.",
+										"default": true
+									},
+									"moduleLoad": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether module load events should be logged to the Debug Console. Defaults to true.",
+										"default": true
+									},
+									"programOutput": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether program output should be logged to the Debug Console. Defaults to true.",
+										"default": true
+									},
+									"engineLogging": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether diagnostic engine logs should be logged to the Debug Console. Defaults to false.",
+										"default": false
+									},
+									"trace": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether diagnostic adapter command tracing should be logged to the Debug Console. Defaults to false.",
+										"default": false
+									},
+									"traceResponse": {
+										"type": "boolean",
+										"description": "Optional flag to determine whether diagnostic adapter command and response tracing should be logged to the Debug Console. Defaults to false.",
+										"default": false
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		],
+		"keybindings": [
+			{
+				"command": "arduino.verify",
+				"key": "ctrl+alt+r",
+				"mac": "cmd+alt+r"
+			},
+			{
+				"command": "arduino.upload",
+				"key": "ctrl+alt+u",
+				"mac": "cmd+alt+u"
+			},
+			{
+				"command": "arduino.rebuildIntelliSenseConfig",
+				"key": "ctrl+alt+i",
+				"mac": "cmd+alt+i"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Arduino configuration",
+			"properties": {
+				"arduino.useArduinoCli": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Use Arduino CLI installed instead of Arduino IDE. `#arduino.path#` must be set, as there is no default path for 'arduino-cli'. (Requires a restart after change)"
+				},
+				"arduino.path": {
+					"type": "string",
+					"default": "",
+					"description": "Path to Arduino, you can use a custom version of Arduino by modifying this setting to include the full path. Example: 'C:\\Program Files\\Arduino' for Windows, '/Applications' for Mac, '/home/$user/Downloads/arduino-1.8.1' for Linux. (Requires a restart after change)"
+				},
+				"arduino.commandPath": {
+					"type": "string",
+					"default": "",
+					"description": "Path to a script relative to 'arduino.path', you can use a custom launch script to run Arduino by modifying this setting. Example: 'run-arduino.bat' for Windows, 'Contents/MacOS/run-arduino.sh' for Mac, 'bin/run-arduino.sh' for Linux. (Requires a restart after change)"
+				},
+				"arduino.additionalUrls": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Additional URLs for 3rd party packages."
+				},
+				"arduino.logLevel": {
+					"type": "string",
+					"default": "info",
+					"enum": [
+						"info",
+						"verbose"
+					]
+				},
+				"arduino.clearOutputOnBuild": {
+					"type": "boolean",
+					"default": false,
+					"description": "Clear the output logs before uploading or verifying."
+				},
+				"arduino.openPDEFiletype": {
+					"type": "boolean",
+					"default": false,
+					"description": "Allow VSCode Arduino to open PDE sketches, from pre-1.0.0 versions of Arduino"
+				},
+				"arduino.enableUSBDetection": {
+					"type": "boolean",
+					"default": false,
+					"description": "USB Detection is currently not working"
+				},
+				"arduino.disableTestingOpen": {
+					"type": "boolean",
+					"default": false
+				},
+				"arduino.ignoreBoards": {
+					"type": "array",
+					"default": []
+				},
+				"arduino.skipHeaderProvider": {
+					"type": "boolean",
+					"default": false
+				},
+				"arduino.defaultBaudRate": {
+					"type": "number",
+					"default": 115200
+				},
+				"arduino.disableIntelliSenseAutoGen": {
+					"type": "boolean",
+					"default": false,
+					"description": "When disabled vscode-arduino will not auto-generate an IntelliSense configuration (i.e. c_cpp_properties.json) by analyzing the compiler output."
+				},
+				"arduino.defaultTimestampFormat": {
+					"type": "string",
+					"default": "",
+					"markdownDescription": "Format of timestamp printed before each line of Serial Monitor output. You can find list of all available placeholders [here](https://github.com/samsonjs/strftime#supported-specifiers)."
+				},
+				"arduino.analyzeOnOpen": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "When true, automatically run analysis when the project is opened. Only works when `arduino.analyzeOnSettingChange` is true."
+				},
+				"arduino.analyzeOnSettingChange": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "When true, automatically run analysis when board, configuration, or sketch settings are changed."
+				}
+			}
+		},
+		"configurationDefaults": {
+			"[cpp]": {
+				"editor.quickSuggestions": true
+			},
+			"[c]": {
+				"editor.quickSuggestions": true
+			}
+		},
+		"languages": [
+			{
+				"id": "arduino-output",
+				"mimetypes": [
+					"text/x-code-output"
+				]
+			},
+			{
+				"id": "cpp",
+				"extensions": [
+					".ino"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "cpp",
+				"path": "./syntaxes/arduino.tmLanguage",
+				"scopeName": "source.cpp.arduino"
+			},
+			{
+				"language": "arduino-output",
+				"scopeName": "arduino.output",
+				"path": "./syntaxes/arduino.output.tmLanguage"
+			}
+		],
+		"jsonValidation": [
+			{
+				"fileMatch": "arduino.json",
+				"url": "./misc/arduinoValidator.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "gulp build --mode=production",
+		"postinstall": "cd ./src/views && npm install",
+		"test": "gulp test"
+	},
+	"extensionDependencies": [
+		"ms-vscode.cpptools"
+	],
+	"devDependencies": {
+		"@types/compare-versions": "^3.0.0",
+		"@types/express": "^4.17.13",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^16.9.6",
+		"@types/strftime": "^0.9.2",
+		"@types/uuid": "^8.3.1",
+		"@types/vscode": "^1.43.0",
+		"@types/winreg": "^1.2.30",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"acorn": "^7.4.0",
+		"ajv": "^6.12.3",
+		"del": "^2.2.2",
+		"download": "^8.0.0",
+		"eslint": "^7.32.0",
+		"eslint-config-standard": "^16.0.3",
+		"eslint-plugin-import": "^2.24.2",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"eslint-plugin-react": "^7.25.1",
+		"eslint-plugin-require-path-exists": "^1.1.9",
+		"eslint-plugin-standard": "^5.0.0",
+		"fancy-log": "^1.3.3",
+		"gulp": "^4.0.2",
+		"gulp-eslint": "^6.0.0",
+		"gulp-sourcemaps": "^2.4.1",
+		"gulp-tslint": "^8.1.4",
+		"gulp-typescript": "^5.0.1",
+		"minimist": "^1.2.6",
+		"mocha": "^6.2.3",
+		"node-gyp": "^6.1.0",
+		"plugin-error": "^1.0.1",
+		"tslint": "^5.20.1",
+		"typemoq": "^1.6.0",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.4.0",
+		"webpack": "^4.44.1"
+	},
+	"dependencies": {
+		"body-parser": "^1.16.1",
+		"cocopa": "0.0.13",
+		"compare-versions": "^3.4.0",
+		"eventemitter2": "^4.1.0",
+		"express": "^4.14.1",
+		"extract-zip": "^2.0.1",
+		"glob": "^7.1.1",
+		"iconv-lite": "^0.4.18",
+		"impor": "^0.1.1",
+		"properties": "^1.2.1",
+		"serialport": "^10.2.2",
+		"strftime": "^0.9.2",
+		"usb-detection": "^4.13.0",
+		"uuid": "^3.0.1",
+		"vscode-extension-telemetry": "0.1.6",
+		"winreg": "^1.2.3",
+		"winston": "^2.4.5"
+	},
+	"overrides": {
+		"async": "~3.2.3",
+		"node-sass": "^7.0.0",
+		"es5-ext": "0.10.53"
+	},
+	"__metadata": {
+		"id": "cf5a111e-3bd1-4e32-9526-20ec73780741",
+		"publisherId": "15649be7-03a9-49ca-aa38-126d6631543b",
+		"publisherDisplayName": "Microsoft",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641293831
+	}
+}

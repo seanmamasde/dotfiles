@@ -1,0 +1,152 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    duck.knative.dev/addressable: 'true'
+    events.cloud.google.com/crd-install: 'true'
+    events.cloud.google.com/release: devel
+    messaging.knative.dev/subscribable: 'true'
+  name: channels.messaging.cloud.google.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.conditions[?(@.type=="Ready")].status
+    name: Ready
+    type: string
+  - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+    name: Reason
+    type: string
+  - JSONPath: .status.address.url
+    name: Address
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: messaging.cloud.google.com
+  names:
+    categories:
+    - all
+    - knative
+    - pubsub
+    - messaging
+    - channel
+    kind: Channel
+    plural: channels
+    shortNames:
+    - pschan
+    singular: channel
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            googleServiceAccount:
+              description: GCP service account used to poll the Cloud Pub/Sub Subscription.
+                The value of the service account must be a valid Google service account
+                (see https://cloud.google.com/iam/docs/service-accounts).
+              type: string
+            project:
+              description: ID of the Google Cloud Project to own the Pub/Sub credentials.
+                E.g. 'my-project-1234' rather than its display name, 'My Project'
+                or its number '1234567890'. If omitted uses the Project ID from the
+                GKE cluster metadata service.
+              type: string
+            secret:
+              description: Credential to use to manage Cloud Pub/Sub. The value of
+                the secret entry must be a service account key in the JSON format
+                (see https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
+                Defaults to secret.name of 'google-cloud-key' and secret.key of 'key.json'.
+              type: object
+            subscribable:
+              properties:
+                subscribers:
+                  items:
+                    properties:
+                      ref:
+                        properties:
+                          apiVersion:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            minLength: 1
+                            type: string
+                          namespace:
+                            minLength: 1
+                            type: string
+                          uid:
+                            minLength: 1
+                            type: string
+                        required:
+                        - namespace
+                        - name
+                        - uid
+                        type: object
+                      replyURI:
+                        minLength: 1
+                        type: string
+                      subscriberURI:
+                        minLength: 1
+                        type: string
+                      uid:
+                        minLength: 1
+                        type: string
+                    required:
+                    - uid
+                  type: array
+              type: object
+        status:
+          properties:
+            address:
+              properties:
+                url:
+                  type: string
+              type: object
+            conditions:
+              items:
+                properties:
+                  lastTransitionTime:
+                    type: string
+                  message:
+                    type: string
+                  reason:
+                    type: string
+                  severity:
+                    type: string
+                  status:
+                    type: string
+                  type:
+                    type: string
+                required:
+                - type
+                - status
+                type: object
+              type: array
+            observedGeneration:
+              format: int64
+              type: integer
+            projectId:
+              type: string
+            subscribableStatus:
+              properties:
+                subscribers:
+                  items:
+                    properties:
+                      message:
+                        type: string
+                      observedGeneration:
+                        format: int64
+                        type: integer
+                      ready:
+                        type: string
+                      uid:
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            subscriptionId:
+              type: string
+          type: object
+  version: v1alpha1

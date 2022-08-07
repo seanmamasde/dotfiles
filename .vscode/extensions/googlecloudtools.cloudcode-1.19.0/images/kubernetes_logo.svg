@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>K8s_backup</title>
+    <desc>Created with Sketch.</desc>
+    <g id="K8s_backup" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="BG" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="24" height="24"></rect>
+        <g id="cloud-code-white" transform="translate(2.000000, 0.000000)" fill="#858585" fill-rule="nonzero">
+            <polygon id="Path" points="7.20585937 0 10.6167187 3.42890625 7.20585937 6.85867188 3.79414062 3.42890625"></polygon>
+            <polygon id="Path" points="3.41085937 3.81476562 6.82257812 7.24367188 3.41085937 10.6725781 0 7.24367188"></polygon>
+            <path d="M7.20585938,7.62953125 L10.6167188,11.0584375 L7.875,13.8145312 L4.731,11.9985312 L3.795,11.0584375 L7.20585938,7.62953125 Z" id="Combined-Shape"></path>
+            <polygon id="Path" points="14.7941406 0 18.2058594 3.42890625 14.7941406 6.85867188 11.3832813 3.42890625"></polygon>
+            <polygon id="Path" points="18.5891406 3.81476562 22 7.24367188 18.5891406 10.6734375 15.1774219 7.24367188"></polygon>
+            <polygon id="Path" points="14.7941406 7.62953125 18.205 11.0584375 14.7941406 14.4882031 11.3832813 11.0584375"></polygon>
+        </g>
+        <path d="M4.9,12.8 L9.7944,15.6 L9.7944,21.2 L4.9,24 L-3.55271368e-15,21.2 L-3.55271368e-15,15.6 L4.9,12.8 Z M5.3046,14.172 L5.3046,15.6896 L7.315,16.8376 L5.075,18.12 L2.835,16.8376 L4.823,15.6896 L4.823,14.1888 L1.2222,16.2216 L1.2222,20.3376 L2.6446,19.52 L2.6446,17.28 L4.8062,18.568 L4.8062,21.1384 L2.835,19.968 L1.5022,20.7352 L5.075,22.7568 L8.6422,20.7408 L7.315,19.9736 L5.3438,21.1384 L5.3438,18.568 L7.5054,17.28 L7.5054,19.52 L8.9278,20.3488 L8.9278,16.2216 L5.3046,14.172 Z" id="Combined-Shape" fill="#858585" fill-rule="nonzero"></path>
+    </g>
+</svg>

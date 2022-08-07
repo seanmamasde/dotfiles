@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Skaffold logo</title>
+    <g id="Skaffold-logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="skaffold-logo" transform="translate(9.000000, 9.000000)" fill="#299DCF" fill-rule="nonzero">
+            <rect id="Rectangle" x="18.3333333" y="9.53333333" width="3.66666667" height="5.86666667"></rect>
+            <rect id="Rectangle" x="9.54791801e-15" y="5.86666667" width="3.66666667" height="5.86666667"></rect>
+            <rect id="Rectangle" x="-3.55271368e-15" y="9.54791801e-15" width="16.1333333" height="3.66666667"></rect>
+            <rect id="Rectangle" x="5.86666667" y="5.86666667" width="16.1333333" height="3.66666667"></rect>
+            <rect id="Rectangle" x="-3.55271368e-15" y="11.7333333" width="16.1333333" height="3.66666667"></rect>
+            <rect id="Rectangle" x="5.86666667" y="18.3333333" width="16.1333333" height="3.66666667"></rect>
+        </g>
+    </g>
+</svg>

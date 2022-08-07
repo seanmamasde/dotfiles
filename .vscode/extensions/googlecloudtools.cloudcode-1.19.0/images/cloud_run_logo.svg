@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>Cloud_run</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Cloud_run" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="BG" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="24" height="24"></rect>
+        <g id="cloud-code-white" transform="translate(2.000000, 0.000000)" fill="#858585" fill-rule="nonzero">
+            <polygon id="Path" points="3.79414062 3.42890625 7.20585937 0 10.6167188 3.42890625 7.20585937 6.85867188"></polygon>
+            <polygon id="Path" points="0 7.24367188 3.41085937 3.81476562 6.82257812 7.24367188 3.41085937 10.6725781"></polygon>
+            <polygon id="Path" points="3.795 11.0584375 7.20585937 7.62953125 10.6167187 11.0584375 7.20585937 14.4882031"></polygon>
+            <polygon id="Path" points="11.3832813 3.42890625 14.7941406 0 18.2058594 3.42890625 14.7941406 6.85867188"></polygon>
+            <polygon id="Path" points="15.1774219 7.24367188 18.5891406 3.81476563 22 7.24367188 18.5891406 10.6734375"></polygon>
+            <polygon id="Path" points="11.3832813 11.0584375 14.7941406 7.62953125 18.205 11.0584375 14.7941406 14.4882031"></polygon>
+        </g>
+        <polygon id="Path" fill="#858585" fill-rule="nonzero" points="2.55 14.1 4.3875 18.9973867 2.55 23.9 9.9 18.9973867"></polygon>
+        <polygon id="Path" fill="#858585" fill-rule="nonzero" points="2.20673077 14.91536 0.1 14.1 1.675 18.9973867 0.1 23.9 2.20673077 23.0794133 3.775 18.9973867"></polygon>
+    </g>
+</svg>

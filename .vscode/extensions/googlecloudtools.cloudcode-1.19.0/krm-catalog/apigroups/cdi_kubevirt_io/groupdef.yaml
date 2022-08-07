@@ -1,0 +1,12 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  assetNames:
+  - cdi-operator.yaml
+  groupNames: ["cdi.kubevirt.io"]
+  repoUrl: https://github.com/kubevirt/containerized-data-importer
+  strategy: githubRelease
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-12'
+  license: apache-2.0

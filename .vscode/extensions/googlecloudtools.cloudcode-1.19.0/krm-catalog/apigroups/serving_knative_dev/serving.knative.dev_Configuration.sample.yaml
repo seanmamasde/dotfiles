@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: Configuration
+metadata:
+  name: configuration-example
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: ko://knative.dev/serving/test/test_images/helloworld
+        readinessProbe:
+          httpGet:
+            path: /
+          initialDelaySeconds: 3

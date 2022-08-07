@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/KeyValueMap"
+  },
+  "definitions": {
+    "KeyValueMap": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_.]{1,63}$",
+          "description": "Name of the key value map"
+        },
+        "scope": {
+          "type": "string",
+          "description": "Scope at which the key value map is created",
+          "enum": [
+            "organization",
+            "environment"
+          ]
+        },
+        "environment": {
+          "description": "Name of the environment of this is a environment level key value map",
+          "type": "string"
+        },
+        "entries": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Initial entries to be added to the key value map",
+          "defaultSnippets": [
+            {
+              "label": "New entry",
+              "description": "Creates new entry",
+              "body": {
+                "entry_name": "entry_value"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "scope",
+        "entries"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New environment level key value map",
+          "description": "Creates environment level key value map",
+          "body": {
+            "name": "map name",
+            "scope": "environment",
+            "environment": "",
+            "entries": {}
+          }
+        },
+        {
+          "label": "New organization level key value map",
+          "description": "Creates organization level key value map",
+          "body": {
+            "name": "map name",
+            "scope": "organization",
+            "entries": {}
+          }
+        }
+      ]
+    }
+  }
+}

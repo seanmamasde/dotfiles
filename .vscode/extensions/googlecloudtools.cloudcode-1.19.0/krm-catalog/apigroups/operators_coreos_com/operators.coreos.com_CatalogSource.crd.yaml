@@ -1,0 +1,131 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    description: A source configured to find packages and updates.
+    displayName: CatalogSource
+  name: catalogsources.operators.coreos.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.displayName
+    description: The pretty name of the catalog
+    name: Display
+    type: string
+  - JSONPath: .spec.sourceType
+    description: The type of the catalog
+    name: Type
+    type: string
+  - JSONPath: .spec.publisher
+    description: The publisher of the catalog
+    name: Publisher
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: operators.coreos.com
+  names:
+    categories:
+    - olm
+    kind: CatalogSource
+    listKind: CatalogSourceList
+    plural: catalogsources
+    shortNames:
+    - catsrc
+    singular: catalogsource
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: A source configured to find packages and updates.
+      properties:
+        spec:
+          description: Spec for a catalog source.
+          properties:
+            address:
+              description: An optional address. When set, directs OLM to connect to
+                use a pre-existing registry server at this address.
+              type: string
+            configMap:
+              description: The name of a ConfigMap that holds the entries for an in-memory
+                catalog.
+              type: string
+            displayName:
+              description: Pretty name for display
+              type: string
+            image:
+              description: An image that serves a grpc registry. Only valid for `grpc`
+                sourceType. If both image and address are set, OLM does not use the
+                address field.
+              type: string
+            publisher:
+              description: The name of an entity that publishes this catalog
+              type: string
+            secrets:
+              description: A set of secrets that can be used to access the contents
+                of the catalog. It is best to keep this list small, since each will
+                need to be tried for every catalog entry.
+              items:
+                description: A name of a secret in the namespace where the CatalogSource
+                  is defined.
+                type: string
+              type: array
+            sourceType:
+              description: The type of the source. `configmap` is the new name for
+                `internal`
+              enum:
+              - internal
+              - configmap
+              - grpc
+              type: string
+          required:
+          - sourceType
+          type: object
+        status:
+          description: The status of the CatalogSource
+          properties:
+            configMapReference:
+              description: If sourceType is `internal` or `configmap`, then this holds
+                a reference to the configmap associated with this CatalogSource.
+              properties:
+                name:
+                  description: name of the configmap
+                  type: string
+                namespace:
+                  description: namespace of the configmap
+                  type: string
+                resourceVersion:
+                  description: resourceVersion of the configmap
+                  type: string
+                uid:
+                  description: uid of the configmap
+                  type: string
+              type: object
+            lastSync:
+              description: the last time the catalog was updated. If this time is
+                less than the last updated time on the object, the catalog will be
+                re-cached.
+              type: string
+            registryService:
+              properties:
+                port:
+                  description: port of the registry service
+                  type: string
+                protocol:
+                  description: protocol of the registry service
+                  enum:
+                  - grpc
+                  type: string
+                serviceName:
+                  description: name of the registry service
+                  type: string
+                serviceNamespace:
+                  description: namespace of the registry service
+                  type: string
+              type: object
+          type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

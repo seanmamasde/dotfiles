@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["acme.cert-manager.io"]
+  repoUrl: https://github.com/jetstack/cert-manager
+  strategy: githubSearch
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-02-27'
+  license: apache-2.0

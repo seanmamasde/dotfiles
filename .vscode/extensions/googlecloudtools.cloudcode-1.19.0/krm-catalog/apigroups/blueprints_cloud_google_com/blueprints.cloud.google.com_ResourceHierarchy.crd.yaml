@@ -1,0 +1,49 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: resourcehierarchies.blueprints.cloud.google.com
+spec:
+  group: blueprints.cloud.google.com
+  names:
+    kind: ResourceHierarchy
+    plural: resourcehierarchies
+    singular: resourcehierarchy
+  preserveUnknownFields: false
+  scope: Namespaced
+  versions:
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              config:
+                items:
+                  additionalProperties:
+                    x-kubernetes-preserve-unknown-fields: true
+                  type: object
+                type: array
+              parentRef:
+                properties:
+                  external:
+                    type: string
+                  kind:
+                    enum:
+                    - Organization
+                    type: string
+                required:
+                - external
+                type: object
+              subtrees:
+                additionalProperties:
+                  x-kubernetes-preserve-unknown-fields: true
+                type: object
+            required:
+            - config
+            - parentRef
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true

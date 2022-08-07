@@ -1,0 +1,14 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - constraint/deploy/crds.yaml
+  groupNames: ["templates.gatekeeper.sh"]
+  repoUrl: https://github.com/open-policy-agent/frameworks
+  sampleExactPaths:
+  - constraint/config/samples/templates_v1beta1_constrainttemplate.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-19'
+  license: apache-2.0

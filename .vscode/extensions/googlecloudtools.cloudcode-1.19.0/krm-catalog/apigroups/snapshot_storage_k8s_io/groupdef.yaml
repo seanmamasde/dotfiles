@@ -1,0 +1,15 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - cluster/addons/volumesnapshots/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+  - cluster/addons/volumesnapshots/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+  - cluster/addons/volumesnapshots/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+  groupNames:
+  - snapshot.storage.k8s.io
+  repoUrl: https://github.com/kubernetes/kubernetes
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-14'
+  license: apache-2.0

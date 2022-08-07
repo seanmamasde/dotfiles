@@ -1,0 +1,11 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames:
+  - networking.gke.io
+  repoUrl: https://github.com/GoogleCloudPlatform/gke-managed-certs
+  strategy: githubSearch
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-12-01'
+  license: apache-2.0

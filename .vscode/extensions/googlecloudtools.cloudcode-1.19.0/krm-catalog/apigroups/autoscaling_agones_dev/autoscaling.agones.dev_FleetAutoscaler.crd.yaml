@@ -1,0 +1,60 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: fleetautoscalers.autoscaling.agones.dev
+spec:
+  group: autoscaling.agones.dev
+  names:
+    kind: FleetAutoscaler
+    plural: fleetautoscalers
+    shortNames:
+    - fas
+    singular: fleetautoscaler
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            fleetName:
+              maxLength: 63
+              minLength: 1
+              pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+              type: string
+            policy:
+              properties:
+                buffer:
+                  properties:
+                    maxReplicas:
+                      minimum: 1
+                      type: integer
+                    minReplicas:
+                      minimum: 0
+                      type: integer
+                  required:
+                  - maxReplicas
+                type:
+                  enum:
+                  - Buffer
+                  - Webhook
+                  type: string
+                webhook:
+                  properties:
+                    service:
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        path:
+                          type: string
+                    url:
+                      type: string
+              required:
+              - type
+          required:
+          - fleetName
+          - policy
+  version: v1

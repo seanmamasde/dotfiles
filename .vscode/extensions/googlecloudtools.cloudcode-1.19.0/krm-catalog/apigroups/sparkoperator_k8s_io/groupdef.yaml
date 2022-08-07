@@ -1,0 +1,10 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  groupNames: ["sparkoperator.k8s.io"]
+  repoUrl: https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
+  strategy: githubSearch
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-06-12'
+  license: apache-2.0

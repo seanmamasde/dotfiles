@@ -1,0 +1,532 @@
+{
+	"name": "r-debugger",
+	"displayName": "R Debugger",
+	"description": "R Debugger for VS Code",
+	"version": "0.4.7",
+	"publisher": "RDebugger",
+	"license": "MIT",
+	"author": {
+		"name": "Manuel Hentschel"
+	},
+	"rPackageInfo": {
+		"name": "vscDebugger",
+		"required": "0.4.0",
+		"recommended": "0.4.7",
+		"warnIfNewer": "0.5.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ManuelHentschel/VSCode-R-Debugger"
+	},
+	"preview": true,
+	"bugs": {
+		"url": "https://github.com/ManuelHentschel/VSCode-R-Debugger/issues"
+	},
+	"icon": "images/Rlogo.png",
+	"engines": {
+		"vscode": "^1.50.0"
+	},
+	"categories": [
+		"Debuggers"
+	],
+	"activationEvents": [
+		"onCommand:r.debugger.updateRPackage",
+		"onCommand:r.debugger.showDataViewer",
+		"onDebugDynamicConfigurations:R-Debugger",
+		"onDebug"
+	],
+	"keywords": [
+		"R",
+		"R Language",
+		"Debugger"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "r.debugger.updateRPackage",
+				"title": "Update or install the required R Package",
+				"category": "R Debugger"
+			},
+			{
+				"command": "r.debugger.showDataViewer",
+				"title": "Show in data viewer",
+				"enablement": ""
+			}
+		],
+		"menus": {
+			"debug/variables/context": [
+				{
+					"command": "r.debugger.showDataViewer",
+					"when": "debugType == 'R-Debugger'"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "r.debugger.showDataViewer",
+					"when": "false"
+				}
+			]
+		},
+		"languages": [
+			{
+				"id": "r",
+				"extensions": [
+					".r",
+					".R"
+				],
+				"aliases": [
+					"R",
+					"r"
+				]
+			}
+		],
+		"breakpoints": [
+			{
+				"language": "r"
+			}
+		],
+		"debuggers": [
+			{
+				"type": "R-Debugger",
+				"languages": [
+					"r"
+				],
+				"label": "R Debugger",
+				"program": "./out/debugAdapter.js",
+				"runtime": "node",
+				"configurationAttributes": {
+					"attach": {
+						"properties": {
+							"supportsWriteToStdinEvent": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to use custom events to request text written to R's stdin. Is used to implement next/step/continue requests."
+							},
+							"useCustomSocket": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to use a separate socket for custom events. Usually necessary in attach mode."
+							},
+							"customPort": {
+								"type": "number",
+								"default": 0,
+								"markdownDescription": "Port number of custom socket. Leave emtpy/0 to assign automatically."
+							},
+							"customHost": {
+								"type": "string",
+								"default": "localhost",
+								"markdownDescription": "Host name of custom socket. Leave empty to use localhost."
+							},
+							"port": {
+								"type": "number",
+								"default": 18721,
+								"markdownDescription": "Port number where vscDebugger is listening for DAP messages."
+							},
+							"host": {
+								"type": "string",
+								"default": "localhost",
+								"markdownDescription": "Host name where vscDebugger is listening for DAP messages."
+							},
+							"splitOverwrittenOutput": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Whether to show the overwritten output in the normal stdout/stderr as well."
+							},
+							"overwritePrint": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `print()` function (direct calls to `base::print()` are not affected)."
+							},
+							"overwriteStr": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `str()` function (direct calls to `base::str()` are not affected)."
+							},
+							"overwriteMessage": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `message()` function (direct calls to `base::message()` are not affected)."
+							},
+							"overwriteCat": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `cat()` function (direct calls to `base::cat()` are not affected)."
+							},
+							"overwriteSource": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `source()` function (direct calls to `base::source()` are not affected)."
+							},
+							"setBreakpointsInPackages": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Whether to enable breakpoints in exported functions from ALL packages. Usually, `debuggedPackages` is preferred."
+							},
+							"includePackageScopes": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Set to true to show package scopes in the variable window."
+							},
+							"debuggedPackages": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								},
+								"default": [],
+								"markdownDescription": "Packages to be debugged. Are loaded before launching the R script/file/function, and can contain breakpoints."
+							}
+						}
+					},
+					"launch": {
+						"properties": {
+							"debugMode": {
+								"type": "string",
+								"enum": [
+									"function",
+									"file",
+									"workspace"
+								],
+								"enumDescriptions": [
+									"Debug a single main-function",
+									"Run an R file",
+									"Start an empty R workspace"
+								],
+								"markdownDescription": "Debug a single main-FUNCTION, run an R FILE, or just start an empty R WORKSPACE",
+								"default": "file"
+							},
+							"allowGlobalDebugging": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to allow debugging in the global workspace after running the function/file."
+							},
+							"workingDirectory": {
+								"type": "string",
+								"markdownDescription": "Absolute path to a directory.",
+								"default": "${workspaceFolder}"
+							},
+							"file": {
+								"type": "string",
+								"markdownDescription": "Absolute path to an R file",
+								"default": "${file}"
+							},
+							"mainFunction": {
+								"type": "string",
+								"default": "main",
+								"markdownDescription": "The name of the main function, if a single function is being debugged. Must be callable without arguments."
+							},
+							"overwritePrint": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `print()` function (direct calls to `base::print()` are not affected)."
+							},
+							"overwriteStr": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `str()` function (direct calls to `base::str()` are not affected)."
+							},
+							"overwriteMessage": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `message()` function (direct calls to `base::message()` are not affected)."
+							},
+							"overwriteCat": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `cat()` function (direct calls to `base::cat()` are not affected)."
+							},
+							"overwriteSource": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `source()` function (direct calls to `base::source()` are not affected)."
+							},
+							"overwriteLoadAll": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to attach a modified `load_all()` function (requries pkgload, direct calls to `pkgload::load_all()` are not affected)."
+							},
+							"overwriteHelp": {
+								"type": "boolean",
+								"default": true,
+								"markdownDescription": "Whether to register a new S3 print method for `help_files_with_topic` to use the help panel from vscode-R."
+							},
+							"setBreakpointsInPackages": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Whether to enable breakpoints in exported functions from ALL packages. Usually, `debuggedPackages` is preferred."
+							},
+							"includePackageScopes": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Set to true to show package scopes in the variable window."
+							},
+							"commandLineArgs": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								},
+								"default": [
+									"--vanilla"
+								],
+								"markdownDescription": "Additional command line arguments used when launching R."
+							},
+							"env": {
+								"type": "object",
+								"additionalProperties": {
+									"type": "string"
+								},
+								"markdownDescription": "Environment variables to be set when launching R."
+							},
+							"debuggedPackages": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								},
+								"default": [],
+								"markdownDescription": "Packages to be debugged. Are loaded before launching the R script/file/function, and can contain breakpoints."
+							},
+							"loadPackages": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								},
+								"default": [
+									"."
+								],
+								"markdownDescription": "Paths of packages to be loaded with `pkgload::load_all` before launching the debugger. Requires `pkgload` to be installed."
+							},
+							"loadSilently": {
+								"type": "boolean",
+								"default": false,
+								"markdownDescription": "Whether to suppress messages while loading packages specified in `loadPackages`."
+							}
+						}
+					}
+				},
+				"configurationSnippets": [
+					{
+						"label": "R: Launch Workspace",
+						"body": {
+							"type": "R-Debugger",
+							"name": "Launch R-Workspace",
+							"request": "launch",
+							"debugMode": "workspace",
+							"workingDirectory": "${workspaceFolder}"
+						}
+					},
+					{
+						"label": "R: Debug File",
+						"body": {
+							"type": "R-Debugger",
+							"name": "Debug R-File",
+							"request": "launch",
+							"debugMode": "file",
+							"workingDirectory": "${workspaceFolder}",
+							"file": "${file}"
+						}
+					},
+					{
+						"label": "R: Debug Function",
+						"body": {
+							"type": "R-Debugger",
+							"name": "Debug R-Function",
+							"request": "launch",
+							"debugMode": "function",
+							"workingDirectory": "${workspaceFolder}",
+							"file": "${file}",
+							"mainFunction": "main",
+							"allowGlobalDebugging": false
+						}
+					},
+					{
+						"label": "R: Debug Package with pkload",
+						"body": {
+							"type": "R-Debugger",
+							"name": "Debug R-Package",
+							"request": "launch",
+							"debugMode": "workspace",
+							"workingDirectory": "${workspaceFolder}",
+							"includePackageScopes": true,
+							"loadPackages": [
+								"."
+							]
+						}
+					},
+					{
+						"label": "R: Attach to process",
+						"body": {
+							"type": "R-Debugger",
+							"name": "Attach to R process",
+							"request": "attach",
+							"splitOverwrittenOutput": true
+						}
+					}
+				]
+			}
+		],
+		"configuration": [
+			{
+				"type": "object",
+				"title": "R Debugger",
+				"properties": {
+					"r.rpath.windows": {
+						"type": "string",
+						"default": "",
+						"description": "Path to an R executable for Windows. Must be \"vanilla\" R, not radian etc.!"
+					},
+					"r.rpath.mac": {
+						"type": "string",
+						"default": "",
+						"description": "Path to an R executable for macOS. Must be \"vanilla\" R, not radian etc.!"
+					},
+					"r.rpath.linux": {
+						"type": "string",
+						"default": "",
+						"description": "Path to an R executable for Linux. Must be \"vanilla\" R, not radian etc.!"
+					},
+					"r.debugger.commandLineArgs": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"default": [],
+						"markdownDescription": "Additional command line arguments used when launching R."
+					},
+					"r.debugger.timeouts.startup": {
+						"type": "number",
+						"default": 2000,
+						"markdownDescription": "The maximum time in ms that is waited for R to startup. Is also used for some other timeouts."
+					},
+					"r.debugger.timeouts.terminate": {
+						"type": "number",
+						"default": 50,
+						"markdownDescription": "Time in ms that is waited when terminating R to allow messages etc. to appear."
+					},
+					"r.debugger.timeouts.prompt": {
+						"type": "number",
+						"default": 0,
+						"markdownDescription": "Time in ms that is waited before handling input prompts on stdout (to avoid async issues)."
+					},
+					"r.debugger.checkVersion": {
+						"type": "string",
+						"enum": [
+							"none",
+							"required",
+							"recommended"
+						],
+						"default": "recommended",
+						"markdownDescription": "Whether to check the version of the R package before launching the debugger."
+					},
+					"r.debugger.trackTerminals": {
+						"type": "boolean",
+						"default": false,
+						"markdownDescription": "Whether to track terminals opened while using the extension. Recommended for debugging in attached mode on windows."
+					},
+					"rdebugger.rterm.windows": {
+						"type": "string",
+						"default": "",
+						"markdownDescription": "R.exe path for Windows. If empty, the registry and PATH are searched for an R executable.",
+						"markdownDeprecationMessage": "Deprecated. Use `#r.rpath.windows#` instead.",
+						"deprecationMessage": "Deprecated. Use r.rpath.windows instead."
+					},
+					"rdebugger.rterm.mac": {
+						"type": "string",
+						"default": "",
+						"markdownDescription": "R path for macOS. If empty, the PATH is searched for an R executable.",
+						"markdownDeprecationMessage": "Deprecated. Use `#r.rpath.mac#` instead.",
+						"deprecationMessage": "Deprecated. Use r.rpath.mac instead."
+					},
+					"rdebugger.rterm.linux": {
+						"type": "string",
+						"default": "",
+						"markdownDescription": "R path for Linux. If empty, the PATH is searched for an R executable.",
+						"markdownDeprecationMessage": "Deprecated. Use `#r.rpath.linux#` instead.",
+						"deprecationMessage": "Deprecated. Use r.rpath.linux instead."
+					},
+					"rdebugger.rterm.args": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"default": [],
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.commandLineArgs#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.commandLineArgs instead.",
+						"markdownDescription": "Additional command line arguments used when launching R."
+					},
+					"rdebugger.timeouts.startup": {
+						"type": "number",
+						"default": 0,
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.timeouts.startup#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.timeouts.startup instead.",
+						"markdownDescription": "The maximum time in ms that is waited for R to startup. Is also used for some other timeouts."
+					},
+					"rdebugger.timeouts.terminate": {
+						"type": "number",
+						"default": 0,
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.timeouts.terminate#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.timeouts.terminate instead.",
+						"markdownDescription": "Time in ms that is waited when terminating R to allow messages etc. to appear."
+					},
+					"rdebugger.timeouts.prompt": {
+						"type": "number",
+						"default": 0,
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.timeouts.prompt#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.timeouts.prompt instead.",
+						"markdownDescription": "Time in ms that is waited before handling input prompts on stdout (to avoid async issues)."
+					},
+					"rdebugger.checkVersion": {
+						"type": "string",
+						"default": "",
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.checkVersion#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.checkVersion instead.",
+						"markdownDescription": "Whether to check the version of the R package before launching the debugger."
+					},
+					"rdebugger.trackTerminals": {
+						"type": "boolean",
+						"default": false,
+						"markdownDeprecationMessage": "Deprecated. Use `#r.debugger.trackTerminals#` instead.",
+						"deprecationMessage": "Deprecated. Use r.debugger.trackTerminals instead.",
+						"markdownDescription": "Whether to track terminals opened while using the extension. Recommended for debugging in attached mode on windows."
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/node": "^13.13.27",
+		"@types/semver": "^7.3.4",
+		"@types/vscode": "^1.50.0",
+		"@types/winreg": "^1.2.30",
+		"@typescript-eslint/eslint-plugin": "^4.8.1",
+		"@typescript-eslint/parser": "^4.8.1",
+		"eslint": "^7.14.0",
+		"typescript": "^4.1.2",
+		"vscode-debugprotocol": "^1.42.0"
+	},
+	"dependencies": {
+		"loglevel": "^1.7.0",
+		"net": "^1.0.2",
+		"semver": "^7.3.2",
+		"tree-kill": "^1.2.2",
+		"winreg": "^1.2.4"
+	},
+	"__metadata": {
+		"id": "85647dc5-f1f8-4639-b7e3-b16c62769db7",
+		"publisherId": "ddbc3494-6d38-4b2e-881e-eb828ec5bfa4",
+		"publisherDisplayName": "R Debugger",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641311311
+	}
+}

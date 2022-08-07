@@ -1,0 +1,14 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - deploy/crds/operator_v1alpha1_config_crd.yaml
+  groupNames: ["operator.tekton.dev"]
+  repoUrl: https://github.com/tektoncd/operator
+  samples:
+  - deploy/crds/operator_v1alpha1_config_cr.yaml
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-04-18'
+  license: apache-2.0

@@ -1,0 +1,59 @@
+{
+	"name": "xcode-12-theme",
+	"displayName": "Xcode Theme",
+	"description": "Xcode Theme, ported to VS Code",
+	"icon": "images/icon.png",
+	"version": "4.0.0",
+	"scripts": {
+		"build": "vsce package"
+	},
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"publisher": "mateocerquetella",
+	"categories": [
+		"Themes"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MateoCerquetella/xcode-theme"
+	},
+	"contributes": {
+		"themes": [
+			{
+				"label": "Xcode Classic Dark",
+				"uiTheme": "vs-dark",
+				"path": "./themes/Xcode Classic Dark.json"
+			},
+			{
+				"label": "Xcode Classic Light",
+				"uiTheme": "vs",
+				"path": "./themes/Xcode Classic Light.json"
+			},
+			{
+				"label": "Xcode Default Dark",
+				"uiTheme": "vs-dark",
+				"path": "./themes/Xcode Default Dark.json"
+			},
+			{
+				"label": "Xcode Default Dark Customized Version",
+				"uiTheme": "vs-dark",
+				"path": "./themes/Xcode Default Dark Customized Version.json"
+			}
+		]
+	},
+	"dependencies": {
+		"vsce": "^2.9.0"
+	},
+	"__metadata": {
+		"id": "1b59a093-93c8-429e-a7d7-2a177cea4f47",
+		"publisherId": "7b7dd36d-de7b-46f1-9ae4-5a07448bdf4b",
+		"publisherDisplayName": "Mateo Cerquetella",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641315158
+	}
+}

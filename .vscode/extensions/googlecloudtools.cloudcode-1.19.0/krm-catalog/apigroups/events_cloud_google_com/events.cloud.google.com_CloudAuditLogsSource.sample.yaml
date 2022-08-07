@@ -1,0 +1,12 @@
+apiVersion: events.cloud.google.com/v1alpha1
+kind: CloudAuditLogsSource
+metadata:
+  name: cloudauditlogssource-test
+spec:
+  methodName: google.pubsub.v1.Publisher.CreateTopic
+  serviceName: pubsub.googleapis.com
+  sink:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display

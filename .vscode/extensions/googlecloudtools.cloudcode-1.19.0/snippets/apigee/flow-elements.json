@@ -1,0 +1,89 @@
+{
+      "Pre flow": {
+            "prefix": "flows.preflow",
+            "body": [
+                  "<PreFlow name=\"${1:PreFlow}\">",
+                  "     <Description>${2:Description}</Description>",
+                  "</PreFlow>"
+            ]
+      },
+      "Post flow": {
+            "prefix": "flows.postflow",
+            "body": [
+                  "<PostFlow>",
+                  "     <Description>${1:Description}</Description>",
+                  "</PostFlow>"
+            ]
+      },
+      "Post client flow": {
+            "prefix": "flows.postclientflow",
+            "body": [
+                  "<PostClientFlow>",
+                  "     <Description>${1:Description}</Description>",
+                  "</PostClientFlow>"
+            ]
+      },
+      "Request enforcement": {
+            "prefix": "flows.request-enforcement",
+            "body": [
+                  "<Request>",
+                  "</Request>"
+            ]
+      },
+      "Response enforcement": {
+            "prefix": "flows.response-enforcement",
+            "body": [
+                  "<Response>",
+                  "</Response>"
+            ]
+      },
+      "Custom flows": {
+            "prefix": "flows.custom-flow",
+            "body": [
+                  "<Flows>",
+                  "</Flows>"
+            ]
+      },
+      "Flow": {
+            "prefix": "flows.customflow",
+            "body": [
+                  "<Flow name=\"${1:flow-name}\">",
+                  "     <Description>${2:Description}</Description>",
+                  "</Flow>"
+            ]
+      },
+      "Step": {
+            "prefix": "flows.step",
+            "body": [
+                  "<Step>",
+                  "   <Name>${1:name}</Name>",
+                  "</Step>"
+            ]
+      },
+      "Condition": {
+            "prefix": "flows.condition",
+            "body": [
+                  "<Condition>${1:condition}</Condition>"
+            ]
+      },
+      "Deafult fault rule": {
+            "prefix": "flows.default-fault-rules",
+            "body": [
+                  "<DefaultFaultRule>${1:condition}</DefaultFaultRule>"
+            ]
+      },
+      "Faults": {
+            "prefix": "flows.faults-block",
+            "body": [
+                  "<FaultRules>",
+                  "</FaultRules>"
+            ]
+      },
+      "Fault rule": {
+            "prefix": "flows.fault-rule",
+            "body": [
+                  "<FaultRule>",
+                  "</FaultRule>"
+            ]
+      }
+}

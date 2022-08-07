@@ -1,0 +1,730 @@
+<testsuites name="Extension Tests">
+<testsuite name="Code Adapter Tests" tests="6" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.038">
+<testcase classname="Code Adapter Tests" name="logError should append message to the channel" time="0.002">
+</testcase>
+<testcase classname="Code Adapter Tests" name="log should format message and append to the channel">
+</testcase>
+<testcase classname="Code Adapter Tests" name="clearLog should clear from output channel" time="0.001">
+</testcase>
+<testcase classname="Code Adapter Tests" name="showLog should show the output channel" time="0.001">
+</testcase>
+<testcase classname="Code Adapter Tests" name="promptSingle and promptCallback should call prompt">
+</testcase>
+<testcase classname="Code Adapter Tests" name="prompting a checkbox question should call fixQuestion">
+</testcase>
+</testsuite>
+<testsuite name="Azure Controller Tests" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.013">
+<testcase classname="Azure Controller Tests" name="isTokenInValid should return true for undefined token" time="0.002">
+</testcase>
+<testcase classname="Azure Controller Tests" name="isTokenInValid should return true for empty token">
+</testcase>
+<testcase classname="Azure Controller Tests" name="isTokenInValid should return true for undefined expiresOn">
+</testcase>
+<testcase classname="Azure Controller Tests" name="isTokenInValid should return true for expired token">
+</testcase>
+<testcase classname="Azure Controller Tests" name="isTokenInValid should return false for valid token" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Azure SQL client" tests="2" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.015">
+<testcase classname="Azure SQL client" name="Should return locations successfully" time="0.007">
+</testcase>
+<testcase classname="Azure SQL client" name="Should return resource groups successfully" time="0.004">
+</testcase>
+</testsuite>
+<testsuite name="Test Checkbox prompt" tests="3" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.015">
+<testcase classname="Test Checkbox prompt" name="Test checkbox prompt with simple question" time="0.003">
+</testcase>
+<testcase classname="Test Checkbox prompt" name="Test Checkbox prompt with error" time="0.001">
+</testcase>
+<testcase classname="Test Checkbox prompt" name="Test Checkbox prompt with checked answer" time="0.002">
+</testcase>
+</testsuite>
+<testsuite name="Config Tests" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.013">
+<testcase classname="Config Tests" name="getSqlToolsServiceDownloadUrl should return valid value" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Test Confirm Prompt" tests="2" failures="0" skipped="2" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.002">
+<testcase classname="Test Confirm Prompt" name="Test Confirm prompt with simple question">
+</testcase>
+<testcase classname="Test Confirm Prompt" name="Test Checkbox prompt with error">
+</testcase>
+</testsuite>
+<testsuite name="ConnectionCredentials Tests" tests="9" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.108">
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should remove password from plain text and save password to Credential Store" time="0.004">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should keep Credential Store password" time="0.004">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should not save password" time="0.002">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should not save password, empty password case" time="0.002">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should request password and save it for non-empty passwords" time="0.004">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="ensureRequiredPropertiesSet should request password and save it correctly for empty passswords" time="0.002">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="createConnectionDetails sets properties in addition to the connection string" time="0.001">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="Subsequent connection credential questions are skipped if a connection string is given" time="0.001">
+</testcase>
+<testcase classname="ConnectionCredentials Tests" name="Server question properly handles connection strings">
+</testcase>
+</testsuite>
+<testsuite name="Connection Profile tests" tests="8" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.208">
+<testcase classname="Connection Profile tests" name="CreateProfile should ask questions in correct order" time="0.002">
+</testcase>
+<testcase classname="Connection Profile tests" name="CreateProfile - SqlPassword should be default auth type" time="0.004">
+</testcase>
+<testcase classname="Connection Profile tests" name="CreateProfile - Integrated auth support" time="0.001">
+</testcase>
+<testcase classname="Connection Profile tests" name="Port number is applied to server name when connection credentials are transformed into details">
+</testcase>
+<testcase classname="Connection Profile tests" name="All connection details properties can be set from connection credentials">
+</testcase>
+<testcase classname="Connection Profile tests" name="Profile is connected to and validated prior to saving" time="0.115">
+</testcase>
+<testcase classname="Connection Profile tests" name="Profile is not saved when connection validation fails" time="0.005">
+</testcase>
+<testcase classname="Connection Profile tests" name="Profile can be created from a connection string" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Connection UI tests" tests="14" failures="4" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.198">
+<testcase classname="Connection UI tests" name="showConnectionErrors should show errors in the output channel" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="showConnections with recent and new connection" time="0.002">
+<failure message="expected invocation of Function.promptSingle(It.isAny()) exactly 1 times, invoked 0 times
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.prompt(It.isAny(),It.isValue(true))
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+">
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.prompt(It.isAny(),It.isValue(true))
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+)
+    at MockException.Exception [as constructor] (node_modules/typemoq/dist/Error/Error/Error/Exception.ts:3:9)
+    at new MockException (node_modules/typemoq/dist/Error/Error/Error/MockException.ts:20:9)
+    at InterceptorExecute.throwVerifyCallCountException (node_modules/typemoq/dist/InterceptorExecute.ts:75:17)
+    at InterceptorExecute.verifyCallCount (node_modules/typemoq/dist/InterceptorExecute.ts:64:18)
+    at DynamicMock.verify (node_modules/typemoq/dist/DynamicMock.ts:44:31)
+    at /Users/runner/work/1/s/test/connectionUI.test.ts:74:13
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+</failure>
+</testcase>
+<testcase classname="Connection UI tests" name="showConnections with recent and edit connection" time="0.001">
+<failure message="expected invocation of Function.promptSingle(It.isAny()) exactly 1 times, invoked 0 times
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.prompt(It.isAny(),It.isValue(true))
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+">
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.prompt(It.isAny(),It.isValue(true))
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+)
+    at MockException.Exception [as constructor] (node_modules/typemoq/dist/Error/Error/Error/Exception.ts:3:9)
+    at new MockException (node_modules/typemoq/dist/Error/Error/Error/MockException.ts:20:9)
+    at InterceptorExecute.throwVerifyCallCountException (node_modules/typemoq/dist/InterceptorExecute.ts:75:17)
+    at InterceptorExecute.verifyCallCount (node_modules/typemoq/dist/InterceptorExecute.ts:64:18)
+    at DynamicMock.verify (node_modules/typemoq/dist/DynamicMock.ts:44:31)
+    at /Users/runner/work/1/s/test/connectionUI.test.ts:91:13
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+</failure>
+</testcase>
+<testcase classname="Connection UI tests" name="showConnections with recent but no selection" time="0.002">
+<failure message="expected invocation of Function.promptSingle(It.isAny()) exactly 1 times, invoked 0 times
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+">
+ Configured setups:
+ Function.promptSingle(It.isAny())
+ Function.promptSingle(It.isAny())
+
+ Performed invocations:
+ Function.promptSingle({&quot;type&quot;:&quot;expand&quot;,&quot;name&quot;:&quot;question&quot;,&quot;message&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOptions&quot;:{&quot;placeHolder&quot;:&quot;Choose a connection profile from the list below&quot;,&quot;matchOnDescription&quot;:true,&quot;ignoreFocusOut&quot;:false},&quot;choices&quot;:{&quot;___id&quot;:&quot;438A51D3-6864-49D7-A655-CA1153B86965&quot;}},false)
+)
+    at MockException.Exception [as constructor] (node_modules/typemoq/dist/Error/Error/Error/Exception.ts:3:9)
+    at new MockException (node_modules/typemoq/dist/Error/Error/Error/MockException.ts:20:9)
+    at InterceptorExecute.throwVerifyCallCountException (node_modules/typemoq/dist/InterceptorExecute.ts:75:17)
+    at InterceptorExecute.verifyCallCount (node_modules/typemoq/dist/InterceptorExecute.ts:64:18)
+    at DynamicMock.verify (node_modules/typemoq/dist/DynamicMock.ts:44:31)
+    at /Users/runner/work/1/s/test/connectionUI.test.ts:99:13
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+</failure>
+</testcase>
+<testcase classname="Connection UI tests" name="promptLanguageFlavor should prompt for a language flavor" time="0.001">
+<failure message="Cannot read property &#39;then&#39; of undefined">
+    at /Users/runner/work/1/s/out/src/views/connectionUI.js:9:6841
+    at new Promise (&lt;anonymous&gt;)
+    at ConnectionUI.promptLanguageFlavor (out/src/views/connectionUI.js:9:6335)
+    at Context.&lt;anonymous&gt; (test/connectionUI.test.ts:106:23)
+    at processImmediate (internal/timers.js:461:21)
+</failure>
+</testcase>
+<testcase classname="Connection UI tests" name="promptToCancelConnection should prompt for cancellation" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="promptForPassword should prompt for password" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="promptToChangeLanguageMode should prompt for language mode - selection" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="promptToChangeLanguageMode should prompt for language mode - no selection" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="removeProfile should prompt for a profile and remove it" time="0.003">
+</testcase>
+<testcase classname="Connection UI tests" name="removeProfile should show error if there are no profiles to remove" time="0.002">
+</testcase>
+<testcase classname="Connection UI tests" name="promptToManageProfiles should prompt to manage profile" time="0.001">
+</testcase>
+<testcase classname="Connection UI tests" name="promptForRetryCreateProfile should show an error message and create profile" time="0.015">
+</testcase>
+<testcase classname="Connection UI tests" name="createProfileWithDifferentCredentials should prompt to recreate connection" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Credential Store Tests" tests="3" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.161">
+<testcase classname="Credential Store Tests" name="Read credential should send a ReadCredentialRequest" time="0.001">
+</testcase>
+<testcase classname="Credential Store Tests" name="Save credential should send a SaveCredentialRequest" time="0.001">
+</testcase>
+<testcase classname="Credential Store Tests" name="Delete credential should send a DeleteCredentialRequest">
+</testcase>
+</testsuite>
+<testsuite name="ServiceDownloadProvider Tests" tests="8" failures="0" skipped="2" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.029">
+<testcase classname="ServiceDownloadProvider Tests" name="getInstallDirectory should return the exact value from config if the path is absolute" time="0.001">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="getInstallDirectory should add the version to the path given the path with the version template key" time="0.001">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="getInstallDirectory should add the platform to the path given the path with the platform template key" time="0.001">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="getInstallDirectory should add the platform to the path given the path with the platform template key" time="0.001">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="getDownloadFileName should return the expected file name given a runtime" time="0.001">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="installSQLToolsService should download and decompress the service and update the status" time="0.007">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="installSQLToolsService should not call decompress if download fails">
+</testcase>
+<testcase classname="ServiceDownloadProvider Tests" name="installSQLToolsService should not update status to installed decompress fails">
+</testcase>
+</testsuite>
+<testsuite name="Test Expand Prompt" tests="4" failures="0" skipped="3" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.005">
+<testcase classname="Test Expand Prompt" name="Test expand prompt with simple question" time="0.001">
+</testcase>
+<testcase classname="Test Expand Prompt" name="Test expand prompt with error question">
+</testcase>
+<testcase classname="Test Expand Prompt" name="Test expand prompt with quick pick item">
+</testcase>
+<testcase classname="Test Expand Prompt" name="Test expand prompt with error quick pick item">
+</testcase>
+</testsuite>
+<testsuite name="ExtConfig Tests" tests="8" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:19 GMT" time="0.154">
+<testcase classname="ExtConfig Tests" name="getSqlToolsServiceDownloadUrl should return value from extension config first">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getSqlToolsServiceDownloadUrl should return value from config.json if not exit in extension config" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getSqlToolsConfigValue should return value from extension config first" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getSqlToolsConfigValue should return value from config.json if not exit in extension config" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getExtensionConfig should return value from extension config" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getExtensionConfig should return the default value if the extension does not have the config" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getWorkspaceConfig should return value from workspace config" time="0.001">
+</testcase>
+<testcase classname="ExtConfig Tests" name="getWorkspaceConfig should return the default value if the workspace does not have the config" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Firewall Service Tests" tests="2" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.005">
+<testcase classname="Firewall Service Tests" name="Handle Firewall Rule test" time="0.001">
+</testcase>
+<testcase classname="Firewall Service Tests" name="Create Firewall Rule Test" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Initialization Tests" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.005">
+<testcase classname="Initialization Tests" name="Connection manager is initialized properly" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Input Prompt Tests" tests="4" failures="0" skipped="1" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.008">
+<testcase classname="Input Prompt Tests" name="Test list prompt render simple question" time="0.001">
+</testcase>
+<testcase classname="Input Prompt Tests" name="Test prompt an error question should throw">
+</testcase>
+<testcase classname="Input Prompt Tests" name="Test prompt question with default message" time="0.001">
+</testcase>
+<testcase classname="Input Prompt Tests" name="Test prompt question with validation error">
+</testcase>
+</testsuite>
+<testsuite name="Language Service Tests Decompress Provider Tests" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.003">
+<testcase classname="Language Service Tests Decompress Provider Tests" name="Decompress package test">
+</testcase>
+</testsuite>
+<testsuite name="Language Service Tests HttpClient Tests" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.008">
+<testcase classname="Language Service Tests HttpClient Tests" name="handleDataReceivedEvent test">
+</testcase>
+</testsuite>
+<testsuite name="List Prompt Tests" tests="2" failures="0" skipped="1" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.006">
+<testcase classname="List Prompt Tests" name="Test list prompt render" time="0.001">
+</testcase>
+<testcase classname="List Prompt Tests" name="Test list prompt render with error">
+</testcase>
+</testsuite>
+<testsuite name="Localization Tests" tests="3" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.009">
+<testcase classname="Localization Tests" name="Default Localization Test">
+</testcase>
+<testcase classname="Localization Tests" name="EN Localization Test" time="0.002">
+</testcase>
+<testcase classname="Localization Tests" name="ES Localization Test" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="MainController Tests" tests="12" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.173">
+<testcase classname="MainController Tests" name="onDidCloseTextDocument should propogate onDidCloseTextDocument to connectionManager" time="0.001">
+</testcase>
+<testcase classname="MainController Tests" name="onDidCloseTextDocument should call untitledDoc function when an untitled file is saved" time="0.001">
+</testcase>
+<testcase classname="MainController Tests" name="onDidCloseTextDocument should call renamedDoc function when rename occurs" time="0.004">
+</testcase>
+<testcase classname="MainController Tests" name="onDidCloseTextDocument should propogate to the connectionManager even if a special event occured before it" time="0.013">
+</testcase>
+<testcase classname="MainController Tests" name="onDidOpenTextDocument should propogate the function to the connectionManager" time="0.001">
+</testcase>
+<testcase classname="MainController Tests" name="onDidSaveTextDocument should propogate the function to the connectionManager" time="0.001">
+</testcase>
+<testcase classname="MainController Tests" name="TextDocument Events should handle non-initialized connection manager">
+</testcase>
+<testcase classname="MainController Tests" name="onNewQuery should call the new query and new connection" time="0.003">
+</testcase>
+<testcase classname="MainController Tests" name="onNewQuery should not call the new connection if new query fails" time="0.002">
+</testcase>
+<testcase classname="MainController Tests" name="validateTextDocumentHasFocus returns false if there is no active text document" time="0.001">
+</testcase>
+<testcase classname="MainController Tests" name="validateTextDocumentHasFocus returns true if there is an active text document">
+</testcase>
+<testcase classname="MainController Tests" name="onManageProfiles should call the connetion manager to manage profiles" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Metadata Service Tests" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.033">
+<testcase classname="Metadata Service Tests" name="Test getMetadata function" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Object Explorer Provider Tests" tests="13" failures="0" skipped="1" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.215">
+<testcase classname="Object Explorer Provider Tests" name="Test Create Session">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test Refresh Node" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test Connection Credentials" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test remove Object Explorer node" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test Get Children from Object Explorer Provider" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test server nodes sorting mechanism" time="0.002">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test expandNode function" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test signInNode function">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test updateNode function" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test removeConnectionNodes function" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test addDisconnectedNode function" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test currentNode getter">
+</testcase>
+<testcase classname="Object Explorer Provider Tests" name="Test rootNodeConnections getter">
+</testcase>
+</testsuite>
+<testsuite name="Object Explorer Node Types Test" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.17">
+<testcase classname="Object Explorer Node Types Test" name="Test Add Connection Tree Node">
+</testcase>
+<testcase classname="Object Explorer Node Types Test" name="Test Account Sign In Tree Node" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Node Types Test" name="Test Connect Tree Node" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Node Types Test" name="Test getters and setters for Tree Node" time="0.002">
+</testcase>
+<testcase classname="Object Explorer Node Types Test" name="Test fromNodeInfo function">
+</testcase>
+</testsuite>
+<testsuite name="Object Explorer Utils Tests" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.04">
+<testcase classname="Object Explorer Utils Tests" name="Test iconPath function">
+</testcase>
+<testcase classname="Object Explorer Utils Tests" name="Test getNodeUri function" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Utils Tests" name="Test getNodeUriFromProfile">
+</testcase>
+<testcase classname="Object Explorer Utils Tests" name="Test getDatabaseName" time="0.001">
+</testcase>
+<testcase classname="Object Explorer Utils Tests" name="Test isFirewallError">
+</testcase>
+</testsuite>
+<testsuite name="Per File Connection Tests" tests="12" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.146">
+<testcase classname="Per File Connection Tests" name="onNewConnection should ask user for different credentials if connection failed because of invalid credentials" time="0.007">
+</testcase>
+<testcase classname="Per File Connection Tests" name="onNewConnection only prompt user for new credentials onces even if the connection fails again" time="0.005">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Can create two separate connections for two files" time="0.017">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Can disconnect one file while another file stays connected" time="0.003">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Can disconnect and reconnect one file while another file stays connected" time="0.01">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Can list databases on server used by current connection and switch databases" time="0.008">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Can disconnect instead of switching databases" time="0.023">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Prompts for new connection before running query if disconnected" time="0.003">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Change connection notification changes database context" time="0.003">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Should use actual database name instead of &lt;default&gt;" time="0.002">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Should save new connections to recently used list" time="0.009">
+</testcase>
+<testcase classname="Per File Connection Tests" name="Status view shows updating intellisense after connecting and disappears after intellisense is updated" time="0.003">
+</testcase>
+</testsuite>
+<testsuite name="Platform Tests" tests="19" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:20 GMT" time="0.236">
+<testcase classname="Platform Tests" name="getCurrentPlatform should return valid value" time="0.018">
+</testcase>
+<testcase classname="Platform Tests" name="Retrieve correct information for Ubuntu 14.04" time="0.001">
+</testcase>
+<testcase classname="Platform Tests" name="Retrieve correct information for Ubuntu 14.04 with quotes">
+</testcase>
+<testcase classname="Platform Tests" name="Retrieve correct information for Fedora 23">
+</testcase>
+<testcase classname="Platform Tests" name="Retrieve correct information for Debian 8" time="0.001">
+</testcase>
+<testcase classname="Platform Tests" name="Retrieve correct information for CentOS 7">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for Windows 64-bit">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for Windows 86-bit">
+</testcase>
+<testcase classname="Platform Tests" name="Compute no RID for Windows with bad architecture">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for MacOS Intel">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for MacOS ARM">
+</testcase>
+<testcase classname="Platform Tests" name="Compute no RID for OSX with 32-bit architecture">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for Ubuntu 14.04">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for Fedora 23">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for Debian 8">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for CentOS 7">
+</testcase>
+<testcase classname="Platform Tests" name="Compute correct RID for KDE neon">
+</testcase>
+<testcase classname="Platform Tests" name="Compute no RID for CentOS 7 with 32-bit architecture">
+</testcase>
+<testcase classname="Platform Tests" name="Compute default (Ubuntu_16) RID for fake distro with no ID_LIKE" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Prompts test" tests="8" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.015">
+<testcase classname="Prompts test" name="Test string prompt" time="0.001">
+</testcase>
+<testcase classname="Prompts test" name="Test input prompt">
+</testcase>
+<testcase classname="Prompts test" name="Test password prompt" time="0.001">
+</testcase>
+<testcase classname="Prompts test" name="Test list prompt">
+</testcase>
+<testcase classname="Prompts test" name="Test confirm prompt">
+</testcase>
+<testcase classname="Prompts test" name="Test checkbox prompt" time="0.001">
+</testcase>
+<testcase classname="Prompts test" name="Test expand prompt">
+</testcase>
+<testcase classname="Prompts test" name="Test bogus prompt" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="QueryNotificationHandler tests" tests="3" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.012">
+<testcase classname="QueryNotificationHandler tests" name="QueryNotificationHandler handles registerRunner at the beginning of the event flow" time="0.002">
+</testcase>
+<testcase classname="QueryNotificationHandler tests" name="QueryNotificationHandler handles registerRunner in the middle of the event flow" time="0.001">
+</testcase>
+<testcase classname="QueryNotificationHandler tests" name="QueryNotificationHandler handles registerRunner at the end of the event flow" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Query Runner tests" tests="13" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.046">
+<testcase classname="Query Runner tests" name="Constructs properly">
+</testcase>
+<testcase classname="Query Runner tests" name="Handles Query Request Result Properly" time="0.006">
+</testcase>
+<testcase classname="Query Runner tests" name="Handles Query Request Error Properly" time="0.002">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - Batch Start" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - Batch Complete no message" time="0.002">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - Batch Complete with message" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - ResultSet Complete w/no previous results" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - ResultSet complete w/previous results">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - Message">
+</testcase>
+<testcase classname="Query Runner tests" name="Notification - Query complete" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests" name="Correctly handles subset" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests" name="Correctly handles error from subset request">
+</testcase>
+<testcase classname="Query Runner tests" name="Toggle SQLCMD Mode sends request" time="0.002">
+</testcase>
+</testsuite>
+<testsuite name="Query Runner tests Copy Tests" tests="6" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.031">
+<testcase classname="Query Runner tests Copy Tests" name="Correctly copy pastes a selection" time="0.003">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests" name="Copies selection with column headers set in user config" time="0.002">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests" name="Copies selection with headers when true passed as parameter" time="0.001">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests" name="Copies selection without headers when false passed as parameter" time="0.002">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests" name="SetEditorSelection uses an existing editor if it is visible" time="0.002">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests" name="SetEditorSelection uses column 1 by default" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Query Runner tests Copy Tests with multiple selections" tests="4" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.137">
+<testcase classname="Query Runner tests Copy Tests with multiple selections" name="Correctly copy pastes a selection" time="0.003">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests with multiple selections" name="Copies selection with column headers set in user config" time="0.003">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests with multiple selections" name="Copies selection with headers when true passed as parameter" time="0.003">
+</testcase>
+<testcase classname="Query Runner tests Copy Tests with multiple selections" name="Copies selection without headers when false passed as parameter" time="0.002">
+</testcase>
+</testsuite>
+<testsuite name="save results tests" tests="10" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.071">
+<testcase classname="save results tests" name="check if filepath prompt displays and right value is set" time="0.002">
+</testcase>
+<testcase classname="save results tests" name="Save as CSV - test if information message is displayed on success" time="0.003">
+</testcase>
+<testcase classname="save results tests" name="Save as CSV - test if error message is displayed on failure to save" time="0.002">
+</testcase>
+<testcase classname="save results tests" name="Save as JSON - test if information message is displayed on success" time="0.002">
+</testcase>
+<testcase classname="save results tests" name="Save as JSON - test if error message is displayed on failure to save" time="0.001">
+</testcase>
+<testcase classname="save results tests" name="Save as Excel - test if information message is displayed on success" time="0.031">
+</testcase>
+<testcase classname="save results tests" name="Save as Excel - test if error message is displayed on failure to save" time="0.002">
+</testcase>
+<testcase classname="save results tests" name="Save as with selection - test if selected range is passed in parameters" time="0.002">
+</testcase>
+<testcase classname="save results tests" name="Save as with selection - test case when right click on single cell - no selection is set in parameters" time="0.001">
+</testcase>
+<testcase classname="save results tests" name="canceling out of save file dialog cancels serialization" time="0.002">
+</testcase>
+</testsuite>
+<testsuite name="Scripting Service Tests" tests="7" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.034">
+<testcase classname="Scripting Service Tests" name="Test Get Object From Node function">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Create Scripting Params">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Script Select function" time="0.001">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Script Create function" time="0.001">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Script Execute function" time="0.001">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Script Drop function">
+</testcase>
+<testcase classname="Scripting Service Tests" name="Test Script Alter function" time="0.008">
+</testcase>
+</testsuite>
+<testsuite name="Server tests" tests="6" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.133">
+<testcase classname="Server tests" name="findServerPath should return error given a folder with no installed service" time="0.008">
+</testcase>
+<testcase classname="Server tests" name="findServerPath should return the file path given a file that exists" time="0.001">
+</testcase>
+<testcase classname="Server tests" name="findServerPath should not return the given file path if does not exist" time="0.01">
+</testcase>
+<testcase classname="Server tests" name="findServerPath should return a valid file path given a folder with installed service" time="0.001">
+</testcase>
+<testcase classname="Server tests" name="getOrDownloadServer should download the service if not exist and return the valid service file path" time="0.022">
+</testcase>
+<testcase classname="Server tests" name="getOrDownloadServer should not download the service if already exist" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Server Status View Tests" tests="4" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.307">
+<testcase classname="Server Status View Tests" name="Test installing service status" time="0.301">
+</testcase>
+<testcase classname="Server Status View Tests" name="Test update service download progress status">
+</testcase>
+<testcase classname="Server Status View Tests" name="Test service installed status">
+</testcase>
+<testcase classname="Server Status View Tests" name="Test service installation failed status">
+</testcase>
+</testsuite>
+<testsuite name="Service Client tests" tests="6" failures="0" skipped="4" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.013">
+<testcase classname="Service Client tests" name="initializeForPlatform should not install the service if already exists">
+</testcase>
+<testcase classname="Service Client tests" name="initializeForPlatform should install the service if not exists">
+</testcase>
+<testcase classname="Service Client tests" name="initializeForPlatform should fail given unsupported platform" time="0.001">
+<system-out><![CDATA[Note: mssql commands will be available after installing the service.
+
+
+
+Platform: invalid platform, x86_64
+]]></system-out>
+</testcase>
+<testcase classname="Service Client tests" name="initializeForPlatform should set v1 given mac 10.11 or lower">
+</testcase>
+<testcase classname="Service Client tests" name="initializeForPlatform should ignore service version given mac 10.12 or higher">
+</testcase>
+<testcase classname="Service Client tests" name="handleLanguageServiceStatusNotification should change the UI status" time="0.001">
+</testcase>
+</testsuite>
+<testsuite name="Stub Status View tests" tests="4" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:21 GMT" time="0.006">
+<testcase classname="Stub Status View tests" name="Test installing service method" time="0.001">
+</testcase>
+<testcase classname="Stub Status View tests" name="Test service installed method">
+</testcase>
+<testcase classname="Stub Status View tests" name="Test service installation failed method">
+</testcase>
+<testcase classname="Stub Status View tests" name="Test update service downloading progress method">
+</testcase>
+</testsuite>
+<testsuite name="Stub Logger tests" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.011">
+<testcase classname="Stub Logger tests" name="Test logdebug method">
+</testcase>
+<testcase classname="Stub Logger tests" name="Test increaseIndent method">
+</testcase>
+<testcase classname="Stub Logger tests" name="Test decreaseIndent method">
+</testcase>
+<testcase classname="Stub Logger tests" name="Test append method">
+</testcase>
+<testcase classname="Stub Logger tests" name="Test appendLine method">
+</testcase>
+</testsuite>
+<testsuite name="Test Service Installer Util functions" tests="2" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.02">
+<testcase classname="Test Service Installer Util functions" name="Test getServiceInstallDirectoryRoot function">
+</testcase>
+<testcase classname="Test Service Installer Util functions" name="Test installService function" time="0.017">
+</testcase>
+</testsuite>
+<testsuite name="SqlOutputProvider Tests using mocks" tests="16" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.066">
+<testcase classname="SqlOutputProvider Tests using mocks" name="Correctly outputs the new result pane view column" time="0.005">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="RunQuery properly sets up two queries to be run">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="RunQuery only sets up one uri with the same name" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="onUntitledFileSaved should delete the untitled file and create a new titled file">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="onDidCloseTextDocument properly mark the uri for deletion" time="0.002">
+<system-out><![CDATA[{ flaggedForDeletion: true }
+]]></system-out>
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="isRunningQuery should return the correct state for the query" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="cancelQuery should cancel the execution of a query by result pane URI" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="cancelQuery should cancel the execution of a query by SQL pane URI" time="0.002">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="getQueryRunner should return the appropriate query runner" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="cancelQuery with no query running should show information message about it" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="getQueryRunner should return undefined for new URI">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="toggleSqlCmd should do nothing if no queryRunner exists" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="Test queryResultsMap getters and setters">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="showErrorRequestHandler should call vscodeWrapper to show error message">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="showWarningRequestHandler should call vscodeWrapper to show warning message" time="0.001">
+</testcase>
+<testcase classname="SqlOutputProvider Tests using mocks" name="A query runner should only exist if a query is run" time="0.007">
+</testcase>
+</testsuite>
+<testsuite name="Status View Tests" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.011">
+<testcase classname="Status View Tests" name="updateStatusMessage should not immediately update status message for definition request" time="0.003">
+</testcase>
+<testcase classname="Status View Tests" name="updateStatusMessage should not update status message for definition request if already completed">
+</testcase>
+<testcase classname="Status View Tests" name="updateStatusMessage should update status message for definition request completed" time="0.001">
+</testcase>
+<testcase classname="Status View Tests" name="updateStatusMessage should update status message for updating intelliSense">
+</testcase>
+<testcase classname="Status View Tests" name="updateStatusMessage should update status message for intelliSense updated status">
+</testcase>
+</testsuite>
+<testsuite name="UntitledSqlDocumentService Tests" tests="1" failures="0" skipped="1" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.001">
+<testcase classname="UntitledSqlDocumentService Tests" name="newQuery should open a new untitled document and show in new tab">
+</testcase>
+</testsuite>
+<testsuite name="Utility Tests - parseTimeString" tests="4" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.007">
+<testcase classname="Utility Tests - parseTimeString" name="should return false if nothing passed">
+</testcase>
+<testcase classname="Utility Tests - parseTimeString" name="should return false if input does not have only 1 period">
+</testcase>
+<testcase classname="Utility Tests - parseTimeString" name="should return false if input does not have 2 :">
+</testcase>
+<testcase classname="Utility Tests - parseTimeString" name="returns the correct value">
+</testcase>
+</testsuite>
+<testsuite name="Utility Tests - parseNumAsTimeString" tests="1" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.003">
+<testcase classname="Utility Tests - parseNumAsTimeString" name="returns the correct value">
+</testcase>
+</testsuite>
+<testsuite name="Utility Tests - isSameConnection" tests="5" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.004">
+<testcase classname="Utility Tests - isSameConnection" name="should return true for matching non-connectionstring connections">
+</testcase>
+<testcase classname="Utility Tests - isSameConnection" name="should return false for non-matching non-connectionstring connections">
+</testcase>
+<testcase classname="Utility Tests - isSameConnection" name="should return true for matching connectionstring connections">
+</testcase>
+<testcase classname="Utility Tests - isSameConnection" name="should return false for non-matching connectionstring connections">
+</testcase>
+<testcase classname="Utility Tests - isSameConnection" name="should return false for connectionstring and non-connectionstring connections">
+</testcase>
+</testsuite>
+<testsuite name="Utility tests - getSignInQuickPickItems" tests="3" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.008">
+<testcase classname="Utility tests - getSignInQuickPickItems" name="first quick pick item should be Azure Sign In" time="0.001">
+</testcase>
+<testcase classname="Utility tests - getSignInQuickPickItems" name="second quick pick item should be Azure Sign In With Device Code">
+</testcase>
+<testcase classname="Utility tests - getSignInQuickPickItems" name="third quick pick item should be Azure Sign In to Azure Cloud">
+</testcase>
+</testsuite>
+<testsuite name="Utility tests - Timer Class" tests="2" failures="0" skipped="2" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.001">
+<testcase classname="Utility tests - Timer Class" name="timer should start when initiated">
+</testcase>
+<testcase classname="Utility tests - Timer Class" name="timer should end when ended">
+</testcase>
+</testsuite>
+<testsuite name="Webview Panel Controller Tests" tests="2" failures="0" skipped="0" timestamp="Tue, 14 Jun 2022 22:04:22 GMT" time="0.006">
+<testcase classname="Webview Panel Controller Tests" name="Initializing a controller should create and open a new webview panel">
+</testcase>
+<testcase classname="Webview Panel Controller Tests" name="Closing the WebView Panel should dispose the webview" time="0.001">
+</testcase>
+</testsuite>
+</testsuites>

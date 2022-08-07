@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "PreProxyFlowHook": {
+      "type" : "object",
+      "$ref": "#/definitions/FlowHook",
+      "description": "Logic that needs to be enforced BEFORE a proxy endpoint executes"
+    },
+    "PreTargetFlowHook": {
+      "type" : "object",
+      "$ref": "#/definitions/FlowHook",
+      "description": "Logic that needs to be enforced BEFORE a target endpoint executes"
+    },
+    "PostTargetFlowHook": {
+      "type" : "object",
+      "$ref": "#/definitions/FlowHook",
+      "description": "Logic that needs to be enforced AFTER the target response executes"
+    },
+    "PostProxyFlowHook": {
+      "type" : "object",
+      "$ref": "#/definitions/FlowHook",
+      "description": "Logic that needs to be enforced AFTER the proxy endpoint and right before the response is sent out to the client"
+    }
+  },
+  "definitions": {
+    "FlowHook": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "continueOnError": {
+          "type": "boolean",
+          "description": "Whether the flow continue if the hook fails"
+        },
+        "sharedFlow": {
+          "type": "string",
+          "description": "Name of the shared flow to be executed as a part of the flow hook"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the hook"
+        }
+      },
+      "required": [
+        "continueOnError",
+        "sharedFlow",
+        "description"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New flow hook",
+          "description": "Creates flow hook",
+          "body": {
+            "sharedFlow": "",
+            "description": "",
+            "continueOnError": false
+          }
+        }
+      ]
+    }
+  }
+}

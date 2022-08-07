@@ -1,0 +1,13 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  assetNames:
+  - cert-manager.crds.yaml
+  groupNames:
+  - cert-manager.io
+  repoUrl: https://github.com/cert-manager/cert-manager
+  strategy: githubRelease
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2022-02-24'
+  license: apache-2.0

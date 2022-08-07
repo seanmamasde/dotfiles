@@ -1,0 +1,41 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: usagekinds.servicecatalog.kyma-project.io
+spec:
+  group: servicecatalog.kyma-project.io
+  names:
+    kind: UsageKind
+    plural: usagekinds
+    shortNames:
+    - uk
+    singular: usagekind
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            displayName:
+              type: string
+            labelsPath:
+              type: string
+            resource:
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+                version:
+                  type: string
+              required:
+              - group
+              - version
+              - kind
+              type: object
+          required:
+          - displayName
+          - labelsPath
+          - resource
+          type: object
+  version: v1alpha1

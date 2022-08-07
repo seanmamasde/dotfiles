@@ -1,0 +1,24 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    helm.sh/hook: crd-install
+  name: certificaterequests.applicationconnector.kyma-project.io
+spec:
+  group: applicationconnector.kyma-project.io
+  names:
+    kind: CertificateRequest
+    plural: certificaterequests
+    singular: certificaterequest
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            csrInfoUrl:
+              type: string
+          required:
+          - csrInfoUrl
+          type: object
+  version: v1alpha1

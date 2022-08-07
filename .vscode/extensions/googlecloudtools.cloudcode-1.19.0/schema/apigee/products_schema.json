@@ -1,0 +1,400 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/APIProduct"
+  },
+  "definitions": {
+    "APIProduct": {
+      "type": "object",
+      "description": "https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts#ApiProduct",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name used to refer the API product in proxies",
+          "pattern": "^[a-zA-Z0-9_.]{1,63}$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the API product"
+        },
+        "attributes": {
+          "type": "array",
+          "description": "Array of attributes that may be used to extend the default API product profile with customer specific metadata",
+          "items": {
+            "$ref": "./common_schema.json#/definitions/Attribute",
+            "maxItems": 18
+          }
+        },
+        "scopes": {
+          "type": "array",
+          "description": "Allowed OAuth scopes that you want the API product to allow",
+          "items": {
+            "type": "string"
+          }
+        },
+        "environments": {
+          "type": "array",
+          "description": "Environments to which the API product will allow access",
+          "items": {
+            "type": "string"
+          }
+        },
+        "apiResources": {
+          "type": "array",
+          "description": "API resource paths",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quota": {
+          "type": "string",
+          "description": "Number of request messages permitted per app by this API product for the specified quotaInterval and quotaTimeUnit",
+          "pattern": "^[0-9]*$"
+        },
+        "quotaInterval": {
+          "type": "string",
+          "description": "Time interval over which the number of request messages is calculated",
+          "pattern": "^[0-9]*$",
+          "patternProperties": {}
+        },
+        "quotaTimeUnit": {
+          "type": "string",
+          "description": "Time unit defined for the quotaInterval",
+          "enum": [
+            "year",
+            "month",
+            "week",
+            "day",
+            "hour",
+            "minute",
+            "second"
+          ]
+        },
+        "proxies": {
+          "type": "array",
+          "description": "API proxy names to which this API product is bound",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operationGroup": {
+          "type": "object",
+          "$ref": "#/definitions/OperationGroup",
+          "description": "Configuration used to group Apigee proxies or remote services with resources, method types, and quotas"
+        },
+        "graphqlOperationGroup": {
+          "type": "object",
+          "$ref": "#/definitions/GraphQLOperationGroup",
+          "description": "Configuration used to group Apigee proxies or remote services with GraphQL operation name, GraphQL operation type and quotas"
+        }
+      },
+      "required": [
+        "name",
+        "scopes",
+        "apiResources",
+        "proxies"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New API product",
+          "description": "Creates a new API product",
+          "body": {
+            "name": "${1:product name}",
+            "displayName": "${2:display name}",
+            "attributes": [],
+            "proxies": [],
+            "scopes": [],
+            "environments": [],
+            "apiResources": [
+              "/",
+              "/*",
+              "/**"
+            ],
+            "quota": "100",
+            "quotaInterval": "1",
+            "quotaTimeUnit": "minute"
+          }
+        }
+      ]
+    },
+    "OperationGroup": {
+      "type": "object",
+      "description": "Configuration used to group Apigee proxies or remote services with resources, method types, and quotas",
+      "properties": {
+        "operationConfigs": {
+          "type": "array",
+          "description": "List of operation configurations for either Apigee API proxies or other remote services that are associated with this API product",
+          "items": {
+            "$ref": "#/definitions/OperationConfig"
+          },
+          "minItems": 1
+        },
+        "operationConfigType": {
+          "description": "Flag that specifes whether the configuration is for Apigee API proxy or a remote service",
+          "type": "string",
+          "enum": [
+            "proxy",
+            "remoteservice"
+          ]
+        }
+      },
+      "required": [
+        "operationConfigs",
+        "operationConfigType"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New operation group",
+          "description": "Creates a operation group",
+          "body": {
+            "operationConfigs": [],
+            "operationConfigType": "proxy"
+          }
+        }
+      ]
+    },
+    "GraphQLOperationGroup": {
+      "type": "object",
+      "description": "GraphQL operation configuration details",
+      "properties": {
+        "operationConfigs": {
+          "type": "array",
+          "description": "List of operation configurations for either Apigee API proxies or other remote services that are associated with this API product",
+          "items": {
+            "$ref": "#/definitions/GraphQLOperationConfig"
+          },
+          "minItems": 1
+        },
+        "operationConfigType": {
+          "description": "Flag that specifes whether the configuration is for Apigee API proxy or a remote service",
+          "type": "string",
+          "enum": [
+            "proxy",
+            "remoteservice"
+          ]
+        }
+      },
+      "required": [
+        "operationConfigs"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New GraphQL operation group",
+          "description": "Creates a GraphQL operation group",
+          "body": {
+            "operationConfigs": [],
+            "operationConfigType": "proxy"
+          }
+        }
+      ]
+    },
+    "OperationConfig": {
+      "type": "object",
+      "description": "Binds the resources in an API proxy or remote service with the allowed REST methods and associated quota enforcement",
+      "properties": {
+        "apiSource": {
+          "type": "string",
+          "description": "Name of the API proxy or remote service with which the resources, methods, and quota are associated"
+        },
+        "operations": {
+          "type": "array",
+          "description": "Represents the pairing of REST resource path and the actions (verbs) allowed on the resource path",
+          "items": {
+            "$ref": "#/definitions/Operation"
+          }
+        },
+        "quota": {
+          "type": "object",
+          "$ref": "#/definitions/Quota"
+        },
+        "attributes": {
+          "type": "array",
+          "description": "Custom attributes associated with the operation",
+          "items": {
+            "$ref": "./common_schema.json#/definitions/Attribute"
+          }
+        }
+      },
+      "required": [
+        "apiSource"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New operation config",
+          "description": "Creates an operation config",
+          "body": {
+            "apiSource": "",
+            "operations": [],
+            "quota": {
+              "limit": "100",
+              "interval": "1",
+              "timeUnit": "minute"
+            },
+            "attributes": []
+          }
+        }
+      ]
+    },
+    "GraphQLOperationConfig": {
+      "type": "object",
+      "description": "Binds the resources in a proxy or remote service with the GraphQL operation and its associated quota enforcement",
+      "properties": {
+        "apiSource": {
+          "type": "string",
+          "description": "Name of the API proxy endpoint or remote service with which the GraphQL operation and quota are associated"
+        },
+        "operations": {
+          "type": "array",
+          "description": "List of GraphQL name/operation type pairs for the proxy or remote service to which quota will be applied",
+          "items": {
+            "$ref": "#/definitions/GraphQLOperation"
+          }
+        },
+        "quota": {
+          "type": "object",
+          "$ref": "#/definitions/Quota"
+        },
+        "attributes": {
+          "type": "array",
+          "description": "Custom attributes associated with the operation",
+          "items": {
+            "$ref": "./common_schema.json#/definitions/Attribute"
+          }
+        }
+      },
+      "required": [
+        "apiSource",
+        "operations"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New GraphQL operation config",
+          "description": "Creates a GraphQL operation config",
+          "body": {
+            "apiSource": "",
+            "operations": [],
+            "quota": {
+              "limit": "100",
+              "interval": "1",
+              "timeUnit": "minute"
+            },
+            "attributes": []
+          }
+        }
+      ]
+    },
+    "Operation": {
+      "type": "object",
+      "description": "Quota contains the essential parameters needed that can be applied on the resources, methods, API source combination associated with this API product",
+      "properties": {
+        "resource": {
+          "type": "string",
+          "description": "REST resource path associated with the API proxy or remote service"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "HEAD",
+              "DELETE",
+              "OPTIONS",
+              "TRACE",
+              "PATCH",
+              "CONNECT"
+            ]
+          },
+          "description": "REST verbs as in https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html. When none specified, all verb types are allowed"
+        }
+      },
+      "defaultSnippets": [
+        {
+          "label": "New operation",
+          "description": "Creates an operation",
+          "body": {
+            "resource": "",
+            "methods": []
+          }
+        }
+      ]
+    },
+    "GraphQLOperation": {
+      "type": "object",
+      "description": "Quota contains the essential parameters needed that can be applied on the resources, methods, API source combination associated with this API product",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "GraphQL operation name"
+        },
+        "operationTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "QUERY",
+              "MUTATION",
+              "QUERY_MUTATION"
+            ],
+            "uniqueItems": true
+          },
+          "description": "GraphQL operation types"
+        }
+      },
+      "required": [
+        "operationTypes"
+      ],
+      "defaultSnippets": [
+        {
+          "label": "New GrathQL operation",
+          "description": "Creates a GrathQL operation",
+          "body": {
+            "operation": "",
+            "operationTypes": []
+          }
+        }
+      ]
+    },
+    "Quota": {
+      "type": "object",
+      "description": "The essential parameters needed to apply quotas on the resources, methods, API source combination associated with this API product",
+      "properties": {
+        "limit": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "Upper limit allowed for the time interval and time unit specified. Requests exceeding this limit will be rejected"
+        },
+        "interval": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "Time interval over which the number of request messages is calculated"
+        },
+        "timeUnit": {
+          "type": "string",
+          "description": "Time unit defined for the interval",
+          "default": "hour",
+          "enum": [
+            "minute",
+            "hour",
+            "day",
+            "month"
+          ]
+        }
+      },
+      "defaultSnippets": [
+        {
+          "label": "Quota",
+          "description": "Creates a quota",
+          "body": {
+            "limit": "100",
+            "interval": "1",
+            "timeUnit": "minute"
+          }
+        }
+      ]
+    }
+  }
+}

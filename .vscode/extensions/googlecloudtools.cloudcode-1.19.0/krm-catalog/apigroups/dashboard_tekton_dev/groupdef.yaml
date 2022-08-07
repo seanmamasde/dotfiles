@@ -1,0 +1,12 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - deploy/resources/v0.10.0/release.yaml
+  groupNames: ["dashboard.tekton.dev"]
+  repoUrl: https://github.com/tektoncd/operator
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-02-28'
+  license: apache-2.0

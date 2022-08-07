@@ -1,0 +1,13 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  assetNames:
+  - v2_4_0_full.yaml
+  groupNames:
+  - elbv2.k8s.aws
+  repoUrl: https://github.com/kubernetes-sigs/aws-load-balancer-controller
+  strategy: githubRelease
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2022-02-24'
+  license: apache-2.0

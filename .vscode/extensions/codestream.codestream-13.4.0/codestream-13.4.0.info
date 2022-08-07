@@ -1,0 +1,19 @@
+{
+    "assetEnvironment": "prod",
+    "assetsMD5": {
+        "codestream-13.4.0+4232.vsix": ""
+    },
+    "buildBranch": "master",
+    "buildDisplayString": "13.4.0+4232",
+    "buildNumber": "4232",
+    "fullName": "codestream-13.4.0+4232",
+    "name": "codestream",
+    "prefix": "",
+    "primaryRepo": "codestream",
+    "repoCommitId": {
+        "codestream": "a763ff0934d293f8a041ff768a5312654d45f985"
+    },
+    "sandboxType": "vscode2_sb",
+    "suffix": null,
+    "version": "13.4.0"
+}

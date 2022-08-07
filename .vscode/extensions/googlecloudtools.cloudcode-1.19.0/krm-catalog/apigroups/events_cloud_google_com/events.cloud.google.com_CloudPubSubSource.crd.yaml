@@ -1,0 +1,201 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    registry.knative.dev/eventTypes: "[\n  { \"type\": \"com.google.cloud.pubsub.topic.publish\"\
+      , \"description\": \"This event is sent when a message is published to a Cloud\
+      \ Pub/Sub topic.\"}\n]\n"
+  labels:
+    duck.knative.dev/source: 'true'
+    events.cloud.google.com/crd-install: 'true'
+    events.cloud.google.com/release: devel
+  name: cloudpubsubsources.events.cloud.google.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.conditions[?(@.type=="Ready")].status
+    name: Ready
+    type: string
+  - JSONPath: .status.conditions[?(@.type=="Ready")].reason
+    name: Reason
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: events.cloud.google.com
+  names:
+    categories:
+    - all
+    - knative
+    - cloudpubsubsource
+    - sources
+    kind: CloudPubSubSource
+    plural: cloudpubsubsources
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            ackDeadline:
+              description: 'The default maximum time after a subscriber receives a
+                message before the subscriber should acknowledge the message. Defaults
+                to `30s`. Valid time units are `s`, `m`, `h`. The minimum deadline
+                you can specify is 0 seconds. The maximum deadline you can specify
+                is 600 seconds (10 minutes).
+
+                '
+              type: string
+            ceOverrides:
+              description: 'Defines overrides to control modifications of the event
+                sent to the sink.
+
+                '
+              properties:
+                extensions:
+                  description: 'Extensions specify what attribute are added or overridden
+                    on the outbound event. Each `Extensions` key-value pair are set
+                    on the event as an attribute extension independently.
+
+                    '
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+              type: object
+            googleServiceAccount:
+              description: 'GCP service account used to poll the Cloud Pub/Sub Subscription.
+                The value of the service account must be a valid Google service account
+                (see https://cloud.google.com/iam/docs/service-accounts).
+
+                '
+              type: string
+            project:
+              description: 'Google Cloud Project ID of the project into which the
+                topic should be created. If omitted uses the Project ID from the GKE
+                cluster metadata service.
+
+                '
+              type: string
+            retainAckedMessages:
+              description: 'Whether to retain acknowledged messages. If true, acknowledged
+                messages will not be expunged until they fall out of the RetentionDuration
+                window.
+
+                '
+              type: boolean
+            retentionDuration:
+              description: 'How long to retain messages in backlog, from the time
+                of publish. If retainAckedMessages is true, this duration affects
+                the retention of acknowledged messages, otherwise only unacknowledged
+                messages are retained. Defaults to 7 days (`168h`). Cannot be longer
+                than 7 days or shorter than 10 minutes. Valid time units are `s`,
+                `m`, `h`.
+
+                '
+              type: string
+            secret:
+              description: 'Credential used to poll the Cloud Pub/Sub Subscription.
+                It is not used to create or delete the Subscription, only to poll
+                it. The value of the secret entry must be a service account key in
+                the JSON format (see https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
+                Defaults to secret.name of ''google-cloud-key'' and secret.key of
+                ''key.json''.
+
+                '
+              properties:
+                key:
+                  type: string
+                name:
+                  type: string
+                optional:
+                  type: boolean
+              type: object
+            sink:
+              description: 'Sink which receives the notifications.
+
+                '
+              properties:
+                ref:
+                  properties:
+                    apiVersion:
+                      minLength: 1
+                      type: string
+                    kind:
+                      minLength: 1
+                      type: string
+                    name:
+                      minLength: 1
+                      type: string
+                    namespace:
+                      type: string
+                  required:
+                  - apiVersion
+                  - kind
+                  - name
+                  type: object
+                uri:
+                  minLength: 1
+                  type: string
+              type: object
+            topic:
+              description: 'ID of the Cloud Pub/Sub Topic to Subscribe to. It must
+                be in the form of the unique identifier within the project, not the
+                entire name. E.g. it must be ''laconia'', not ''projects/my-gcp-project/topics/laconia''.
+
+                '
+              type: string
+          required:
+          - sink
+          - topic
+          type: object
+        status:
+          properties:
+            ceAttributes:
+              items:
+                properties:
+                  source:
+                    type: string
+                  type:
+                    type: string
+                type: object
+              type: array
+            conditions:
+              items:
+                properties:
+                  lastTransitionTime:
+                    type: string
+                  message:
+                    type: string
+                  reason:
+                    type: string
+                  severity:
+                    type: string
+                  status:
+                    type: string
+                  type:
+                    type: string
+                required:
+                - type
+                - status
+                type: object
+              type: array
+            observedGeneration:
+              format: int64
+              type: integer
+            projectId:
+              type: string
+            serviceAccountName:
+              type: string
+            sinkUri:
+              type: string
+            subscriptionId:
+              type: string
+            topicId:
+              type: string
+          type: object
+      type: object
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

@@ -1,0 +1,5 @@
+New-Item -Path "HKCU:\Software\Microsoft"
+New-Item -Path "HKCU:\Software\Microsoft\Edge"
+New-Item -Path "HKCU:\Software\Microsoft\Edge\NativeMessagingHosts"
+New-Item -Path "HKCU:\Software\Microsoft\Edge\NativeMessagingHosts\firenvim"
+Set-Item -Path "HKCU:\Software\Microsoft\Edge\NativeMessagingHosts\firenvim\" -Value "C:\Users\SeanMa\AppData\Local\firenvim\firenvim-edge.json"

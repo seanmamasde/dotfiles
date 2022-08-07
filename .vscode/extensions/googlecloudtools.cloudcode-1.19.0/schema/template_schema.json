@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "description": "Metadata information for internal use",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Version of the template spec file."
+        }
+      },
+      "required": ["version"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the repository"
+    },
+    "templates": {
+      "type": "array",
+      "description": "List of templates in this repository",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path where the template resides in the repository (relative from the root of the repository)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the template"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description about the template"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of languages that this template uses"
+          }
+        },
+        "required": ["path", "name", "description", "languages"]
+      }
+    }
+  },
+  "required": ["metadata", "templates"]
+}

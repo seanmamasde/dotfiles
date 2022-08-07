@@ -1,0 +1,307 @@
+{
+	"name": "vscode-notion",
+	"version": "1.1.0",
+	"icon": "resources/icons/vscode-notion.png",
+	"displayName": "VSCode Notion",
+	"description": "Browse Notion pages directly in Visual Studio Code.",
+	"publisher": "frenco",
+	"author": "Frenco <hey@frenco.dev>",
+	"homepage": "https://github.com/frencojobs/vscode-notion#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/frencojobs/vscode-notion"
+	},
+	"bugs": {
+		"url": "https://github.com/frencojobs/vscode-notion/issues"
+	},
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"notion",
+		"notion.so"
+	],
+	"main": "./dist/extension.js",
+	"activationEvents": [
+		"onCommand:vscode-notion.openPage",
+		"onCommand:vscode-notion.refreshPage",
+		"onCommand:vscode-notion.copyLink",
+		"onCommand:vscode-notion.refreshRecents",
+		"onCommand:vscode-notion.clearRecents",
+		"onCommand:vscode-notion.removeRecent",
+		"onCommand:vscode-notion.refreshBookmarks",
+		"onCommand:vscode-notion.bookmarkPage",
+		"onCommand:vscode-notion.unBookmarkPage",
+		"onWebviewPanel:vscode-notion.pageView",
+		"onView:vscode-notion-recents",
+		"onView:vscode-notion-bookmarks"
+	],
+	"contributes": {
+		"configuration": {
+			"title": "VSCode Notion",
+			"properties": {
+				"VSCodeNotion.api": {
+					"type": "string",
+					"default": "https://notion-api.frenco.dev",
+					"description": "Specifies the API url to get the Notion data from."
+				},
+				"VSCodeNotion.accessToken": {
+					"type": "string",
+					"default": "",
+					"description": "Specifies the personal access token to use with API."
+				},
+				"VSCodeNotion.allowEmbeds": {
+					"type": "boolean",
+					"default": false,
+					"description": "Specifies whether to allow embeds or not."
+				},
+				"VSCodeNotion.fontSize": {
+					"type": "number",
+					"default": 14,
+					"description": "Specifies the font size in pixels."
+				},
+				"VSCodeNotion.fontFamily": {
+					"type": "string",
+					"default": "'Helvetica Neue', sans-serif",
+					"description": "Specifies the font family to use when rendering the Notion page."
+				},
+				"VSCodeNotion.lineHeight": {
+					"type": "number",
+					"default": 1.5,
+					"description": "Specifies the unitless line height."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "vscode-notion.openPage",
+				"category": "VSCode Notion",
+				"title": "Open A Notion Page"
+			},
+			{
+				"command": "vscode-notion.refreshPage",
+				"category": "VSCode Notion",
+				"title": "Refresh Active Page",
+				"icon": "$(extensions-refresh)"
+			},
+			{
+				"command": "vscode-notion.copyLink",
+				"category": "VSCode Notion",
+				"title": "Copy Link to Page",
+				"icon": "$(link)"
+			},
+			{
+				"command": "vscode-notion.refreshRecents",
+				"category": "VSCode Notion",
+				"title": "Refresh Recently Opened Pages",
+				"icon": "$(extensions-refresh)"
+			},
+			{
+				"command": "vscode-notion.clearRecents",
+				"category": "VSCode Notion",
+				"title": "Clear Recently Opened Pages",
+				"icon": "$(trash)"
+			},
+			{
+				"command": "vscode-notion.removeRecent",
+				"category": "VSCode Notion",
+				"title": "Remove Item From Recents",
+				"icon": "$(close)"
+			},
+			{
+				"command": "vscode-notion.refreshBookmarks",
+				"category": "VSCode Notion",
+				"title": "Refresh Bookmarked Pages",
+				"icon": "$(extensions-refresh)"
+			},
+			{
+				"command": "vscode-notion.bookmarkPage",
+				"category": "VSCode Notion",
+				"title": "Bookmark A Page",
+				"icon": "$(star-empty)"
+			},
+			{
+				"command": "vscode-notion.unBookmarkPage",
+				"category": "VSCode Notion",
+				"title": "Remove Page from Bookmarks",
+				"icon": "$(star-full)"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "vscode-notion-sidebar",
+					"title": "VSCode Notion",
+					"icon": "resources/icons/dark/notion.svg"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "vscode-notion-recents",
+				"contents": "You have not yet opened a page recently.\n[Open A Page](command:vscode-notion.openPage)"
+			}
+		],
+		"views": {
+			"vscode-notion-sidebar": [
+				{
+					"type": "tree",
+					"id": "vscode-notion-recents",
+					"name": "Recents",
+					"contextualTitle": "Recently Opened Pages"
+				},
+				{
+					"type": "tree",
+					"id": "vscode-notion-bookmarks",
+					"name": "Bookmarks",
+					"contextualTitle": "Bookmarked Pages"
+				}
+			]
+		},
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "vscode-notion.refreshPage",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.copyLink",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.refreshRecents",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.clearRecents",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.removeRecent",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.refreshBookmarks",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.bookmarkPage",
+					"when": "false"
+				},
+				{
+					"command": "vscode-notion.unBookmarkPage",
+					"when": "false"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "vscode-notion.refreshPage",
+					"when": "notionPageFocus",
+					"group": "navigation@0"
+				},
+				{
+					"command": "vscode-notion.bookmarkPage",
+					"when": "notionPageFocus && !notionPageBookmark",
+					"group": "navigation@1"
+				},
+				{
+					"command": "vscode-notion.unBookmarkPage",
+					"when": "notionPageFocus && notionPageBookmark",
+					"group": "navigation@1"
+				},
+				{
+					"command": "vscode-notion.copyLink",
+					"when": "notionPageFocus"
+				}
+			],
+			"view/title": [
+				{
+					"command": "vscode-notion.refreshRecents",
+					"when": "view == vscode-notion-recents",
+					"group": "navigation@0"
+				},
+				{
+					"command": "vscode-notion.clearRecents",
+					"when": "view == vscode-notion-recents",
+					"group": "navigation@1"
+				},
+				{
+					"command": "vscode-notion.refreshBookmarks",
+					"when": "view == vscode-notion-bookmarks",
+					"group": "navigation@0"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "vscode-notion.removeRecent",
+					"when": "view == vscode-notion-recents",
+					"group": "inline"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run package:webview && yarn run package",
+		"compile:webview": "webpack --config ./build/react-webview.webpack.config.js",
+		"compile": "webpack --config ./build/node-extension.webpack.config.js",
+		"watch:webview": "webpack --watch --config ./build/react-webview.webpack.config.js",
+		"watch": "webpack --watch --config ./build/node-extension.webpack.config.js",
+		"package:webview": "webpack --mode production --devtool hidden-source-map --config ./build/react-webview.webpack.config.js",
+		"package": "webpack --mode production --devtool hidden-source-map --config ./build/node-extension.webpack.config.js",
+		"test-compile": "tsc -p ./",
+		"test-watch": "tsc -watch -p ./",
+		"pretest": "yarn run test-compile && yarn run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"@types/node-fetch": "^2.5.7",
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"@types/vscode": "^1.52.0",
+		"@typescript-eslint/eslint-plugin": "^4.9.0",
+		"@typescript-eslint/parser": "^4.9.0",
+		"eslint": "^7.15.0",
+		"glob": "^7.1.6",
+		"import-sort-style-absolute": "^1.0.1",
+		"mocha": "^8.1.3",
+		"prettier": "^2.2.1",
+		"prettier-plugin-import-sort": "^0.0.6",
+		"ts-loader": "^8.0.11",
+		"typescript": "^4.1.2",
+		"vscode-test": "^1.4.1",
+		"webpack": "^5.10.0",
+		"webpack-cli": "^4.2.0",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-notion": "^0.9.3"
+	},
+	"dependencies": {
+		"axios": "^0.21.1"
+	},
+	"importSort": {
+		".js, .jsx, .ts, .tsx": {
+			"style": "absolute",
+			"parser": "typescript"
+		}
+	},
+	"license": "MIT",
+	"__metadata": {
+		"id": "08a37014-4c10-436c-9951-8547cfcfac6f",
+		"publisherId": "fad7d587-f720-440e-a91f-86bed5cd24cf",
+		"publisherDisplayName": "Frenco",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1658641320748
+	}
+}

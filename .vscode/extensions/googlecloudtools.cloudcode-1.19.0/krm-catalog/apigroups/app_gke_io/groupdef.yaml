@@ -1,0 +1,13 @@
+apiVersion: krm-catalog.github.io/v1
+kind: ApiGroupSnapshotSpec
+spec:
+  exactPaths:
+  - crd/releasetrack_crd.yaml
+  groupNames:
+  - app.gke.io
+  repoUrl: https://github.com/janetkuo/marketplace-k8s-app-tools
+  strategy: githubExactPath
+status:
+  howAdded: fetchedFromGithub
+  lastModifiedDate: '2020-07-16'
+  license: apache-2.0

@@ -1,0 +1,833 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    description: Represents an Operator that should be running on the cluster, including
+      requirements and install strategy.
+    displayName: Operator Version
+  name: clusterserviceversions.operators.coreos.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.displayName
+    description: The name of the CSV
+    name: Display
+    type: string
+  - JSONPath: .spec.version
+    description: The version of the CSV
+    name: Version
+    type: string
+  - JSONPath: .spec.replaces
+    description: The name of a CSV that this one replaces
+    name: Replaces
+    type: string
+  - JSONPath: .status.phase
+    name: Phase
+    type: string
+  group: operators.coreos.com
+  names:
+    categories:
+    - olm
+    kind: ClusterServiceVersion
+    listKind: ClusterServiceVersionList
+    plural: clusterserviceversions
+    shortNames:
+    - csv
+    - csvs
+    singular: clusterserviceversion
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: Represents an Operator that should be running on the cluster, including
+        requirements and install strategy.
+      properties:
+        spec:
+          description: Spec for a ClusterServiceVersion
+          properties:
+            apiservicedefinitions:
+              properties:
+                owned:
+                  description: What resources this operator is responsible for managing.
+                    No two running operators should manage the same resource.
+                  items:
+                    properties:
+                      actionDescriptors:
+                        items:
+                          description: A spec for actions that can be performed on
+                            instances of the API resource
+                          properties:
+                            description:
+                              description: A description of the action.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the action.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the spec object
+                                on the API resource where the the spec value can be
+                                found.
+                              type: string
+                            value:
+                              description: If present, the value of this action is
+                                the same for all instances of the API resource and
+                                can be found here instead of on the API resource.
+                            x-descriptors:
+                              description: A list of descriptors for the action that
+                                indicate the meaning of the action.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      containerPort:
+                        description: Port where the extension api-server serves TLS
+                          traffic
+                        type: number
+                      deploymentName:
+                        description: Name of the extension api-server's deployment
+                        type: string
+                      description:
+                        description: A description of the APIService
+                        type: string
+                      displayName:
+                        description: A human-readable name for the APIService.
+                        type: string
+                      group:
+                        description: Group of the APIService (e.g. app.coreos.com)
+                        type: string
+                      kind:
+                        description: The kind field of the APIService
+                        type: string
+                      name:
+                        description: The plural name for the APIService provided
+                        type: string
+                      resources:
+                        items:
+                          description: A list of resources that should be displayed
+                            for the APIService
+                          properties:
+                            kind:
+                              description: The kind field of the resource kind
+                              type: string
+                            name:
+                              description: If a APIService, the fully qualified name
+                                of the APIService (e.g. my-resource-v1.app.coreos.com)
+                              type: string
+                            version:
+                              description: The version of the resource kind
+                              type: string
+                          required:
+                          - kind
+                          - version
+                          type: object
+                        type: array
+                      specDescriptors:
+                        items:
+                          description: A spec for a field in the spec block of the
+                            APIService resource.
+                          properties:
+                            description:
+                              description: A description of the spec entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the spec entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the spec object
+                                on the API resource where the the spec value can be
+                                found.
+                              type: string
+                            value:
+                              description: If present, the value of this spec is the
+                                same for all instances of the API Resource and can
+                                be found here instead of on the API resource.
+                            x-descriptors:
+                              description: A list of descriptors for the spec entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      statusDescriptors:
+                        items:
+                          description: A spec for a field in the status block of the
+                            API resource
+                          properties:
+                            description:
+                              description: A description of the status entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the status entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the status object
+                                on the API resource where the the status value can
+                                be found.
+                              type: string
+                            value:
+                              description: If present, the value of this status is
+                                the same for all instances of the API resource and
+                                can be found here instead of on the API resource.
+                            x-descriptors:
+                              description: A list of descriptors for the status entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      version:
+                        description: The version field of the APIService
+                        type: string
+                    required:
+                    - group
+                    - version
+                    - kind
+                    - name
+                    - deploymentName
+                    - displayName
+                    - description
+                    type: object
+                  type: array
+                required:
+                  description: What resources this operator is responsible for managing.
+                    No two running operators should manage the same resource.
+                  items:
+                    properties:
+                      containerPort:
+                        description: Port where the extension api-server serves TLS
+                          traffic
+                        type: number
+                      deploymentName:
+                        description: Name of the extension api-server's deployment
+                        type: string
+                      description:
+                        description: A description of the APIService
+                        type: string
+                      displayName:
+                        description: A human-readable name for the APIService.
+                        type: string
+                      group:
+                        description: Group of the APIService (e.g. app.coreos.com)
+                        type: string
+                      kind:
+                        description: The kind field of the APIService
+                        type: string
+                      name:
+                        description: The plural name for the APIService provided
+                        type: string
+                      statusDescriptors:
+                        items:
+                          description: A spec for a field in the status block of the
+                            APIService
+                          properties:
+                            description:
+                              description: A description of the status entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the status entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the status object
+                                on the API Resource where the the status value can
+                                be found.
+                              type: string
+                            value:
+                              description: If present, the value of this status is
+                                the same for all instances of the API Resource and
+                                can be found here instead of on the API Resource.
+                            x-descriptors:
+                              description: A list of descriptors for the status entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      version:
+                        description: The version field of the APIService
+                        type: string
+                    required:
+                    - group
+                    - version
+                    - kind
+                    - name
+                    - displayName
+                    - description
+                    type: object
+                  type: array
+              type: object
+            customresourcedefinitions:
+              properties:
+                owned:
+                  description: What resources this operator is responsible for managing.
+                    No two running operators should manage the same resource.
+                  items:
+                    properties:
+                      actionDescriptors:
+                        items:
+                          description: A spec for actions that can be performed on
+                            instances of the CRD
+                          properties:
+                            description:
+                              description: A description of the action.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the action.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the spec object
+                                on the CR where the the spec value can be found.
+                              type: string
+                            value:
+                              description: If present, the value of this action is
+                                the same for all instances of the CRD and can be found
+                                here instead of on the CR.
+                            x-descriptors:
+                              description: A list of descriptors for the action that
+                                indicate the meaning of the action.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      description:
+                        description: A description of the CRD
+                        type: string
+                      displayName:
+                        description: A human-readable name for the CRD.
+                        type: string
+                      kind:
+                        description: The kind field of the CustomResourceDefinition
+                        type: string
+                      name:
+                        description: Fully qualified name of the CustomResourceDefinition
+                          (e.g. my-resource-v1.app.coreos.com)
+                        type: string
+                      resources:
+                        items:
+                          description: A list of resources that should be displayed
+                            for the CRD
+                          properties:
+                            kind:
+                              description: The kind field of the resource kind
+                              type: string
+                            name:
+                              description: If a CRD, the fully qualified name of the
+                                CustomResourceDefinition (e.g. my-resource-v1.app.coreos.com)
+                              type: string
+                            version:
+                              description: The version of the resource kind
+                              type: string
+                          required:
+                          - kind
+                          - version
+                          type: object
+                        type: array
+                      specDescriptors:
+                        items:
+                          description: A spec for a field in the spec block of the
+                            CRD
+                          properties:
+                            description:
+                              description: A description of the spec entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the spec entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the spec object
+                                on the CR where the the spec value can be found.
+                              type: string
+                            value:
+                              description: If present, the value of this spec is the
+                                same for all instances of the CRD and can be found
+                                here instead of on the CR.
+                            x-descriptors:
+                              description: A list of descriptors for the spec entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      statusDescriptors:
+                        items:
+                          description: A spec for a field in the status block of the
+                            CRD
+                          properties:
+                            description:
+                              description: A description of the status entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the status entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the status object
+                                on the CR where the the status value can be found.
+                              type: string
+                            value:
+                              description: If present, the value of this status is
+                                the same for all instances of the CRD and can be found
+                                here instead of on the CR.
+                            x-descriptors:
+                              description: A list of descriptors for the status entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      version:
+                        description: The version field of the CustomResourceDefinition
+                        type: string
+                    required:
+                    - name
+                    - version
+                    - kind
+                    - displayName
+                    - description
+                    type: object
+                  type: array
+                required:
+                  description: What resources this operator is responsible for managing.
+                    No two running operators should manage the same resource.
+                  items:
+                    properties:
+                      description:
+                        description: A description of the CRD
+                        type: string
+                      displayName:
+                        description: A human-readable name for the CRD.
+                        type: string
+                      kind:
+                        description: The kind field of the CustomResourceDefinition
+                        type: string
+                      name:
+                        description: Fully qualified name of the CustomResourceDefinition
+                          (e.g. my-resource-v1.app.coreos.com)
+                        type: string
+                      statusDescriptors:
+                        items:
+                          description: A spec for a field in the status block of the
+                            CRD
+                          properties:
+                            description:
+                              description: A description of the status entry.
+                              type: string
+                            displayName:
+                              description: A human-readable name for the status entry.
+                              type: string
+                            path:
+                              description: A jsonpath indexing into the status object
+                                on the CR where the the status value can be found.
+                              type: string
+                            value:
+                              description: If present, the value of this status is
+                                the same for all instances of the CRD and can be found
+                                here instead of on the CR.
+                            x-descriptors:
+                              description: A list of descriptors for the status entry
+                                that indicate the meaning of the field.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - path
+                          - displayName
+                          - description
+                          type: object
+                        type: array
+                      version:
+                        description: The version field of the CustomResourceDefinition
+                        type: string
+                    required:
+                    - name
+                    - version
+                    - kind
+                    - displayName
+                    - description
+                    type: object
+                  type: array
+              type: object
+            description:
+              description: Human readable description of what the application does
+              type: string
+            displayName:
+              description: Human readable name of the application that will be displayed
+                in the ALM UI
+              type: string
+            icon:
+              description: Icon which should be rendered with the application information
+              items:
+                properties:
+                  base64data:
+                    description: Base64 binary representation of the icon image
+                    type: string
+                  mediatype:
+                    description: Mediatype for the binary data specified in the base64data
+                      property
+                    enum:
+                    - image/gif
+                    - image/jpeg
+                    - image/png
+                    - image/svg+xml
+                    type: string
+                required:
+                - base64data
+                - mediatype
+                type: object
+              type: array
+            install:
+              description: Information required to install this specific version of
+                the operator software
+              oneOf:
+              - properties:
+                  spec:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  strategy:
+                    enum:
+                    - image
+                    type: string
+                required:
+                - strategy
+                - spec
+                type: object
+              - properties:
+                  spec:
+                    properties:
+                      clusterPermissions:
+                        description: Cluster permissions needed by the deployement
+                          to run correctly
+                        items:
+                          properties:
+                            rules:
+                              items:
+                                description: a rule required by the service account
+                                properties:
+                                  apiGroups:
+                                    description: apiGroups the rule applies to
+                                    items:
+                                      type: string
+                                    type: array
+                                  nonResourceURLs:
+                                    items:
+                                      type: string
+                                    type: array
+                                  resourceNames:
+                                    items:
+                                      type: string
+                                    type: array
+                                  resources:
+                                    items:
+                                      type: string
+                                    type: array
+                                  verbs:
+                                    items:
+                                      enum:
+                                      - '*'
+                                      - assign
+                                      - get
+                                      - list
+                                      - watch
+                                      - create
+                                      - update
+                                      - patch
+                                      - put
+                                      - post
+                                      - delete
+                                      - deletecollection
+                                      - initialize
+                                      - use
+                                      type: string
+                                    type: array
+                                required:
+                                - verbs
+                                type: object
+                              type: array
+                            serviceAccountName:
+                              description: The service account name to create for
+                                the deployment
+                              type: string
+                          required:
+                          - serviceAccountName
+                          - rules
+                          type: object
+                        type: array
+                      deployments:
+                        description: List of deployments to create
+                        items:
+                          description: A name and deployment to create in the cluster
+                          properties:
+                            name:
+                              description: the consistent name of the deployment
+                              type: string
+                            spec:
+                              description: The deployment spec to create in the cluster
+                              type: object
+                          required:
+                          - name
+                          - spec
+                          type: object
+                        type: array
+                      installModes:
+                        description: List of supported install modes for the operator
+                        items:
+                          description: A tuple representing a mode of installation
+                            and whether the operator supports it
+                          properties:
+                            supported:
+                              description: Represents if the install mode type is
+                                supported
+                              type: boolean
+                            type:
+                              description: A type of install mode
+                              enum:
+                              - OwnNamespace
+                              - SingleNamespace
+                              - MultiNamespace
+                              - AllNamespaces
+                              type: string
+                          required:
+                          - type
+                          - supported
+                          type: object
+                        type: array
+                      permissions:
+                        description: Permissions needed by the deployement to run
+                          correctly
+                        items:
+                          properties:
+                            rules:
+                              items:
+                                description: a rule required by the service account
+                                properties:
+                                  apiGroups:
+                                    description: apiGroups the rule applies to
+                                    items:
+                                      type: string
+                                    type: array
+                                  resourceNames:
+                                    items:
+                                      type: string
+                                    type: array
+                                  resources:
+                                    items:
+                                      type: string
+                                    type: array
+                                  verbs:
+                                    items:
+                                      enum:
+                                      - '*'
+                                      - assign
+                                      - get
+                                      - list
+                                      - watch
+                                      - create
+                                      - update
+                                      - patch
+                                      - delete
+                                      - deletecollection
+                                      - initialize
+                                      - use
+                                      type: string
+                                    type: array
+                                type: object
+                              type: array
+                            serviceAccountName:
+                              description: The service account name to create for
+                                the deployment
+                              type: string
+                          required:
+                          - serviceAccountName
+                          - rules
+                          type: object
+                        type: array
+                    required:
+                    - deployments
+                    type: object
+                  strategy:
+                    enum:
+                    - deployment
+                    type: string
+                required:
+                - strategy
+                - spec
+                type: object
+              type: object
+            keywords:
+              description: List of keywords which will be used to discover and categorize
+                app types
+              items:
+                type: string
+              type: array
+            labels:
+              description: Labels that will be applied to associated resources created
+                by the operator.
+              type: object
+            links:
+              description: Interesting links to find more information about the project,
+                such as marketing page, documentation, or github page
+              items:
+                description: A single link to describe one aspect of the project
+                properties:
+                  name:
+                    description: Name of the link type, e.g. homepage or github url
+                    type: string
+                  url:
+                    description: URL to which the link should point
+                    format: uri
+                    type: string
+                required:
+                - name
+                - url
+                type: object
+              type: array
+            maintainers:
+              description: Those responsible for the creation of this specific app
+                type
+              items:
+                description: Information for a single maintainer
+                optionalProperties:
+                  description: 'Any additional key-value metadata you wish to expose
+                    about the maintainer, e.g. github: <username>'
+                  type: string
+                properties:
+                  email:
+                    description: Maintainer's email address
+                    format: email
+                    type: string
+                  name:
+                    description: Maintainer's name
+                    type: string
+                required:
+                - name
+                - email
+                type: object
+              type: array
+            maturity:
+              description: What level of maturity the software has achieved at this
+                version
+              enum:
+              - planning
+              - pre-alpha
+              - alpha
+              - beta
+              - stable
+              - mature
+              - inactive
+              - deprecated
+              type: string
+            minKubeVersion:
+              description: Minimum kubernetes version requirement on the server to
+                deploy operator
+              pattern: ^\bv?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$
+              type: string
+            nativeAPIs:
+              description: What resources are required by the Operator, but must be
+                provided by the underlying cluster and not as an extension.
+              items:
+                properties:
+                  group:
+                    description: Group of the API resource
+                    type: string
+                  kind:
+                    description: Kind of the API resource
+                    type: string
+                  version:
+                    description: Version of the API resource
+                    type: string
+                required:
+                - group
+                - version
+                - kind
+                type: object
+              type: array
+            replaces:
+              description: Name of the ClusterServiceVersion custom resource that
+                this version replaces
+              type: string
+            selector:
+              description: Label selector to find resources associated with or managed
+                by the operator
+              properties:
+                matchExpressions:
+                  description: A set of expressions to match against the resource.
+                  items:
+                    allOf:
+                    - properties:
+                        key:
+                          description: the key to match
+                          type: string
+                        operator:
+                          description: the operator for the expression
+                          enum:
+                          - In
+                          - NotIn
+                          - Exists
+                          - DoesNotExist
+                          type: string
+                        values:
+                          description: set of values for the expression
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      - values
+                      type: object
+                  type: array
+                matchLabels:
+                  description: Label key:value pairs to match directly
+                  type: object
+              type: object
+            version:
+              description: Version string, recommended that users use semantic versioning
+              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$
+              type: string
+          required:
+          - displayName
+          - install
+          type: object
+        status:
+          description: Status for a ClusterServiceVersion
+          type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
