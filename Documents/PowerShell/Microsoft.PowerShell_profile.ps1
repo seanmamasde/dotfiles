@@ -1,3 +1,5 @@
+# deferred loading to improve performance
+# https://fsackur.github.io/2023/11/20/Deferred-profile-loading-for-better-performance/
 $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\chocolately.ps1"
   . "$HOME\Documents\PowerShell\deferred\conda.ps1"
