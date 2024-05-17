@@ -42,6 +42,9 @@ if ($env:TERM_PROGRAM -ne 'vscode') {
 # fnm
 # fnm env --use-on-cd | Out-String | Invoke-Expression
 
+# chezmoi
+$chezmoi_dir = "C:\Users\seanma\.local\share\chezmoi"
+
 # scoop-search: https://github.com/shilangyu/scoop-search
 # Invoke-Expression (& scoop-search --hook)
 
