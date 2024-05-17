@@ -1,0 +1,53 @@
+[credential "https://nycu.cirda.linebot.gitea.jp.ngrok.io"]
+  provider = generic
+[credential "http://nycu.cirda.linebot.gitea.jp.ngrok.io"]
+  provider = generic
+[user]
+  email = seanmamasde@gmail.com
+  name = seanmamasde
+	signingkey = DAD88BDD7BFC416D
+[core]
+  autocrlf = true
+  longpaths = true
+  pager = delta
+[merge]
+  conflictstyle = diff3
+[init]
+  defaultBranch = main
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+[difftool]
+  prompt = false
+[diff]
+  tool = delta
+  colorMoved = default
+[delta]
+  navigate = true
+  line-numbers = true
+  features = decorations
+  side-by-side = true
+  line-numbers-left-format = ""
+  line-numbers-right-format = "│ "
+[delta "interactive"]
+  keep-plus-minus-markers = false
+[delta "decorations"]
+  commit-decoration-style = blue ol
+  commit-style = raw
+  file-style = omit
+  hunk-header-decoration-style = blue box
+  hunk-header-file-style = red
+  hunk-header-line-number-style = "#067a00"
+  hunk-header-style = file line-number syntax
+[credential "helperselector"]
+  selected = manager
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[commit]
+	gpgsign = true
+[gpg]
+	program = C:\\Users\\seanma\\scoop\\apps\\gpg\\current\\bin\\gpg.exe
