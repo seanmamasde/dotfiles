@@ -2,7 +2,8 @@
 
 ## Content Table
 
-| File                   | Description                    |
-| :--------------------- | :----------------------------- |
-| `dot_gitconfig`        | Git configuration file         |
-| `Documents\PowerShell` | PowerShell configuration files |
+| File                   | Description                      |
+| :--------------------- | :------------------------------- |
+| `dot_gitconfig`        | `.gitconfig`                     |
+| `Documents\PowerShell` | PowerShell configuration files   |
+| `AppData\Local\...`    | Windows Terminal `settings.json` |
