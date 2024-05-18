@@ -47,7 +47,7 @@
   selected = manager
 [alias]
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-# [commit]
-# 	gpgsign = true
+[commit]
+	gpgsign = true
 [gpg]
 	program = C:\\Users\\seanma\\scoop\\apps\\gpg\\current\\bin\\gpg.exe
