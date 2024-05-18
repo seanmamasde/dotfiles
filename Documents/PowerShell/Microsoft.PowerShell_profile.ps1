@@ -89,6 +89,9 @@ if ($env:TERM_PROGRAM -ne 'vscode') {
 # chezmoi
 $chezmoi_dir = "C:\Users\seanma\.local\share\chezmoi"
 
+# deferred profile loading directory
+$deferred_dir = "C:\Users\seanma\Documents\PowerShell\deferred"
+
 # enable thefuck
 # $env:PYTHONIOENCODING='utf-8'
 # iex "$(thefuck --alias --enable-experimental-instant-mode)"
