@@ -5,8 +5,7 @@ $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\conda.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
-  . "$HOME\Documents\PowerShell\deferred\poshgit.ps1"
-  . "$HOME\Documents\PowerShell\deferred\psfzf.ps1"
+  . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
   . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
   . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
 }
@@ -66,10 +65,6 @@ $null = $Powershell.AddScript($Wrapper.ToString()).BeginInvoke()
 ##########################
 #### Original Profile ####
 ##########################
-Import-Module Recycle
-Import-Module "C:\Users\seanma\AppData\Local\PowerToys\WinUI3Apps\..\WinGetCommandNotFound.psd1"
-# Import-Module Terminal-Icons # impacts startup performance heavily
-
 # 24-bit color not restored after exiting vim in windows
 # https://github.com/vim/vim/issues/5092
 if ($PSVersionTable.OS -like '*Windows*' -and $host.UI.SupportsVirtualTerminal) {
@@ -97,7 +92,7 @@ $deferred_dir = "C:\Users\seanma\Documents\PowerShell\deferred"
 # iex "$(thefuck --alias --enable-experimental-instant-mode)"
 
 # zoxide
-Invoke-Expression (& { (zoxide init powershell | Out-String)  })
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 # Aliases
 Set-Alias grep findstr
