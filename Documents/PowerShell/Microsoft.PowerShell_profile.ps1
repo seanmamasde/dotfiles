@@ -1,13 +1,13 @@
 # deferred loading to improve performance
 # https://fsackur.github.io/2023/11/20/Deferred-profile-loading-for-better-performance/
 $Deferred = {
+  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
+  . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
+  . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
+  . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
   . "$HOME\Documents\PowerShell\deferred\chocolately.ps1"
   . "$HOME\Documents\PowerShell\deferred\conda.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
-  . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
-  . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
-  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
-  . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
 }
 
 # https://seeminglyscience.github.io/powershell/2017/09/30/invocation-operators-states-and-scopes
@@ -56,7 +56,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 250
+  Start-Sleep -Milliseconds 500
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
