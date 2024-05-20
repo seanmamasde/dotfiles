@@ -10,3 +10,10 @@ $CondaModuleArgs = @{ChangePs1 = $False}
 Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1" -ArgumentList $CondaModuleArgs
 Import-Module "$Env:_CONDA_ROOT\shell\condabin\Mamba.psm1" -ArgumentList $CondaModuleArgs # for mamba
 Remove-Variable CondaModuleArgs
+
+# conda activate base
+
+# enable thefuck
+# $env:PYTHONIOENCODING='utf-8'
+# iex "$(thefuck --alias --enable-experimental-instant-mode)"
+

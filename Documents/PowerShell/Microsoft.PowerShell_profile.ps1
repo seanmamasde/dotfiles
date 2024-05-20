@@ -43,7 +43,7 @@ if ($null -eq $NAC) {
 # get the AutomationEngine and ExecutionContext of the runspace
 $RSEngineField = $Runspace.GetType().GetField('_engine', $Private)
 $RSEngine = $RSEngineField.GetValue($Runspace)
-$EngineContextField = $RSEngine.GetType().GetFields($Private) | Where-Object {$_.FieldType.Name -eq 'ExecutionContext'}
+$EngineContextField = $RSEngne.GetType().GetFields($Private) | Where-Object {$_.FieldType.Name -eq 'ExecutionContext'}
 $RSContext = $EngineContextField.GetValue($RSEngine)
 
 # set the runspace to use the global ArgumentCompleters
@@ -56,7 +56,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 100
+  Start-Sleep -Milliseconds 200
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
@@ -86,10 +86,6 @@ $chezmoi_dir = "C:\Users\seanma\.local\share\chezmoi"
 
 # deferred profile loading directory
 $deferred_dir = "C:\Users\seanma\Documents\PowerShell\deferred"
-
-# enable thefuck
-# $env:PYTHONIOENCODING='utf-8'
-# iex "$(thefuck --alias --enable-experimental-instant-mode)"
 
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
