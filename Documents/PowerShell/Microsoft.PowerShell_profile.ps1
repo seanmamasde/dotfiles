@@ -43,7 +43,7 @@ if ($null -eq $NAC) {
 # get the AutomationEngine and ExecutionContext of the runspace
 $RSEngineField = $Runspace.GetType().GetField('_engine', $Private)
 $RSEngine = $RSEngineField.GetValue($Runspace)
-$EngineContextField = $RSEngne.GetType().GetFields($Private) | Where-Object {$_.FieldType.Name -eq 'ExecutionContext'}
+$EngineContextField = $RSEngine.GetType().GetFields($Private) | Where-Object {$_.FieldType.Name -eq 'ExecutionContext'}
 $RSContext = $EngineContextField.GetValue($RSEngine)
 
 # set the runspace to use the global ArgumentCompleters
