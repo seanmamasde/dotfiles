@@ -2,11 +2,11 @@
 # https://fsackur.github.io/2023/11/20/Deferred-profile-loading-for-better-performance/
 $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\chocolately.ps1"
-#  . "$HOME\Documents\PowerShell\deferred\conda.ps1"
+  . "$HOME\Documents\PowerShell\deferred\conda.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
-  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
+#  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1" # Moved down (out of deferred loading block)
   . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
 }
 
@@ -56,7 +56,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 200
+  Start-Sleep -Milliseconds 500
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
@@ -125,3 +125,4 @@ function source { . $args[0] }
 function path { $Env:Path.Split(';') }
 
 # try { $null = gcm pshazz -ea stop; pshazz init 'default' } catch { }
+
