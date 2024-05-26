@@ -56,7 +56,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 700
+  Start-Sleep -Milliseconds 1000
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
