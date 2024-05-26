@@ -6,7 +6,7 @@ $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
-#  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1" # Moved down (out of deferred loading block)
+  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1" # Moved down (out of deferred loading block)
   . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
 }
 
@@ -56,14 +56,14 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 500
+  Start-Sleep -Milliseconds 700
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
 $null = $Powershell.AddScript($Wrapper.ToString()).BeginInvoke()
 
 # PSReadLine Moved out of deferred loading since it tends to cause problems
-. $HOME/Documents/PowerShell/deferred/psreadline.ps1
+# . $HOME/Documents/PowerShell/deferred/psreadline.ps1
 
 ##########################
 #### Original Profile ####
