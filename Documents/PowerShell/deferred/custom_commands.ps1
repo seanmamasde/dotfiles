@@ -3,8 +3,9 @@ function wg_up_udr { gsudo wireguard /installtunnelservice "C:\Users\seanma\.wir
 function wg_dn_udr { gsudo wireguard /uninstalltunnelservice "UDR_wgsrv1" }
 
 # CloudFlare Warp
-function warp_up { gsudo wrap-cli.exe connect }
-function warp_dn { gsudo wrap-cli.exe connect }
+$warp_cli='C:\Program Files\Cloudflare\Cloudflare WARP\warp-cli.exe'
+function warp_up { & "$warp_cli" connect }
+function warp_dn { & "$warp_cli" disconnect }
 
 # https://unix.stackexchange.com/a/81699/37512
 function wanip { & dig resolver4.opendns.com myip.opendns.com +short }
