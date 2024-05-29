@@ -85,10 +85,13 @@ if ($env:TERM_PROGRAM -ne 'vscode') {
 }
 
 # chezmoi
-$chezmoi_dir = "C:\Users\seanma\.local\share\chezmoi"
+$chezmoi_dir = "$HOME\.local\share\chezmoi"
 
 # deferred profile loading directory
-$deferred_dir = "C:\Users\seanma\Documents\PowerShell\deferred"
+$deferred_dir = "$HOME\Documents\PowerShell\deferred"
+
+# windows terminal settings.json
+$wt_settings = "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"
 
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
