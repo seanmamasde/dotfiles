@@ -1,0 +1,58 @@
+/* from https://alexsaveau.dev/blog/tips/github/customize-github-code-font#article*/
+/*@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@450&display=swap");*/
+
+/*pre, code, .blob-code, .blob-code-marker {
+  font-family: 'Fira Code', monospace !important;
+}*/
+
+/* from https://github.com/refined-github/refined-github/blob/4666f169596665fada52adfd636d39d340c1c11a/extension/custom.css#L47*/
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@450&display=swap");
+
+code,
+kbd,
+pre,
+tt,
+.ace_editor.ace-github-light,
+.blame-sha,
+.blob-code-inner,
+.blob-num,
+.branch-name,
+.commit .sha,
+.commit .sha-block,
+.commit-desc pre,
+.commit-ref,
+.commit-tease-sha,
+.default-label .sha,
+.export-phrase pre,
+.file-editor-textarea,
+.file-info,
+.gollum-editor .expanded textarea,
+.gollum-editor .gollum-editor-body,
+.hook-delivery-guid,
+.hook-delivery-response-status,
+.input-monospace,
+.news .alert .branch-link,
+.oauth-app-info-container dl.keys dd,
+.quick-pull-choice .new-branch-name-input input,
+.tag-references>li.commit,
+.two-factor-secret,
+.upload-files .filename,
+.url-field,
+.wiki-wrapper,
+.wiki-history,
+.commit-meta,
+.text-mono,
+.blob-code,
+.blob-code-content,
+.blob-code-marker,
+.react-code-text,
+.react-code-lines,
+.react-blob-print-hide,
+.react-blob-text-area code {
+	font-family: 'JetBrains Mono', monospace !important;
+}
+
+:root {
+    --fontStack-monospace: 'JetBrains Mono', monospace;
+}
+
