@@ -48,7 +48,9 @@ tt,
 .react-code-text,
 .react-code-lines,
 .react-blob-print-hide,
-.react-blob-text-area code {
+.react-blob-text-area,
+#merge_title_field,
+#commit-summary-input code {
 	font-family: 'JetBrains Mono', monospace !important;
 }
 
