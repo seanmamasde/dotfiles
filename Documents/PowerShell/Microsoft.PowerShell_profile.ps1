@@ -4,9 +4,10 @@ $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\chocolately.ps1"
   . "$HOME\Documents\PowerShell\deferred\conda.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
+  . "$HOME\Documents\PowerShell\deferred\custom_variables.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
-  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1" # Moved down (out of deferred loading block)
+  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
   . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
 }
 
@@ -62,9 +63,6 @@ $Wrapper = {
 
 $null = $Powershell.AddScript($Wrapper.ToString()).BeginInvoke()
 
-# PSReadLine Moved out of deferred loading since it tends to cause problems
-# . $HOME/Documents/PowerShell/deferred/psreadline.ps1
-
 ##########################
 #### Original Profile ####
 ##########################
@@ -83,15 +81,6 @@ if ($env:TERM_PROGRAM -ne 'vscode') {
   $ENV:STARSHIP_CONFIG = "$HOME\.config\starship.toml"
   Invoke-Expression (&starship init powershell)
 }
-
-# chezmoi
-$chezmoi_dir = "$HOME\.local\share\chezmoi"
-
-# deferred profile loading directory
-$deferred_dir = "$HOME\Documents\PowerShell\deferred"
-
-# windows terminal settings.json
-$wt_settings = "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"
 
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })

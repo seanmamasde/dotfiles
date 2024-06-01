@@ -22,3 +22,59 @@ function mkpdf () {
   pandoc $mdFilePath -o $pdfFilePath --pdf-engine=xelatex --toc --from markdown --template 'C:\Users\seanma\.pandoc\templates\eisvogel.tex' --toc-depth=4 --listings
 }
 
+# Move items to recycle bin without showing dialogue
+function Remove-File {
+    param (
+        [string]$Path,
+        [switch]$OnlyErrorDialogs,
+        [switch]$SendToRecycleBin
+    )
+
+    Add-Type -AssemblyName Microsoft.VisualBasic
+
+    # Expand the path to its full form
+    $fullPath = Resolve-Path -Path $Path | Select-Object -ExpandProperty Path
+
+    if (-Not (Test-Path -Path $fullPath -PathType Leaf)) {
+        Write-Error "File not found: $fullPath"
+        return
+    }
+
+    $dialogOption = if ($OnlyErrorDialogs) { [Microsoft.VisualBasic.FileIO.UIOption]::OnlyErrorDialogs } else { [Microsoft.VisualBasic.FileIO.UIOption]::OnlyErrorDialogs }
+    $recycleOption = if ($SendToRecycleBin) { [Microsoft.VisualBasic.FileIO.RecycleOption]::SendToRecycleBin } else { [Microsoft.VisualBasic.FileIO.RecycleOption]::DeletePermanently }
+
+    try {
+        [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($fullPath, $dialogOption, $recycleOption)
+        Write-Host "File '$fullPath' deleted successfully."
+    } catch {
+        Write-Error "Failed to delete file '$fullPath'. Error: $_"
+    }
+}
+function Remove-Directory {
+    param (
+        [string]$Path,
+        [switch]$OnlyErrorDialogs,
+        [switch]$SendToRecycleBin
+    )
+
+    Add-Type -AssemblyName Microsoft.VisualBasic
+
+    # Expand the path to its full form
+    $fullPath = Resolve-Path -Path $Path | Select-Object -ExpandProperty Path
+
+    if (-Not (Test-Path -Path $fullPath -PathType Container)) {
+        Write-Error "Directory not found: $fullPath"
+        return
+    }
+
+    $dialogOption = if ($OnlyErrorDialogs) { [Microsoft.VisualBasic.FileIO.UIOption]::OnlyErrorDialogs } else { [Microsoft.VisualBasic.FileIO.UIOption]::OnlyErrorDialogs }
+    $recycleOption = if ($SendToRecycleBin) { [Microsoft.VisualBasic.FileIO.RecycleOption]::SendToRecycleBin } else { [Microsoft.VisualBasic.FileIO.RecycleOption]::DeletePermanently }
+
+    try {
+        [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory($fullPath, $dialogOption, $recycleOption)
+        Write-Host "Directory '$fullPath' deleted successfully."
+    } catch {
+        Write-Error "Failed to delete directory '$fullPath'. Error: $_"
+    }
+}
+
