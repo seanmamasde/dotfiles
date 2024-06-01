@@ -8,3 +8,4 @@
 | `dot_condarc`          | `.condarc`                       |
 | `Documents\PowerShell` | PowerShell configuration files   |
 | `AppData\Local\...`    | Windows Terminal `settings.json` |
+| `source\scripts`       | my custom scripts                |
