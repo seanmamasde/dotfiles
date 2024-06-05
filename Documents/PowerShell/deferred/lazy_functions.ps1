@@ -10,7 +10,8 @@ function Invoke-btop4win { gsudo btop }
 Set-Alias scr Invoke-Screensaver
 function Invoke-Screensaver { nircmd.exe screensaver }
 
-function wtadmin { Start-Process wt.exe -Verb runAs }
+# just run gsudo to enter admin mode
+# function wtadmin { Start-Process wt.exe -Verb runAs }
 
 # powershell profiling: https://github.com/nohwnd/Profiler
 Set-Alias profile Invoke-Profile
