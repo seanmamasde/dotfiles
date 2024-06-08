@@ -9,5 +9,5 @@
 | `Documents\PowerShell`            | PowerShell configuration files   |
 | `AppData\Local\...\settings.json` | Windows Terminal `settings.json` |
 | `source\scripts`                  | my custom scripts                |
-| `AppData\Roaming\nushell\*`       | nushell config & env files       |
+| `AppData\Roaming\nushell`         | nushell config & env files       |
 
