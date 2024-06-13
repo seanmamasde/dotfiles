@@ -1,5 +1,8 @@
 $deferred_dir = "$HOME\Documents\PowerShell\deferred"
 
+# wsl fedora
+$wsl_fedora = "\\wsl.localhost\fedoraremix\home\seanma\"
+
 # chezmoi related
 $chezmoi_dir = "$HOME\.local\share\chezmoi"
 $chezmoi_paths = @(
