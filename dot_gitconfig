@@ -51,3 +51,5 @@
 	gpgsign = true
 [gpg]
 	program = C:\\Users\\seanma\\scoop\\apps\\gpg\\current\\bin\\gpg.exe
+[gitbutler]
+	aiModelProvider = openai

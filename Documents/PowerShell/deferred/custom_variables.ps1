@@ -1,7 +1,16 @@
+# deferred loaded powershell scripts directory
 $deferred_dir = "$HOME\Documents\PowerShell\deferred"
 
-# wsl fedora
+# wsl fedora home directory
 $wsl_fedora = "\\wsl.localhost\fedoraremix\home\seanma\"
+
+# libraries directory
+$libraries = @(
+  "$HOME\Documents",
+  "$HOME\Music",
+  "$HOME\Pictures",
+  "$HOME\Videos"
+)
 
 # chezmoi related
 $chezmoi_dir = "$HOME\.local\share\chezmoi"
