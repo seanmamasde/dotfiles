@@ -1,6 +1,6 @@
 Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyprofile.psm1"
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
 }
