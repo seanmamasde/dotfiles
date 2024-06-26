@@ -1,5 +1,6 @@
 Import-Module PSReadLine
 
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle List
 
