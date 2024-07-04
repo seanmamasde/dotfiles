@@ -5,6 +5,7 @@ $Deferred = {
   . "$HOME\Documents\PowerShell\deferred\conda.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
   . "$HOME\Documents\PowerShell\deferred\custom_variables.ps1"
+  . "$HOME\Documents\PowerShell\deferred\gibo_completion.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
   . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
   . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
@@ -57,7 +58,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 100
+  Start-Sleep -Milliseconds 1000
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
