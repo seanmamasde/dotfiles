@@ -48,8 +48,8 @@
     {
         "defaults": 
         {
-            "adjustIndistinguishableColors": "never",
-            "colorScheme": "Fedora Remix for WSL",
+            "adjustIndistinguishableColors": "indexed",
+            "colorScheme": "Tokyo Night",
             "cursorShape": "filledBox",
             "experimental.rightClickContextMenu": true,
             "font": 
@@ -58,10 +58,11 @@
                 "face": "Hack Nerd Font",
                 "size": 11
             },
+            "opacity": 80,
             "padding": "4",
-            "scrollbarState": "hidden",
+            "scrollbarState": "visible",
             "showMarksOnScrollbar": true,
-            "useAcrylic": false
+            "useAcrylic": true
         },
         "list": 
         [
