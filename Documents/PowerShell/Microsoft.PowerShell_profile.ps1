@@ -78,10 +78,10 @@ if ($PSVersionTable.OS -like '*Windows*' -and $host.UI.SupportsVirtualTerminal) 
 }
 
 # starship
-if ($env:TERM_PROGRAM -ne 'vscode') {
-  $ENV:STARSHIP_CONFIG = "$HOME\.config\starship.toml"
-  Invoke-Expression (&starship init powershell)
-}
+# if ($env:TERM_PROGRAM -ne 'vscode') {
+$ENV:STARSHIP_CONFIG = "$HOME\.config\starship.toml"
+Invoke-Expression (&starship init powershell)
+# }
 
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })

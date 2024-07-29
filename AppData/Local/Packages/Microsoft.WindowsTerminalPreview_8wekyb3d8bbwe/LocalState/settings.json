@@ -36,8 +36,8 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "initialCols": 128,
-    "initialRows": 32,
+    "initialCols": 120,
+    "initialRows": 30,
     "newTabMenu": 
     [
         {
@@ -49,7 +49,7 @@
         "defaults": 
         {
             "adjustIndistinguishableColors": "indexed",
-            "colorScheme": "Tokyo Night",
+            "colorScheme": "Fedora Remix for WSL",
             "cursorShape": "filledBox",
             "experimental.rightClickContextMenu": true,
             "font": 
@@ -58,7 +58,7 @@
                 "face": "Hack Nerd Font",
                 "size": 11
             },
-            "opacity": 80,
+            "opacity": 92,
             "padding": "4",
             "scrollbarState": "visible",
             "showMarksOnScrollbar": true,
@@ -86,12 +86,14 @@
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
-                "commandline": "C:\\Users\\seanma\\scoop\\shims\\nu.exe",
+                "commandline": "C:\\Users\\seanma\\scoop\\apps\\rustup\\current\\.cargo\\bin\\nu.exe",
                 "guid": "{37eb89b7-caba-4e65-a4e3-a0d56ca7661b}",
                 "hidden": false,
                 "icon": "C:\\Users\\seanma\\often used picture\\icons\\nushell.png",
-                "name": "nushell",
-                "startingDirectory": "%USERPROFILE%"
+                "name": "nushell - windows",
+                "startingDirectory": "%USERPROFILE%",
+                "suppressApplicationTitle": true,
+                "tabTitle": "nutshell - windows"
             },
             {
                 "backgroundImage": null,
@@ -102,6 +104,16 @@
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "\\\\wsl.localhost\\fedoraremix\\home\\seanma",
                 "suppressApplicationTitle": true
+            },
+            {
+                "commandline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\fedoraremix.exe -c nu",
+                "guid": "{95d79f9a-2be5-46fd-8994-6d80f1121ecc}",
+                "hidden": false,
+                "icon": "C:\\Users\\seanma\\often used picture\\icons\\nushell.png",
+                "name": "nushell - fedoraremix",
+                "startingDirectory": "\\\\wsl.localhost\\fedoraremix\\home\\seanma",
+                "suppressApplicationTitle": true,
+                "tabTitle": "nutshell - fedoraremix"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
