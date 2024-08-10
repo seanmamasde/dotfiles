@@ -14,10 +14,6 @@ Remove-Variable CondaModuleArgs
 
 # conda activate base
 
-# enable thefuck
-# $env:PYTHONIOENCODING='utf-8'
-# iex "$(thefuck --alias --enable-experimental-instant-mode)"
-
 #region conda initialize
 # !! Contents within this block are managed by 'conda init' !!
 # If (Test-Path "C:\Users\seanma\scoop\apps\miniconda3\current\Scripts\conda.exe") {

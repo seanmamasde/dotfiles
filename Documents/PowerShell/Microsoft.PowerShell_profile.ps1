@@ -58,7 +58,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 1000
+  Start-Sleep -Milliseconds 2000
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
@@ -85,6 +85,10 @@ Invoke-Expression (&starship init powershell)
 
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+# thefuck
+$env:PYTHONIOENCODING='utf-8' 
+iex "$(thefuck --alias)"
 
 # Aliases
 Set-Alias grep findstr
@@ -118,4 +122,3 @@ function source { . $args[0] }
 function path { $Env:Path.Split(';') }
 
 # try { $null = gcm pshazz -ea stop; pshazz init 'default' } catch { }
-
