@@ -95,7 +95,7 @@
                 "name": "nushell - windows",
                 "startingDirectory": "%USERPROFILE%",
                 "suppressApplicationTitle": true,
-                "tabTitle": "nutshell - windows"
+                "tabTitle": "nushell - windows"
             },
             {
                 "backgroundImage": null,
@@ -110,12 +110,22 @@
             {
                 "commandline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\fedoraremix.exe -c nu",
                 "guid": "{95d79f9a-2be5-46fd-8994-6d80f1121ecc}",
-                "hidden": false,
+                "hidden": true,
                 "icon": "C:\\Users\\seanma\\often used picture\\icons\\nushell.png",
                 "name": "nushell - fedoraremix",
                 "startingDirectory": "\\\\wsl.localhost\\fedoraremix\\home\\seanma",
                 "suppressApplicationTitle": true,
-                "tabTitle": "nutshell - fedoraremix"
+                "tabTitle": "nushell - fedoraremix"
+            },
+            {
+                "backgroundImage": null,
+                "guid": "{c397f356-5e7b-55bc-956b-8cb4b9762c26}",
+                "hidden": false,
+                "icon": "C:\\Users\\seanma\\often used picture\\icons\\nixos_logo_icon.png",
+                "name": "NixOS for WSL",
+                "startingDirectory": "\\\\wsl.localhost\\nixos\\home\\nixos",
+                "source": "Windows.Terminal.Wsl",
+                "suppressApplicationTitle": true
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",

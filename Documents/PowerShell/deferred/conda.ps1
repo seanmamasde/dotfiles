@@ -21,3 +21,11 @@ Remove-Variable CondaModuleArgs
 # }
 #endregion
 
+# activate utility env
+mamba activate utility
+
+# activate python related
+# thefuck
+$env:PYTHONIOENCODING='utf-8' 
+iex "$(thefuck --alias)"
+

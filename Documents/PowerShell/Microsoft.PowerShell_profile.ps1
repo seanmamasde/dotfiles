@@ -86,10 +86,6 @@ Invoke-Expression (&starship init powershell)
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
-# thefuck
-$env:PYTHONIOENCODING='utf-8' 
-iex "$(thefuck --alias)"
-
 # Aliases
 Set-Alias grep findstr
 Set-Alias open explorer
