@@ -1,6 +1,6 @@
 # two mamba files, destination definition and two files at destination
-$psm1 = "C:\Users\seanma\source\scripts\Mamba.psm1"
-$hook = "C:\Users\seanma\source\scripts\mamba-hook.ps1"
+$psm1 = "C:\Users\seanma\source\scripts\conda_mamba\Mamba.psm1"
+$hook = "C:\Users\seanma\source\scripts\conda_mamba\mamba-hook.ps1"
 $dest = "C:\Users\seanma\scoop\apps\miniconda3\current\shell\condabin\"
 $dest_psm1 = Join-Path -Path $dest -ChildPath "Mamba.psm1"
 $dest_hook = Join-Path -Path $dest -ChildPath "mamba-hook.ps1"
