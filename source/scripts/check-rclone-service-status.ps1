@@ -8,7 +8,7 @@ $folderNames = @(
     "seanmamasde02",
     "seanmamasde03"
 )
-$baseFolderPath = "C:\Users\seanma\WebDrives"
+$baseFolderPath = "C:\Users\seanma\web_drives"
 $logFilePath = "C:\Users\seanma\log\rclone\service_status.log"
 
 function Check-ServiceStatus {

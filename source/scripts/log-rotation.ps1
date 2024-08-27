@@ -6,7 +6,7 @@ $baseLogDirectory = "C:\\Users\\seanma\\log"
 function Trim-LogFiles {
     param (
         [string]$logDirectory,
-        [int]$maxLines = 1000
+        [int]$maxLines = 10000
     )
 
     # recursively get all log files in the directory

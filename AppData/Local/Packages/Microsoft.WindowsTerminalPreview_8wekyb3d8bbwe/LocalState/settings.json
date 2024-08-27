@@ -60,7 +60,8 @@
                 "face": "Hack Nerd Font",
                 "size": 10
             },
-            "opacity": 92,
+            "intenseTextStyle": "all",
+            "opacity": 84,
             "padding": "4",
             "scrollbarState": "visible",
             "showMarksOnScrollbar": true,
@@ -123,8 +124,8 @@
                 "hidden": false,
                 "icon": "C:\\Users\\seanma\\often used picture\\icons\\nixos_logo_icon.png",
                 "name": "NixOS for WSL",
-                "startingDirectory": "\\\\wsl.localhost\\nixos\\home\\nixos",
                 "source": "Windows.Terminal.Wsl",
+                "startingDirectory": "\\\\wsl.localhost\\nixos\\home\\nixos",
                 "suppressApplicationTitle": true
             },
             {
