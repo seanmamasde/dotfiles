@@ -24,5 +24,6 @@ $chezmoi_paths = @(
   "$HOME\source\scripts"  # custom scripts
   "$HOME\AppData\Roaming\nushell\config.nu" # $nu.config-path
   "$HOME\AppData\Roaming\nushell\env.nu"  # $nu.env-path
+  "$HOME\.unison"   # unison definitions
 )
 
