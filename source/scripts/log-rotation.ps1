@@ -36,7 +36,7 @@ function Trim-LogFiles {
         }
     } catch {
         $logEntry = "{0}  ERROR  An error occurred: {1}" -f (Get-Date), $_.Exception.Message
-        Add-Content -Path $trimmerLogFile -value $logEntry
+        Add-Content -Path $trimmerLogFile -Value $logEntry
     }
 } 
 
