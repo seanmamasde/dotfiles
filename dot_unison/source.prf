@@ -1,0 +1,8 @@
+root = C:\Users\seanma\source
+root = C:\Users\seanma\web_drives\seanmamasde03\source
+
+prefer = newer
+auto = true
+batch = true
+log = true
+ignore = Name desktop.ini

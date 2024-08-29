@@ -16,4 +16,3 @@ log = true
 
 # Ignore desktop.ini files
 ignore = Name desktop.ini
-
