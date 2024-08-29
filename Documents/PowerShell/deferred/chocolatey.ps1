@@ -9,3 +9,4 @@ function choco-cleaner {
   Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
   pwsh C:\tools\BCURRAN3\choco-cleaner.ps1
 }
+

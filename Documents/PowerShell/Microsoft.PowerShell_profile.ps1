@@ -67,6 +67,9 @@ $null = $Powershell.AddScript($Wrapper.ToString()).BeginInvoke()
 ##########################
 #### Original Profile ####
 ##########################
+# wouldn't work if it's in deferred_dir/chocolately.ps1
+Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+
 # 24-bit color not restored after exiting vim in windows
 # https://github.com/vim/vim/issues/5092
 if ($PSVersionTable.OS -like '*Windows*' -and $host.UI.SupportsVirtualTerminal) {

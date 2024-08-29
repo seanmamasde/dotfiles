@@ -1,0 +1,19 @@
+# Unison profile for syncing 'often used picture' folders
+root = C:\Users\seanma\often used picture
+root = C:\Users\seanma\web_drives\seanmamasde03\often used picture
+
+# Automatically resolve conflicts by using the latest version of the file
+prefer = newer
+
+# Uncomment to run Unison without prompting for each sync action
+auto = true
+
+# Uncomment to run in batch mode (no interaction)
+batch = true
+
+# Enable logging
+log = true
+
+# Ignore desktop.ini files
+ignore = Name desktop.ini
+
