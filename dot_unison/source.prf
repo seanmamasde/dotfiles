@@ -6,3 +6,7 @@ auto = true
 batch = true
 log = true
 ignore = Name desktop.ini
+
+# ignore permission settings (to avoid conflict between different filesystems)
+perms = 0
+

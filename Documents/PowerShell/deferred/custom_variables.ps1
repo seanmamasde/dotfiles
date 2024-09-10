@@ -25,6 +25,12 @@ $chezmoi_paths = @(
   "$HOME\source\scripts"  # custom scripts
   "$HOME\AppData\Roaming\nushell\config.nu" # $nu.config-path
   "$HOME\AppData\Roaming\nushell\env.nu"  # $nu.env-path
-  "$HOME\.unison"   # unison definitions
+  # "$HOME\.unison"   # unison definitions
 )
+# append prf files to chezmoi_paths
+$unison_dir = "$HOME\.unison"
+$prf_files = Get-ChildItem -Path $unison_dir -Filter *.prf -File
+foreach ($file in $prf_files) {
+  $chezmoi_paths += $file.FullName
+}
 
