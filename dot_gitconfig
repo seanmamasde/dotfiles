@@ -2,10 +2,14 @@
   provider = generic
 [credential "http://nycu.cirda.linebot.gitea.jp.ngrok.io"]
   provider = generic
+[credential "https://nycu.linebot.testing.jp.ngrok.io"]
+  provider = generic
+[credential "http://nycu.linebot.testing.jp.ngrok.io"]
+  provider = generic
 [user]
   email = seanmamasde@gmail.com
   name = seanmamasde
-	signingkey = DAD88BDD7BFC416D
+  signingkey = 33B6221DE360CA513108815D6AE8A1AA7DE51123
 [core]
   autocrlf = true
   longpaths = true
@@ -50,6 +54,8 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = C:\\Users\\seanma\\scoop\\apps\\gpg\\current\\bin\\gpg.exe
+  program = C:\\Users\\seanma\\scoop\\apps\\gpg4win\\current\\GnuPG\\bin\\gpg.exe
 [gitbutler]
-	aiModelProvider = openai
+  aiModelProvider = openai
+[credential]
+  helper = store
