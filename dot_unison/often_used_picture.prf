@@ -13,6 +13,7 @@ batch = true
 
 # Enable logging
 log = true
+logfile = C:/Users/seanma/log/unison/often_used_picture.log
 
 # Ignore desktop.ini files
 ignore = Name desktop.ini

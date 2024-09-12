@@ -5,6 +5,7 @@ prefer = newer
 auto = true
 batch = true
 log = true
+logfile = C:/Users/seanma/log/unison/source.log
 ignore = Name desktop.ini
 
 # ignore permission settings (to avoid conflict between different filesystems)

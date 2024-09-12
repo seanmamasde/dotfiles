@@ -11,3 +11,5 @@ Import-Module gsudoModule
 
 # Import-Module Terminal-Icons # impacts startup performance heavily
 
+Import-Module .\PowerShell-Beautifier.psd1
+
