@@ -22,6 +22,15 @@ function mkpdf () {
   pandoc $mdFilePath -o $pdfFilePath --pdf-engine=xelatex --toc --from markdown --template 'C:\Users\seanma\.pandoc\templates\eisvogel.tex' --toc-depth=4 --listings
 }
 
+# wouldn't work if tere.exe is in the path
+# tere
+function Invoke-Tere() {
+    $result = . (Get-Command -CommandType Application tere) $args
+    if ($result) {
+        Set-Location $result
+    }
+}
+
 # Move items to recycle bin without showing dialogue
 function Remove-File {
     param (

@@ -96,6 +96,7 @@ Set-Alias -Name which -Value 'C:\Windows\system32\where.exe'
 Set-Alias trash Remove-ItemSafely
 Remove-Alias diff -Force
 Set-Alias diff delta
+# Set-Alias tere Invoke-Tere # tere cannot be excluded from the path
 
 # add my predefined directory of symlinks to path
 # $env:Path += ";C:\Users\seanma\MySymlinks"
@@ -116,7 +117,6 @@ function touch {
     else { Write-Output $null > $file }
   }
 }
-
 function source { . $args[0] }
 function path { $Env:Path.Split(';') }
 

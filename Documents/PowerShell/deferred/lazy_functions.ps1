@@ -23,3 +23,9 @@ function Invoke-Profile {
   }
 }
 
+# reload gpg agent
+Set-Alias reloadgpg Invoke-ReloadGpgAgent
+function Invoke-ReloadGpgAgent {
+  & "gpg-connect-agent.exe" reloadagent /bye
+}
+
