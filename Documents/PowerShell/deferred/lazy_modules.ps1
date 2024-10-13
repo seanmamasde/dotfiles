@@ -13,3 +13,5 @@ Import-Module gsudoModule
 
 Import-Module .\PowerShell-Beautifier.psd1
 
+Import-Module NTObjectManager
+

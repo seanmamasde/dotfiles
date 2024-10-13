@@ -34,3 +34,5 @@ foreach ($file in $prf_files) {
   $chezmoi_paths += $file.FullName
 }
 
+# global variables
+$PAGER = "ov"

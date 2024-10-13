@@ -101,6 +101,9 @@ Set-Alias diff delta
 # add my predefined directory of symlinks to path
 # $env:Path += ";C:\Users\seanma\MySymlinks"
 
+# ov pager
+ov --completion powershell completion powershell | Out-String | Invoke-Expression
+
 # eza and ripgrep
 Remove-Alias ls -Force
 Set-Alias ls eza

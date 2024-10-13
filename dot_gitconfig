@@ -13,7 +13,7 @@
 [core]
   autocrlf = true
   longpaths = true
-  pager = delta
+  pager = delta --side-by-side --syntax-theme=tokyonight_night
 	editor = nvim
 [merge]
   conflictstyle = diff3
@@ -25,33 +25,51 @@
   process = git-lfs filter-process
   required = true
 [interactive]
-  diffFilter = delta --color-only --features=interactive
+  diffFilter = delta
 [difftool]
   prompt = false
 [diff]
   tool = delta
   colorMoved = default
 [delta]
+  pager = ov
+  features = side-by-side decorations unobtrusive-line-numbers 
+[delta "defaults"]
   navigate = true
+  paging = always
   line-numbers = true
-  features = decorations
-  side-by-side = true
-  line-numbers-left-format = ""
+  whitespace-error-style = 22 reverse
+  line-numbers-left-format = " "
   line-numbers-right-format = "│ "
 [delta "interactive"]
   keep-plus-minus-markers = false
+; [delta "decorations"]
+;   commit-decoration-style = blue ol
+;   commit-style = raw
+;   file-style = omit
+;   hunk-header-decoration-style = blue box
+;   hunk-header-file-style = red
+;   hunk-header-line-number-style = "#067a00"
+;   hunk-header-style = file line-number syntax
+[delta "unobtrusive-line-numbers"]
+    line-numbers = true
+    line-numbers-minus-style = red
+    line-numbers-plus-style = green
+    line-numbers-left-format = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}┊"
+    line-numbers-left-style = red
+    line-numbers-right-style = green
 [delta "decorations"]
-  commit-decoration-style = blue ol
-  commit-style = raw
-  file-style = omit
-  hunk-header-decoration-style = blue box
-  hunk-header-file-style = red
-  hunk-header-line-number-style = "#067a00"
-  hunk-header-style = file line-number syntax
+    commit-style = yellow
+    commit-decoration-style = yellow box ul
+    file-style = bold cyan ul
+    file-decoration-style = none
+    hunk-header-style = bold blue
+    hunk-header-decoration-style = blue box
 [credential "helperselector"]
   selected = manager
 [alias]
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 [commit]
 	gpgsign = true
 [gpg]
