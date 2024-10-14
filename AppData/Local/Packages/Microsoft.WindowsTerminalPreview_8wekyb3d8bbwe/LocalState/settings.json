@@ -65,7 +65,7 @@
     {
         "defaults": 
         {
-            "adjustIndistinguishableColors": "indexed",
+            "adjustIndistinguishableColors": "never",
             "colorScheme": "Fedora Remix for WSL",
             "cursorShape": "filledBox",
             "experimental.rightClickContextMenu": true,
@@ -73,14 +73,17 @@
             {
                 "cellHeight": "1.15",
                 "face": "Hack Nerd Font",
+                "features": {},
                 "size": 10
             },
+            "historySize": 10000,
             "intenseTextStyle": "all",
-            "opacity": 84,
+            "opacity": 100,
             "padding": "4",
             "scrollbarState": "visible",
             "showMarksOnScrollbar": true,
-            "useAcrylic": true
+            "snapOnInput": true,
+            "useAcrylic": false
         },
         "list": 
         [
