@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema-preview",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -20,8 +18,7 @@
             "id": "User.find"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -35,8 +32,7 @@
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 120,
     "initialRows": 36,
-    "keybindings": 
-    [
+    "keybindings": [
         {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
@@ -55,22 +51,18 @@
         }
     ],
     "launchMode": "default",
-    "newTabMenu": 
-    [
+    "newTabMenu": [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
-    {
-        "defaults": 
-        {
+    "profiles": {
+        "defaults": {
             "adjustIndistinguishableColors": "never",
             "colorScheme": "Fedora Remix for WSL",
             "cursorShape": "filledBox",
             "experimental.rightClickContextMenu": true,
-            "font": 
-            {
+            "font": {
                 "cellHeight": "1.15",
                 "face": "Hack Nerd Font",
                 "features": {},
@@ -85,8 +77,7 @@
             "snapOnInput": true,
             "useAcrylic": false
         },
-        "list": 
-        [
+        "list": [
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe /k",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
@@ -169,11 +160,24 @@
                 "hidden": true,
                 "name": "Visual Studio Debug Console",
                 "source": "VSDebugConsole"
+            },
+            {
+                "guid": "{0f0e9765-219d-4b9f-b42e-b2dd75a6330e}",
+                "hidden": true,
+                "name": "Micro Editor",
+                "commandline": "pwsh.exe --NoProfile -Command \"$dir = (Get-Date).ToString('yyyy-MM-dd_HH-mm-ss'); New-Item -ItemType Directory -Path $HOME/.cache/micro/$dir; cd $HOME/.cache/micro/$dir; micro\"",
+                "startingDirectory": "%USERPROFILE%/.cache/micro",
+                // "font": {
+                //     "cellHeight": "1.15",
+                //     "face": "Hack Nerd Font",
+                //     "features": {},
+                //     "size": 11
+                // },
+                "icon": "C:\\Users\\seanma\\often used picture\\icons\\micro_editor.png"
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#1A1B2C",
             "black": "#414868",
