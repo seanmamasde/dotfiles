@@ -16,3 +16,4 @@
 | `miniforge3/dot_condarc`          | `.condarc`                          |
 | `source/scripts`                  | my custom scripts                   |
 | `dot_gitconfig`                   | `.gitconfig`                        |
+| dot_wslconfig | `.wslconfig` |
