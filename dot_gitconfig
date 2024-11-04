@@ -67,7 +67,7 @@
     hunk-header-style = bold blue
     hunk-header-decoration-style = blue box
 [credential "helperselector"]
-  selected = manager
+	selected = manager
 [alias]
   lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 [commit]
@@ -78,3 +78,5 @@
   aiModelProvider = openai
 [credential]
   helper = store
+[pull]
+	rebase = true

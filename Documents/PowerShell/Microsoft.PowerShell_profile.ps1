@@ -58,7 +58,7 @@ $Wrapper = {
   #   - prompt not rendered
   #   - no highlighting
   # Assumption: this is related to PSReadLine.
-  Start-Sleep -Milliseconds 2000
+  Start-Sleep -Milliseconds 5000
   . $GlobalState {. $Deferred; Remove-Variable Deferred}
 }
 
@@ -107,7 +107,7 @@ ov --completion powershell completion powershell | Out-String | Invoke-Expressio
 # eza and ripgrep
 Remove-Alias ls -Force
 Set-Alias ls eza
-function ll { ls -la --hyperlink $args }
+function ll { ls -la --color=always $args }
 function tree { ls --tree -da $args }
 function rgf { rg --files | rg $args }
 

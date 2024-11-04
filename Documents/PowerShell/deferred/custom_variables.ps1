@@ -36,3 +36,6 @@ foreach ($file in $prf_files) {
 
 # global variables
 $PAGER = "ov"
+$HOSTS = "C:\Windows\System32\drivers\etc\hosts"
+$EDITOR = "nvim"
+
