@@ -1,15 +1,17 @@
+# Define global variable for PowerShell major version
+$global:psMajorVersion = $PSVersionTable.PSVersion.Major
+
 # deferred loading to improve performance
 # https://fsackur.github.io/2023/11/20/Deferred-profile-loading-for-better-performance/
 $Deferred = {
-  . "$HOME\Documents\PowerShell\deferred\chocolately.ps1"
-  . "$HOME\Documents\PowerShell\deferred\conda.ps1"
-  . "$HOME\Documents\PowerShell\deferred\custom_commands.ps1"
-  . "$HOME\Documents\PowerShell\deferred\custom_variables.ps1"
-  . "$HOME\Documents\PowerShell\deferred\gibo_completion.ps1"
-  . "$HOME\Documents\PowerShell\deferred\lazy_functions.ps1"
-  . "$HOME\Documents\PowerShell\deferred\lazy_modules.ps1"
-  . "$HOME\Documents\PowerShell\deferred\psreadline.ps1"
-  . "$HOME\Documents\PowerShell\deferred\scoop.ps1"
+  . "$HOME\Documents\DeferredPSModules\conda.ps1"
+  . "$HOME\Documents\DeferredPSModules\custom_commands.ps1"
+  . "$HOME\Documents\DeferredPSModules\custom_variables.ps1"
+  . "$HOME\Documents\DeferredPSModules\gibo_completion.ps1"
+  . "$HOME\Documents\DeferredPSModules\lazy_functions.ps1"
+  . "$HOME\Documents\DeferredPSModules\lazy_modules.ps1"
+  . "$HOME\Documents\DeferredPSModules\psreadline.ps1"
+  . "$HOME\Documents\DeferredPSModules\scoop.ps1"
 }
 
 # https://seeminglyscience.github.io/powershell/2017/09/30/invocation-operators-states-and-scopes
@@ -67,15 +69,21 @@ $null = $Powershell.AddScript($Wrapper.ToString()).BeginInvoke()
 ##########################
 #### Original Profile ####
 ##########################
-# wouldn't work if it's in deferred_dir/chocolately.ps1
+# wouldn't work if it's in deferred_dir/chocolatey.ps1
 Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 
 # 24-bit color not restored after exiting vim in windows
 # https://github.com/vim/vim/issues/5092
 if ($PSVersionTable.OS -like '*Windows*' -and $host.UI.SupportsVirtualTerminal) {
-  function vim {
+  # it was fixed
+  # function vim {
+  #   Write-Host "`e[?1049h"
+  #   vim.exe @args
+  #   Write-Host "`e[?1049l"
+  # }
+  function less {
     Write-Host "`e[?1049h"
-    vim.exe @args
+    less.exe @args
     Write-Host "`e[?1049l"
   }
 }
@@ -97,9 +105,6 @@ Set-Alias trash Remove-ItemSafely
 Remove-Alias diff -Force
 Set-Alias diff delta
 # Set-Alias tere Invoke-Tere # tere cannot be excluded from the path
-
-# add my predefined directory of symlinks to path
-# $env:Path += ";C:\Users\seanma\MySymlinks"
 
 # ov pager
 ov --completion powershell completion powershell | Out-String | Invoke-Expression
