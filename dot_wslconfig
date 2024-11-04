@@ -1,0 +1,5 @@
+[wsl2]
+networkingMode=None
+
+[experimental]
+bestEffortDnsParsing=true

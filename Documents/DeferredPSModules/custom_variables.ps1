@@ -31,6 +31,9 @@ $chezmoi_paths = @(
   # gitconfig
   "$HOME\.gitconfig",
 
+  # wslconfig
+  "$HOME\.wslconfig",
+
   # Windows Terminal settings.json
   "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json",
 
