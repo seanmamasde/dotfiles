@@ -12,7 +12,7 @@
 | `Documents/PowerShell`            | PowerShell 7 config files           |
 | `Documents/WindowsPowerShell`     | PowerShell 5.1 config files         |
 | `dot_config/starship.toml`        | Starship Prompt Config              |
-| `dot_unison`                      | `unison syncing definitions`        |
+| `dot_unison`                      | `unison` syncing definitions        |
 | `miniforge3/dot_condarc`          | `.condarc`                          |
 | `source/scripts`                  | my custom scripts                   |
 | `dot_gitconfig`                   | `.gitconfig`                        |
