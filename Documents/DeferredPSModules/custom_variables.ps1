@@ -15,14 +15,15 @@ $libraries = @(
 
 # chezmoi related
 $chezmoi_dir = "$HOME\.local\share\chezmoi"
+$chezmoi_readme = "$HOME\README.md"
 $chezmoi_paths = @(
   # readme of the repo
-  "$HOME\README.md",
+  $chezmoi_readme,
 
   # powershell 5.1 and 7 profiles
   "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1",
   "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1",
-  "$deferred_dir",
+  $deferred_dir,
 
   # condarc
   "$HOME\miniforge3\.condarc",
