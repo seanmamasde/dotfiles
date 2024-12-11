@@ -37,3 +37,46 @@ function Invoke-ReloadGpgAgent {
   & "gpg-connect-agent.exe" reloadagent /bye
 }
 
+# get the content and source of a command
+Set-Alias what Get-ContentAndSource
+function Get-ContentAndSource {
+  param (
+    [Parameter(Mandatory = $true)]
+    [string]$CommandName
+  )
+
+  # Retrieve the command info
+  $command = Get-Command -Name $CommandName -ErrorAction SilentlyContinue
+  if (-not $command) {
+    Write-Error "Command '$CommandName' not found."
+    return
+  }
+
+  # Base properties for all command types
+  $result = [PSCustomObject]@{
+    CommandName = $CommandName
+    CommandType = $command.CommandType
+  }
+
+  # Add details based on command type
+  switch ($command.CommandType) {
+    # Content and Source is both available for Function
+    'Function' {
+      $result | Add-Member -NotePropertyName SourceFile -NotePropertyValue $command.ScriptBlock.File
+      $result | Add-Member -NotePropertyName Content -NotePropertyValue $command.ScriptBlock
+    }
+
+    # Alias has only Content
+    'Alias' {
+      $result | Add-Member -NotePropertyName Content -NotePropertyValue $command.ResolvedCommand
+    }
+
+    # Cmdlet has only Source
+    'Cmdlet' {
+      $result | Add-Member -NotePropertyName SourceFile -NotePropertyValue $command.DLL
+    }
+  }
+
+  return $result
+}
+

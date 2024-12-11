@@ -97,6 +97,9 @@ Invoke-Expression (&starship init powershell)
 # zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
+# thefuck
+$env:PYTHONWARNINGS='ignore'; iex "$(thefuck --alias)"; # Remove-Item Env:PYTHONWARNINGS
+
 # Aliases
 Set-Alias grep findstr
 Set-Alias open explorer
@@ -104,6 +107,8 @@ Set-Alias -Name which -Value 'C:\Windows\system32\where.exe'
 Set-Alias trash Remove-ItemSafely
 Remove-Alias diff -Force
 Set-Alias diff delta
+Set-Alias lzd lazydocker
+Set-Alias lzg lazygit
 # Set-Alias tere Invoke-Tere # tere cannot be excluded from the path
 
 # ov pager
@@ -112,7 +117,7 @@ ov --completion powershell completion powershell | Out-String | Invoke-Expressio
 # eza and ripgrep
 Remove-Alias ls -Force
 Set-Alias ls eza
-function ll { ls -la --color=always $args }
+function ll { ls -l --color=always $args }
 function tree { ls --tree -da $args }
 function rgf { rg --files | rg $args }
 
@@ -129,3 +134,4 @@ function source { . $args[0] }
 function path { $Env:Path.Split(';') }
 
 # try { $null = gcm pshazz -ea stop; pshazz init 'default' } catch { }
+

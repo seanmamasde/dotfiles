@@ -9,12 +9,12 @@
 [user]
   email = seanmamasde@gmail.com
   name = seanmamasde
-  signingkey = 33B6221DE360CA513108815D6AE8A1AA7DE51123
+	signingKey = 33B6221DE360CA513108815D6AE8A1AA7DE51123
 [core]
   autocrlf = true
   longpaths = true
   pager = delta --side-by-side --syntax-theme=tokyonight_night
-	editor = nvim
+	editor = vim
 [merge]
   conflictstyle = diff3
 [init]
@@ -71,12 +71,12 @@
 [alias]
   lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 [commit]
-	gpgsign = true
+	gpgSign = true
 [gpg]
   program = C:\\Users\\seanma\\scoop\\apps\\gpg4win\\current\\GnuPG\\bin\\gpg.exe
 [gitbutler]
   aiModelProvider = openai
 [credential]
   helper = store
-[pull]
-	rebase = true
+[tag]
+	forceSignAnnotated = true

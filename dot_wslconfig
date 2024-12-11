@@ -1,5 +1,6 @@
 [wsl2]
-networkingMode=None
+# networkingMode=None
+networkingMode=mirrored
 
 [experimental]
 bestEffortDnsParsing=true

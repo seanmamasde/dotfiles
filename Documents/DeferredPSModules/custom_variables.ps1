@@ -60,3 +60,4 @@ foreach ($file in $prf_files) {
 $PAGER = "ov"
 $HOSTS = "C:\Windows\System32\drivers\etc\hosts"
 $EDITOR = "nvim"
+$VISUAL = "bat"
