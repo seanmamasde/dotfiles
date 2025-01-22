@@ -124,38 +124,12 @@ function Exit-CondaEnvironment {
     .EXAMPLE
         conda install toolz
 #>
-function Invoke-Conda() {
-    # Don't use any explicit args here, we'll use $args and tab completion
-    # so that we can capture everything, INCLUDING short options (e.g. -n).
-    if ($Args.Count -eq 0) {
-        # No args, just call the underlying conda executable.
-        & $Env:CONDA_EXE $Env:_CE_M $Env:_CE_CONDA;
-    }
-    else {
-        $Command = $Args[0];
-        if ($Args.Count -ge 2) {
-            $OtherArgs = $Args[1..($Args.Count - 1)];
-        } else {
-            $OtherArgs = @();
-        }
-        switch ($Command) {
-            "activate" {
-                Enter-CondaEnvironment @OtherArgs;
-            }
-            "deactivate" {
-                Exit-CondaEnvironment;
-            }
-
-            default {
-                # There may be a command we don't know want to handle
-                # differently in the shell wrapper, pass it through
-                # verbatim.
-                & $Env:CONDA_EXE $Env:_CE_M $Env:_CE_CONDA $Command @OtherArgs;
-            }
-        }
-    }
-}
 function Invoke-Mamba() {
+    # To mitigate breaking change in .NET 9
+    # see github issue: https://github.com/PowerShell/PowerShell/issues/24268
+    if ($Env:_CE_M -eq "") { $Env:_CE_M = $null }
+    if ($Env:_CE_CONDA -eq "") { $Env:_CE_CONDA = $null }
+
     # Don't use any explicit args here, we'll use $args and tab completion
     # so that we can capture everything, INCLUDING short options (e.g. -n).
     if ($Args.Count -eq 0) {
@@ -223,7 +197,7 @@ function Expand-CondaSubcommands() {
         $Filter
     );
 
-    $ValidCommands = Invoke-Conda shell.powershell commands;
+    $ValidCommands = Invoke-Mamba shell.powershell commands;
 
     # Add in the commands defined within this wrapper, filter, sort, and return.
     $ValidCommands + @('activate', 'deactivate') `
@@ -287,7 +261,6 @@ if ($CondaModuleArgs.ChangePs1) {
 
 ## ALIASES #####################################################################
 
-New-Alias conda Invoke-Conda -Force
 New-Alias genv Get-CondaEnvironment -Force
 New-Alias etenv Enter-CondaEnvironment -Force
 New-Alias exenv Exit-CondaEnvironment -Force
@@ -298,7 +271,6 @@ New-Alias mamba Invoke-Mamba -Force # mamba
 Export-ModuleMember `
     -Alias * `
     -Function `
-        Invoke-Conda, `
         Invoke-Mamba, `
         Get-CondaEnvironment, `
         Enter-CondaEnvironment, Exit-CondaEnvironment, `
